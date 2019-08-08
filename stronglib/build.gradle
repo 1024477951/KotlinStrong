@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+
+    //Kotlin
+    api rootProject.ext.dependencies["kotlin-jdk"]
+    api rootProject.ext.dependencies["koin-android"]
+    api rootProject.ext.dependencies["koin-extensions"]
+
+    api rootProject.ext.dependencies["koin-coroutines-core"]
+    api rootProject.ext.dependencies["koin-coroutines-android"]
+    api rootProject.ext.dependencies["koin-viewmodel-ktx"]
+    //Google
+    api rootProject.ext.dependencies["androidx-constraintlayout"]
+    api rootProject.ext.dependencies["androidx-appcompat"]
+    api rootProject.ext.dependencies["androidx-recyclerview"]
+    //Util
+    api rootProject.ext.dependencies["blankj-utilcodex"]
+
+    //Retrofit
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["adapter-rxjava"]
+    //Okhttp
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["okhttp3-logging"]
+    //Cache
+    api rootProject.ext.dependencies["PersistentCookieJar"]
+    //SmartRefresh
+    api rootProject.ext.dependencies["SmartRefreshLayout"]
+    api rootProject.ext.dependencies["SmartRefreshHeader"]
+    api rootProject.ext.dependencies["Smart-legacy"]
+    //BaseRecyclerViewAdapterHelper
+    api rootProject.ext.dependencies["baseAdapterHelper"]
+    //Rx
+    api rootProject.ext.dependencies["rxandroid"]
+    api rootProject.ext.dependencies["rxjava"]
+}
