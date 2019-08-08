@@ -8,7 +8,7 @@ import org.koin.android.ext.koin.androidLogger
 open class BaseApp : Application(){
 
     companion object {
-        var _context:Application? = null
+        private var _context:Application? = null
         fun getContext(): Context {
             return _context!!
         }

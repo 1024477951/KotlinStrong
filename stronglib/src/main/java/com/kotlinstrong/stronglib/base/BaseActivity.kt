@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    protected var tag: String = javaClass.simpleName
+
     fun start(context: Context) {
         start(context, null)
     }
@@ -29,12 +31,13 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 初始化数据
      */
-    abstract fun initData()
+    abstract fun initData(bundle: Bundle?)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
         setContentView(layoutId())
-        initData()
+        initData(intent.extras)
     }
+
 }

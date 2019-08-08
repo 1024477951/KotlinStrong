@@ -49,6 +49,9 @@ dependencies {
     api rootProject.ext.dependencies["androidx-recyclerview"]
     //Util
     api rootProject.ext.dependencies["blankj-utilcodex"]
+    //Gradle
+    api rootProject.ext.dependencies["glide"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
 
     //Retrofit
     api rootProject.ext.dependencies["retrofit"]

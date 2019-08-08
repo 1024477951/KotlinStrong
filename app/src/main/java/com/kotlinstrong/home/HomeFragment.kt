@@ -24,7 +24,7 @@ class HomeFragment : TabFragment<MainViewModel>() {
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-        mViewModel.getArticleList(0)
+//        mViewModel.getArticleList(0)
         Log.e("===>",tag)
         mAdapter = BaseAdapter(context, BR.data, R.layout.item_article)
         recyclerView.adapter = mAdapter

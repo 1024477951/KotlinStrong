@@ -1,24 +1,30 @@
 package com.kotlinstrong.main
 
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
 import android.widget.CheckBox
+import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SPUtils
 import com.kotlinstrong.R
+import com.kotlinstrong.base.BaseBindAvtivity
 import com.kotlinstrong.stronglib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
+class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeListener {
 
     private var menus: SparseArray<CheckBox>? = SparseArray()
     private var adapter: BounceAdapter? = null
 
-    override fun layoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    override fun initData() {
+    override fun layoutId() = R.layout.activity_main
+
+    override fun initData(bundle: Bundle?) {
+        super.initData(bundle)
         adapter = BounceAdapter(supportFragmentManager)
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = TabsHelper.getCount()
@@ -29,6 +35,18 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         addTab(dynamic, 2)
         addTab(me, 3)
 //        select(0)
+
+        mViewModel.login()
+    }
+
+    override fun modelObserve() {
+        super.modelObserve()
+        mViewModel.apply {
+            loginLiveData.observe(this@MainActivity, Observer {
+                SPUtils.getInstance().put("token",it.HC_ACCESS_TOKEN)
+                LogUtils.e(tag,"success")
+            })
+        }
     }
 
     fun click(view: View) {

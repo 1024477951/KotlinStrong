@@ -5,6 +5,7 @@ import com.kotlinstrong.stronglib.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.kotlinstrong.bean.ArticleList
+import com.kotlinstrong.bean.LoginBean
 
 class MainViewModel : BaseViewModel() {
 
@@ -12,10 +13,19 @@ class MainViewModel : BaseViewModel() {
 
     val mArticleList: MutableLiveData<ArticleList> = MutableLiveData()
 
-    fun getArticleList(page: Int) {
+    val loginLiveData: MutableLiveData<LoginBean> = MutableLiveData()
+
+//    fun getArticleList(page: Int) {
+//        launch {
+//            val result = withContext(Dispatchers.IO) { repository.getArticleList(page) }
+//            executeResponse(result, { mArticleList.postValue(result.data) }, {})
+//        }
+//    }
+
+    fun login() {
         launch {
-            val result = withContext(Dispatchers.IO) { repository.getArticleList(page) }
-            executeResponse(result, { mArticleList.postValue(result.data) }, {})
+            val result = withContext(Dispatchers.IO) { repository.login() }
+            executeResponse(result, { loginLiveData.postValue(result.data) }, {})
         }
     }
 }

@@ -85,7 +85,7 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
     suspend fun executeResponse(response: BaseResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
                                 errorBlock: suspend CoroutineScope.() -> Unit) {
         coroutineScope {
-            if (response.errorCode == -1) errorBlock()
+            if (response.code != 200) errorBlock()
             else successBlock()
         }
     }
