@@ -1,6 +1,7 @@
 package com.kotlinstrong.main
 
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -36,7 +37,7 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
         addTab(me, 3)
 //        select(0)
 
-        mViewModel.login()
+//        mViewModel.login()
     }
 
     override fun modelObserve() {
@@ -44,7 +45,7 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
         mViewModel.apply {
             loginLiveData.observe(this@MainActivity, Observer {
                 SPUtils.getInstance().put("token",it.HC_ACCESS_TOKEN)
-                LogUtils.e(tag,"success")
+                Log.d("==>","success")
             })
         }
     }

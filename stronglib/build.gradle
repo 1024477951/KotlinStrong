@@ -49,9 +49,9 @@ dependencies {
     api rootProject.ext.dependencies["androidx-recyclerview"]
     //Util
     api rootProject.ext.dependencies["blankj-utilcodex"]
-    //Gradle
+    //Gradle（一般是使用 annotationProcessor 但这里是kapt）
     api rootProject.ext.dependencies["glide"]
-    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    kapt rootProject.ext.dependencies["glide-compiler"]
 
     //Retrofit
     api rootProject.ext.dependencies["retrofit"]

@@ -38,10 +38,8 @@ abstract class LazyFragment<VM : BaseViewModel> : BaseBindFragment<VM>() , Lifec
         var root:ViewGroup? = null
         if (view != null) {
             root = view as ViewGroup
-            if (root != null) {
-                root.removeAllViewsInLayout()
-                View.inflate(root.context, layoutId(), root)
-            }
+            root.removeAllViewsInLayout()
+            View.inflate(root.context, layoutId(), root)
         }
         return root != null
     }

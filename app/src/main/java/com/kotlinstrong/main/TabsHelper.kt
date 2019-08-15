@@ -24,12 +24,10 @@ object TabsHelper {
                 var fragment: TabFragment<MainViewModel>? = null
 
                 val fs = fm.fragments
-                if (fs != null) {
-                    for (f in fs) {
-                        if (f.javaClass == tab.clazz) {
-                            fragment = f as TabFragment<MainViewModel>
-                            break
-                        }
+                for (f in fs) {
+                    if (f.javaClass == tab.clazz) {
+                        fragment = f as TabFragment<MainViewModel>
+                        break
                     }
                 }
 

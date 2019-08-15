@@ -8,9 +8,7 @@ import com.kotlinstrong.base.TabFragment
 class BounceAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     init {
-        if (fm != null) {
-            TabsHelper.init(fm)
-        }
+        TabsHelper.init(fm)
     }
 
     override fun getItem(position: Int): TabFragment<MainViewModel> {

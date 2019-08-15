@@ -24,8 +24,8 @@ class HomeFragment : TabFragment<MainViewModel>() {
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-//        mViewModel.getArticleList(0)
-        Log.e("===>",tag)
+        mViewModel.getArticleList(0)
+        Log.d("==>",tag)
         mAdapter = BaseAdapter(context, BR.data, R.layout.item_article)
         recyclerView.adapter = mAdapter
     }
@@ -39,7 +39,7 @@ class HomeFragment : TabFragment<MainViewModel>() {
     }
 
     private fun setArticles(articleList: ArticleList) {
-        Log.e("===>","success "+articleList.size)
+        LogUtils.e(tag,"success "+articleList.size)
         mAdapter!!.setNewList(articleList.datas)
     }
 }

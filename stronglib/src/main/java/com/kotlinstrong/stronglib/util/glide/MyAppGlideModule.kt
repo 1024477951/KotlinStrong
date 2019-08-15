@@ -1,4 +1,4 @@
-package com.kotlinstrong.stronglib.util
+package com.kotlinstrong.stronglib.util.glide
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder
@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.cache.LruResourceCache
 import com.bumptech.glide.module.AppGlideModule
 
 @GlideModule
-class MyAppGlideModule : AppGlideModule() {
+open class MyAppGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
         val maxMemory = Runtime.getRuntime().maxMemory().toInt()//获取系统分配给应用的总内存大小

@@ -43,10 +43,8 @@ abstract class TabFragment<VM : BaseViewModel> : BaseBindFragment<VM>() {
         var root:ViewGroup? = null
         if (view != null) {
             root = view as ViewGroup
-            if (root != null) {
-                root.removeAllViewsInLayout()
-                View.inflate(root.context, this.factory!!.layoutId, root)
-            }
+            root.removeAllViewsInLayout()
+            View.inflate(root.context, this.factory!!.layoutId, root)
         }
         return root != null
     }
