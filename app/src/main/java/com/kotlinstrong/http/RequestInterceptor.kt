@@ -16,7 +16,6 @@ class RequestInterceptor: Interceptor {
         val url = request.url.toString()
         requestBuilder
             .addHeader("Device", "Android:"+DeviceUtils.getAndroidID())
-            .addHeader("HC-ACCESS-TOKEN", SPUtils.getInstance().getString("token"))
         request = requestBuilder.url(url).build()
         Log.d("RequestInterceptor","Device "+"Android:"+DeviceUtils.getAndroidID())
         //从request中获取headers，通过给定的键url_name

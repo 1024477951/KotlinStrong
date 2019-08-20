@@ -1,5 +1,6 @@
 package com.kotlinstrong.stronglib.base
 
+import android.util.Log
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -40,12 +41,7 @@ abstract class BaseRetrofitClient {
             .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
             .cache(cache)//添加缓存
             .cookieJar(cookieJar)
-            //.addNetworkInterceptor(new CacheInterceptor())
-            //应用拦截器.addInterceptor(mInterceptor)
-            //网络拦截器.addNetworkInterceptor(mInterceptor)
             .addInterceptor(InterceptorFactory.LogInterceptor())
-            //.addInterceptor(AddHeaderInterceptor())
-            //.addInterceptor(LogInterceptor())
             .proxy(Proxy.NO_PROXY)//避免被抓包
             .build()
     }
@@ -53,6 +49,7 @@ abstract class BaseRetrofitClient {
     abstract fun addInterceptor(): Interceptor
 
     protected fun getRetrofit(baseUrl: String): Retrofit{
+        Log.e("==>","getRetrofit -- 只会获取一次")
         return Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)
