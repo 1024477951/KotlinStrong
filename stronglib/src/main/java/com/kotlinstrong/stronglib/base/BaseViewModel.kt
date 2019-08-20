@@ -24,8 +24,17 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
       Coroutine：协程的执行其实是断断续续的: 执行一段, 挂起来, 再执行一段，协程创建后, 并不总是立即执行, 要分是怎么创建的协程,
                     通过launch方法的第二个参数是一个枚举类型CoroutineStart, 如果不填, 默认值是DEFAULT, 那么久协程创建后立即启动,
                     如果传入LAZY, 创建后就不会立即启动, 直到调用Job的start方法才会启动.
+        Coroutine dispatchers ：协程调度
+            我们已经知道协程是运行在线程上的，我们获取数据后要更新 UI ，但是在 Android 里更新 UI 只能在主线程，所以我们要在子线程里获取数据，然后在主线程里更新 UI。这就需要改变协程的运行线程，这就是 Coroutine dispatchers 的功能了。
+            [ Coroutine dispatchers 可以指定协程运行在 Android 的哪个线程里
+                Dispatchers.Default	共享后台线程池里的线程
+                Dispatchers.Main	Android主线程
+                Dispatchers.IO	共享后台线程池里的线程
+                Dispatchers.Unconfined	不限制，使用父Coroutine的现场
+                newSingleThreadContext	使用新的线程 ]
 
-      suspend : suspend修饰的方法只能在协程里面调用，编译后会增加一个 Continuation 的入参，用于实现回调，然后会在方法里面生成一个 switch 状态机，
+      suspend : ssuspend 方法能够使协程执行暂停，等执行完毕后在返回结果，同时不会阻塞线程。
+                uspend修饰的方法只能在协程里面调用，编译后会增加一个 Continuation 的入参，用于实现回调，然后会在方法里面生成一个 switch 状态机，
                 suspend方法的本质是异步返回(注意: 不是异步回调).就是将其拆成 “异步” + “返回”，首先, 数据不是同步回来的(同步指的是立即返回),
                 而是异步回来的.其次, 接受数据不需要通过callback, 而是直接接收返回值.
       fun test(param: String,cont: Continuation): Any?{
@@ -67,7 +76,9 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch { block() }
     }
-
+    /**  withContext : 切换协程
+     *   CoroutineScope : 协程的作用域，可以管理其域内的所有协程
+     * */
     suspend fun <T> launchIO(block: suspend CoroutineScope.() -> T) {
         withContext(Dispatchers.IO) {
             block
