@@ -53,7 +53,9 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
     private var longevent: SparseArray<LongFunction<T>>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RVViewHolder {
-        return RVViewHolder(DataBindingUtil.inflate(LayoutInflater.from(context), viewType, parent, false))
+        val inflater = LayoutInflater.from(context)
+        val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, viewType, parent, false)
+        return RVViewHolder(binding)
     }
 
     override fun getItemCount(): Int {

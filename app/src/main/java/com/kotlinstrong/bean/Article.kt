@@ -19,6 +19,6 @@ data class Article( val id: Int,
                     val apkLink:String,
                     val projectLink:String,
                     val superChapterId:Int,
-                    val superChapterName:String?,
+                    val superChapterName:String,
                     val type:Int,
                     val fresh:Boolean)

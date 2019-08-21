@@ -16,33 +16,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/d20.0">
+            android:padding="@dimen/d20.0" >
 
-        <TextView android:id="@+id/tv_title"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="@dimen/d40.0"
-                  android:textColor="@color/color_4b4b4b"
-                  app:layout_constraintTop_toTopOf="parent"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:text="@{data.title}"/>
+        <ImageView android:id="@+id/iv_face"
+                android:layout_width="@dimen/d250.0"
+                android:layout_height="@dimen/d300.0"
+                app:article_url="@{data.envelopePic}"
+                   android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView android:id="@+id/tv_chapterName"
+        <TextView android:id="@+id/tv_desc"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textSize="@dimen/d34.0"
                   android:textColor="@color/color_4b4b4b"
-                  app:layout_constraintTop_toBottomOf="@+id/tv_title"
-                  android:layout_marginTop="@dimen/d20.0"
-                  app:layout_constraintStart_toStartOf="parent"
-                  android:text="@{data.chapterName}"/>
+                  app:layout_constraintTop_toTopOf="parent"
+                  android:layout_marginStart="@dimen/d8.0"
+                  app:layout_constraintStart_toEndOf="@+id/iv_face"
+                  android:text="@{data.desc}"/>
 
         <TextView android:id="@+id/tv_niceDate"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:textSize="@dimen/d34.0"
                   android:textColor="@color/color_4b4b4b"
-                  app:layout_constraintTop_toTopOf="@+id/tv_chapterName"
+                  app:layout_constraintTop_toBottomOf="@+id/iv_face"
                   android:layout_marginTop="@dimen/d8.0"
                   app:layout_constraintEnd_toEndOf="parent"
                   android:text="@{data.niceDate}"/>
@@ -52,7 +51,7 @@
                 android:layout_height="@dimen/d1.0"
                 app:layout_constraintTop_toBottomOf="@+id/tv_niceDate"
                 android:layout_marginTop="@dimen/d8.0"
-                android:background="@color/black"/>
+                android:background="@color/color_666666"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

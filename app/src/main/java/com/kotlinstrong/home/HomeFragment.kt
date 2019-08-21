@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.base.TabFragment
 import com.kotlinstrong.bean.Article
@@ -12,9 +11,12 @@ import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.main.MainViewModel
 import com.kotlinstrong.BR
 import com.kotlinstrong.stronglib.base.BaseAdapter
+import com.kotlinstrong.stronglib.listener.ViewMap
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : TabFragment<MainViewModel>() {
+class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
@@ -26,8 +28,16 @@ class HomeFragment : TabFragment<MainViewModel>() {
         super.initData(bundle)
         mViewModel.getArticleList(0)
         Log.d("==>",tag)
-        mAdapter = BaseAdapter(context, BR.data, R.layout.item_article)
+        mAdapter = BaseAdapter(context, BR.data, object : ViewMap<Article> {
+            override fun layoutId(t: Article): Int {
+                if (t.envelopePic != null && t.envelopePic.isNotEmpty()){
+                    return R.layout.item_ads
+                }
+                return R.layout.item_article
+            }
+        })
         recyclerView.adapter = mAdapter
+        refreshLayout.setOnRefreshLoadMoreListener(this)
     }
 
     override fun modelObserve() {
@@ -42,4 +52,14 @@ class HomeFragment : TabFragment<MainViewModel>() {
         LogUtils.e(tag,"success "+articleList.size)
         mAdapter!!.setNewList(articleList.datas)
     }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        refreshLayout.finishLoadMore()
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        mViewModel.getArticleList(0)
+        refreshLayout.finishRefresh()
+    }
+
 }
