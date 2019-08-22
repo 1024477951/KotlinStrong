@@ -6,6 +6,8 @@ import com.kotlinstrong.base.TabFragment
 import com.kotlinstrong.stronglib.base.BaseFragment
 import com.kotlinstrong.stronglib.base.BaseViewModel
 import java.lang.ref.SoftReference
+import java.lang.InstantiationException as InstantiationException1
+
 /** 初始化，并且缓存tab */
 object TabsHelper {
     /**
@@ -17,32 +19,22 @@ object TabsHelper {
     fun getFragment(position: Int): TabFragment<MainViewModel>? {
         return arr.get(position).get()
     }
-
+    /**  初始化缓存数据 */
     fun init(fm: FragmentManager) {
         for (tab in Tabs.values()) {
-            try {
-                var fragment: TabFragment<MainViewModel>? = null
-
-                val fs = fm.fragments
-                for (f in fs) {
-                    if (f.javaClass == tab.clazz) {
-                        fragment = f as TabFragment<MainViewModel>
-                        break
-                    }
+            var fragment: TabFragment<MainViewModel>? = null
+            val fs = fm.fragments
+            for (f in fs) {
+                if (f.javaClass == tab.clazz) {
+                    fragment = f as TabFragment<MainViewModel>
+                    break
                 }
-
-                if (fragment == null) {
-                    fragment = tab.clazz.newInstance()
-                }
-                fragment!!.attachTabData(tab)
-
-                arr.put(tab.tabIndex, SoftReference(fragment))
-            } catch (e: InstantiationException) {
-                e.printStackTrace()
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
             }
-
+            if (fragment == null) {
+                fragment = tab.clazz.newInstance()
+            }
+            fragment!!.attachTabData(tab)
+            arr.put(tab.tabIndex, SoftReference(fragment))
         }
     }
 

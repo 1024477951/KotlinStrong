@@ -26,8 +26,6 @@ open class ScrollerViewPager(context: Context, attrs: AttributeSet?) : ViewPager
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return if (this.isScroller) {
-            super.dispatchTouchEvent(ev)
-        } else super.dispatchTouchEvent(ev)
+        return super.dispatchTouchEvent(ev)
     }
 }

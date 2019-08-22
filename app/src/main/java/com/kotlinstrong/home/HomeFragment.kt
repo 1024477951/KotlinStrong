@@ -2,8 +2,10 @@ package com.kotlinstrong.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.base.TabFragment
 import com.kotlinstrong.bean.Article
@@ -11,6 +13,8 @@ import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.main.MainViewModel
 import com.kotlinstrong.BR
 import com.kotlinstrong.stronglib.base.BaseAdapter
+import com.kotlinstrong.stronglib.listener.Function
+import com.kotlinstrong.stronglib.listener.LongFunction
 import com.kotlinstrong.stronglib.listener.ViewMap
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -26,18 +30,30 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-        mViewModel.getArticleList(0)
         Log.d("==>",tag)
         mAdapter = BaseAdapter(context, BR.data, object : ViewMap<Article> {
             override fun layoutId(t: Article): Int {
-                if (t.envelopePic != null && t.envelopePic.isNotEmpty()){
+                if (t.envelopePic.isNotEmpty()){
                     return R.layout.item_ads
                 }
                 return R.layout.item_article
             }
         })
         recyclerView.adapter = mAdapter
+        mAdapter!!.addEvent(BR.click, object : Function<Article> {
+            override fun call(view: View, t: Article) {
+                ToastUtils.showShort("click "+t.title)
+            }
+        })
+        mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {
+            override fun call(view: View, t: Article): Boolean {
+                ToastUtils.showShort("longClick "+t.title)
+                return true
+            }
+        })
         refreshLayout.setOnRefreshLoadMoreListener(this)
+
+        mViewModel.getArticleList(0)
     }
 
     override fun modelObserve() {

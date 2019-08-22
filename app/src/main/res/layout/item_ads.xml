@@ -11,20 +11,25 @@
         <variable
                 name="click"
                 type="com.kotlinstrong.stronglib.listener.Function"/>
+        <variable
+                name="longClick"
+                type="com.kotlinstrong.stronglib.listener.LongFunction"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/d20.0" >
+            android:onClick="@{v->click.call(v,data)}"
+            android:onLongClick="@{v->longClick.call(v,data)}"
+            android:padding="@dimen/d20.0">
 
         <ImageView android:id="@+id/iv_face"
-                android:layout_width="@dimen/d250.0"
-                android:layout_height="@dimen/d300.0"
-                app:article_url="@{data.envelopePic}"
+                   android:layout_width="@dimen/d250.0"
+                   android:layout_height="@dimen/d300.0"
+                   app:article_url="@{data.envelopePic}"
                    android:scaleType="fitXY"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView android:id="@+id/tv_desc"
                   android:layout_width="wrap_content"

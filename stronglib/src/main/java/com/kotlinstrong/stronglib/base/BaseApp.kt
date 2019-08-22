@@ -19,13 +19,4 @@ open class BaseApp : Application(){
         _context = this
     }
 
-    private fun startKoin() {
-        //start koin
-//        org.koin.core.context.startKoin {
-//            androidLogger()
-//            androidContext(this@BaseApp)
-//            modules(appModule)
-//        }
-    }
-
 }

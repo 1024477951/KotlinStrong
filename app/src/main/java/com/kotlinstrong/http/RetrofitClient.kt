@@ -13,7 +13,7 @@ object RetrofitClient : BaseRetrofitClient() {
     override fun addInterceptor(): Interceptor {
         return interceptor
     }
-
+    /** 只获取一次实例，复用共享 */
     private val retrofit by lazy { getRetrofit(UrlConfig.BASE_API) }
 
     fun<T> getService(clazz: Class<T>): T{

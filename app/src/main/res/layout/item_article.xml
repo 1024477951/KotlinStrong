@@ -11,11 +11,16 @@
         <variable
                 name="click"
                 type="com.kotlinstrong.stronglib.listener.Function"/>
+        <variable
+                name="longClick"
+                type="com.kotlinstrong.stronglib.listener.LongFunction"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="@{v->click.call(v,data)}"
+            android:onLongClick="@{v->longClick.call(v,data)}"
             android:padding="@dimen/d20.0">
 
         <TextView android:id="@+id/tv_title"

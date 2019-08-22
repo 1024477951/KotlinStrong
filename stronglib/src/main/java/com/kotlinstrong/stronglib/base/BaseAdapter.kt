@@ -72,7 +72,7 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
 
     override fun onBindViewHolder(holder: RVViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.size > 0) {
-            holder.payloadsbindTo(list!![position]!!)
+            holder.payloadsbindTo(list!![position])
         } else {
             onBindViewHolder(holder, position)
         }
@@ -191,7 +191,7 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
         return list!!
     }
 
-    inner class RVViewHolder(internal var binding: ViewDataBinding) : BaseViewHolder(binding.root) {
+    inner class RVViewHolder(var binding: ViewDataBinding) : BaseViewHolder(binding.root) {
 
         fun bindTo(value: T) {
             binding.setVariable(variableId, value)
@@ -204,7 +204,7 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
             binding.executePendingBindings()
         }
 
-        fun payloadsbindTo(value: Any) {
+        fun payloadsbindTo(value: T) {
             binding.setVariable(variableId, value)
             for (i in 0 until event!!.size()) {
                 binding.setVariable(event!!.keyAt(i), event!!.valueAt(i))
