@@ -17,9 +17,8 @@ import com.kotlinstrong.stronglib.listener.ViewMap
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-/**
- * recyclerView绑定适配器
- * */
+
+/** recyclerView绑定适配器 * */
 open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>() {
 
     /**

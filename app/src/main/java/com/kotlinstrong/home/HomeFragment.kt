@@ -19,6 +19,7 @@ import com.kotlinstrong.stronglib.listener.ViewMap
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_head_ads.*
 
 class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
@@ -33,10 +34,11 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         Log.d("==>",tag)
         mAdapter = BaseAdapter(context, BR.data, object : ViewMap<Article> {
             override fun layoutId(t: Article): Int {
-                if (t.envelopePic.isNotEmpty()){
-                    return R.layout.item_ads
+                return when {
+                    t.id == -1 -> R.layout.layout_head_ads
+                    t.envelopePic!!.isNotEmpty() -> R.layout.item_text
+                    else -> R.layout.item_article
                 }
-                return R.layout.item_article
             }
         })
         recyclerView.adapter = mAdapter
@@ -66,6 +68,8 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     private fun setArticles(articleList: ArticleList) {
         LogUtils.e(tag,"success "+articleList.size)
+        var article = Article(-1,mViewModel.getAdsList())
+        articleList.datas.add(0,article)
         mAdapter!!.setNewList(articleList.datas)
     }
 
@@ -76,6 +80,11 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
     override fun onRefresh(refreshLayout: RefreshLayout) {
         mViewModel.getArticleList(0)
         refreshLayout.finishRefresh()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        pager_ads.stopLoop()
     }
 
 }

@@ -28,6 +28,15 @@ class MainViewModel : BaseViewModel() {
             )
         }
     }
+    /** 模拟请求数据 */
+    fun getAdsList(): MutableList<String>{
+        val list: MutableList<String> = ArrayList()
+        list.add("https://images0.cnblogs.com/blog/583064/201410/101848223904099.jpg")
+        list.add("https://images0.cnblogs.com/blog/583064/201410/101843420305548.jpg")
+        list.add("https://images0.cnblogs.com/blog/583064/201410/101843562809501.jpg")
+        list.add("https://images0.cnblogs.com/blog/583064/201410/101901331557216.jpg")
+        return list
+    }
 
     fun login() {
         launch {

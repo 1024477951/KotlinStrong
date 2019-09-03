@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="data"
+                type="com.kotlinstrong.bean.Article"/>
+
+        <variable
+                name="click"
+                type="com.kotlinstrong.stronglib.listener.Function"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{v->click.call(v,data)}"
+            android:padding="@dimen/d20.0">
+
+        <com.kotlinstrong.view.banner.AdsPager
+                android:id="@+id/pager_ads"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/d600.0"
+                app:ads_list="@{data.list}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
