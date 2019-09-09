@@ -4,7 +4,7 @@ this is a strong's kotlin app
 代码中大量注释和见解，还包括新特性（比如协程）的介绍原理
 适配器也是自己封装的,DiffUtil差异刷新，BaseDataBinding视图事件，lib中的网络访问对外扩展方法（拦截器）
 
-![image](https://github.com/1024477951/KotlinStrong/gif/home.gif)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/home.gif)
 
 #
     #学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）#
