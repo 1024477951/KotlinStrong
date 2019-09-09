@@ -22,7 +22,7 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
            的协程.
 
       Coroutine：协程的执行其实是断断续续的: 执行一段, 挂起来, 再执行一段，协程创建后, 并不总是立即执行, 要分是怎么创建的协程,
-                    通过launch方法的第二个参数是一个枚举类型CoroutineStart, 如果不填, 默认值是DEFAULT, 那么久协程创建后立即启动,
+                    通过launch方法的第二个参数是一个枚举类型CoroutineStart, 如果不填, 默认值是DEFAULT, 那么协程创建后立即启动,
                     如果传入LAZY, 创建后就不会立即启动, 直到调用Job的start方法才会启动.
         Coroutine dispatchers ：协程调度
             我们已经知道协程是运行在线程上的，我们获取数据后要更新 UI ，但是在 Android 里更新 UI 只能在主线程，所以我们要在子线程里获取数据，然后在主线程里更新 UI。这就需要改变协程的运行线程，这就是 Coroutine dispatchers 的功能了。
