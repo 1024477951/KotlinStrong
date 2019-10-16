@@ -23,6 +23,9 @@ ext {
             "androidx-constraintlayout"     : 'androidx.constraintlayout:constraintlayout:+',
             "androidx-appcompat"            : 'androidx.appcompat:appcompat:1.0.0-beta01',
             "androidx-recyclerview"         : 'androidx.recyclerview:recyclerview:1.0.0-beta01',
+
+            "navigation-fragment"   : 'androidx.navigation:navigation-fragment:2.2.0-alpha02',
+            "navigation-ui"         : 'androidx.navigation:navigation-ui:2.2.0-alpha02',
             //Gson
             "gson"             : 'com.google.code.gson:gson:2.8.5',
             //Rxjava

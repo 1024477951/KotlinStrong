@@ -47,6 +47,9 @@ dependencies {
     api rootProject.ext.dependencies["androidx-constraintlayout"]
     api rootProject.ext.dependencies["androidx-appcompat"]
     api rootProject.ext.dependencies["androidx-recyclerview"]
+
+    api rootProject.ext.dependencies["navigation-fragment"]
+    api rootProject.ext.dependencies["navigation-ui"]
     //Util
     api rootProject.ext.dependencies["blankj-utilcodex"]
     //Gradle（一般是使用 annotationProcessor 但这里是kapt）

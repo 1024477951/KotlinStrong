@@ -86,19 +86,6 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
     override fun onBindViewHolder(holder: RVViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.size > 0) {
             holder.payloadsbindTo(list!![position])
-            /* Bundle payload = (Bundle) payloads.get(0);
-               for (String key : payload.keySet()) {
-                switch (key) {
-                    case "desc":
-                        //这里可以用payload里的数据，不过data也是新的 也可以用
-                        holder.tv2.setText(mDatas.get(position).getDesc());
-                        break;
-                    case "name":
-                        holder.iv.setImageResource(payload.getInt(key));
-                        break;
-                }
-              }
-             */
         } else {
             onBindViewHolder(holder, position)
         }
@@ -114,13 +101,6 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
         } else {
             val startVersion = dataVersion
             val oldItems = ArrayList<T>(list as ArrayList)
-            /*
-               自动计算新老数据集的差异，并根据差异情况，自动调用刷新方法，而不是直接全部刷新
-               DiffUtil内部采用的 Myers’s difference 差分算法，但该算法不能检测移动的item，所以Google在其基础上改进支持检测移动项目，
-               但是检测移动项目，会更耗性能,如果我们的list过大，会很耗时，所以我们应该将获取DiffResult的过程放到子线程获取异步中，
-               并在主线程中更新RecyclerView
-               DiffUtil很适合下拉刷新这种场景
-              */
             Observable.just(DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int {
                     return oldItems.size
@@ -133,7 +113,6 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                     val oldItem = oldItems[oldItemPosition]
                     val newItem = update[newItemPosition]
-                    //用来判断 两个对象是否是相同的Item
                     return oldItem != null && oldItem == newItem
                 }
 
@@ -143,21 +122,6 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
                     //判断item的内容是否有变化,我的理解是只有notifyItemRangeChanged()才会调用
                     return oldItem != null && oldItem == newItem
                 }
-
-                //override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-                    /* 比较数据，实现定向刷新中的部分刷新，效率最高 */
-                    //Bundle payload = new Bundle()
-                    //if (!oldItem.getDesc().equals(newItem.getDesc())) {
-                    //    payload.putString("decs", newItem.getDesc())
-                    //}
-                    //if (oldItem.getName() != newItem.getName()) {
-                    //    payload.putInt("name", newItem.getName())
-                    //}
-                    //if (payload.size() == 0)
-                    //    return null
-                    //return payload
-                //    return super.getChangePayload(oldItemPosition, newItemPosition)
-                //}
             })).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe { diffResult ->
                     if (startVersion != dataVersion) {

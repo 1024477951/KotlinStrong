@@ -1,7 +1,6 @@
 package com.kotlinstrong.main
 
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -51,7 +50,7 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
         mViewModel.apply {
             loginLiveData.observe(this@MainActivity, Observer {
                 SPUtils.getInstance().put("token",it.HC_ACCESS_TOKEN)
-                Log.d("==>","success")
+                LogUtils.d("==>","success")
             })
         }
     }

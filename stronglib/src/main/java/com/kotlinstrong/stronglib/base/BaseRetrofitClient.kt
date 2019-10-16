@@ -1,6 +1,7 @@
 package com.kotlinstrong.stronglib.base
 
-import android.util.Log
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.Utils
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
@@ -26,10 +27,11 @@ abstract class BaseRetrofitClient {
     }
 
     private val client by lazy {
-        val cacheFile = File(BaseApp.getContext().cacheDir, "app_caheData")
+        val cacheFile = File(Utils.getApp().cacheDir, "app_caheData")
         //设置缓存大小
         val cache = Cache(cacheFile, (1024 * 1024 * 14).toLong())//google建议放到这里
-        val cookieJar: CookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(BaseApp.getContext()))
+        val cookieJar: CookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(
+            Utils.getApp()))
 
         var client = OkHttpClient.Builder()
         if (addInterceptor() != null){//扩展拦截器
@@ -49,7 +51,7 @@ abstract class BaseRetrofitClient {
     abstract fun addInterceptor(): Interceptor
 
     protected fun getRetrofit(baseUrl: String): Retrofit{
-        Log.e("==>","getRetrofit -- 只会获取一次")
+        LogUtils.e("==>","getRetrofit -- 只会获取一次")
         return Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)

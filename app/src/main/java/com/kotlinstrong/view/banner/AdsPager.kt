@@ -1,39 +1,66 @@
 package com.kotlinstrong.view.banner
 
 import android.content.Context
+import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.BR
 import com.kotlinstrong.R
+import com.kotlinstrong.stronglib.listener.Function
 import java.lang.ref.WeakReference
 
 open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
 
     private var mAdapter: AdsPagerAdapter<String>? = null
-    private var isLoop: Boolean = true
-    private var layoutMan: LinearLayoutManager? = null
-    private var adsTask: AdsTask? = null
+    private var isLoop: Boolean = false
+    private var layoutMan: LoopLayoutManager? = null
     private var loopTime: Long = 2000
+    private var position: Int = 0
 
     constructor(context:Context):this(context,null)
+
+    private var mHandler = Handler(Handler.Callback {
+        false
+    })
+    private var runnable: Runnable? = null
 
     init {
         init()
     }
 
     private fun init() {
-        layoutMan = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        layoutMan = LoopLayoutManager()
         layoutManager = layoutMan
-        mAdapter = AdsPagerAdapter<String>(context, BR.data, R.layout.item_head_ads,isLoop)
+        mAdapter = AdsPagerAdapter<String>(context, BR.data, R.layout.item_head_ads)
+        mAdapter!!.addEvent(BR.click,object : Function<String> {
+            override fun call(view: View, t: String) {
+                ToastUtils.showShort(t)
+            }
+        })
         adapter = mAdapter
-        PagerSnapHelper().attachToRecyclerView(this)
-        adsTask = AdsTask(this)
-        startLoop()
+        LoopSnapHelper(object : LoopSnapHelper.CallBack {
+            override fun changePosition(p: Int) {
+                position = p
+            }
+        }).attachToRecyclerView(this)
+        runnable = Runnable {
+            if (isLoop) {
+                position %= adapter!!.itemCount
+                smoothMoveToPosition(position)
+                ++position
+            }
+            mHandler!!.postDelayed(runnable,loopTime)
+        }
+        if (!isLoop) {//预防多次启动
+            startLoop()
+            mHandler!!.postDelayed(runnable,loopTime)
+        }
+//        LogUtils.e("AdsPager","init startTime $loopTime")
     }
 
     override fun onTouchEvent(e: MotionEvent?): Boolean {
@@ -47,39 +74,28 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
 
     open fun startLoop(){
         isLoop = true
-        postDelayed(adsTask,loopTime)
     }
 
     open fun stopLoop(){
-        isLoop = false
-        if (adsTask != null)
-            removeCallbacks(adsTask)
+        if (isLoop) {
+            isLoop = false
+        }
+    }
+
+    open fun onDestory(){
+        stopLoop()
+        mHandler.removeCallbacks(runnable)
     }
 
     open fun setList(list: MutableList<String>){
         mAdapter!!.setNewList(list)
     }
 
-    internal class AdsTask : Runnable{
-
-        private var weakRef: WeakReference<AdsPager>
-
-        constructor(page: AdsPager){
-            weakRef = WeakReference<AdsPager>(page)
-        }
-
-        override fun run() {
-            val page = weakRef.get()
-            if (page!!.isLoop){
-                var position = page.layoutMan!!.findFirstVisibleItemPosition() + 1
-                if (position >= page.adapter!!.itemCount){
-                    position = 0
-                }
-                page.smoothScrollToPosition(position)
-                page.postDelayed(page.adsTask,page.loopTime)
-            }
-        }
-
+    /**
+     * 滑动到指定位置
+     */
+    private fun smoothMoveToPosition(position: Int) {
+        smoothScrollToPosition(position)
     }
 
 }

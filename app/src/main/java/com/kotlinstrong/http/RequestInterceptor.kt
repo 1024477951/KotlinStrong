@@ -1,7 +1,7 @@
 package com.kotlinstrong.http
 
-import android.util.Log
 import com.blankj.utilcode.util.DeviceUtils
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -17,7 +17,7 @@ class RequestInterceptor: Interceptor {
         requestBuilder
             .addHeader("Device", "Android:"+DeviceUtils.getAndroidID())
         request = requestBuilder.url(url).build()
-        Log.d("RequestInterceptor","Device "+"Android:"+DeviceUtils.getAndroidID())
+        LogUtils.d("RequestInterceptor","Device "+"Android:"+DeviceUtils.getAndroidID())
         //从request中获取headers，通过给定的键url_name
         val headerValues = request.headers("url_head")
         if(headerValues != null && headerValues.isNotEmpty()) {
@@ -40,12 +40,12 @@ class RequestInterceptor: Interceptor {
                 .host(newBaseUrl.host)//更换主机名
                 .port(newBaseUrl.port)//更换端口
                 .build()
-            Log.d("RequestInterceptor","url "+ newFullUrl.toUri())
+            LogUtils.d("RequestInterceptor","url "+ newFullUrl.toUri())
             //重建这个request，通过builder.url(newFullUrl).build()；
             //然后返回一个response至此结束修改
             return chain.proceed(requestBuilder.url(newFullUrl).build())
         }else{
-            Log.d("RequestInterceptor","url "+ request.url.toString())
+            LogUtils.d("RequestInterceptor","url "+ request.url.toString())
             return chain.proceed(request)
         }
     }

@@ -1,9 +1,9 @@
 package com.kotlinstrong.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.R
@@ -12,6 +12,7 @@ import com.kotlinstrong.bean.Article
 import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.main.MainViewModel
 import com.kotlinstrong.BR
+import com.kotlinstrong.option.OptionsActivity
 import com.kotlinstrong.stronglib.base.BaseAdapter
 import com.kotlinstrong.stronglib.listener.Function
 import com.kotlinstrong.stronglib.listener.LongFunction
@@ -31,7 +32,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-        Log.d("==>",tag)
+        LogUtils.d("==>",tag)
         mAdapter = BaseAdapter(context, BR.data, object : ViewMap<Article> {
             override fun layoutId(t: Article): Int {
                 return when {
@@ -44,7 +45,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         recyclerView.adapter = mAdapter
         mAdapter!!.addEvent(BR.click, object : Function<Article> {
             override fun call(view: View, t: Article) {
-                ToastUtils.showShort("click "+t.title)
+                ActivityUtils.startActivity(OptionsActivity::class.java)
             }
         })
         mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {
@@ -54,7 +55,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
             }
         })
         refreshLayout.setOnRefreshLoadMoreListener(this)
-
+        mAdapter!!.setNewList(ArrayList())
         mViewModel.getArticleList(0)
     }
 
@@ -67,10 +68,10 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
     }
 
     private fun setArticles(articleList: ArticleList) {
-        LogUtils.e(tag,"success "+articleList.size)
+//        LogUtils.e(tag,"success "+articleList.size)
         var article = Article(-1,mViewModel.getAdsList())
         articleList.datas.add(0,article)
-        mAdapter!!.setNewList(articleList.datas)
+        mAdapter!!.setList(articleList.datas,true)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
@@ -84,7 +85,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun onDestroy() {
         super.onDestroy()
-        pager_ads.stopLoop()
+        pager_ads.onDestory()
     }
 
 }

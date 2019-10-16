@@ -1,12 +1,9 @@
 package com.kotlinstrong.view.banner
 
 import android.content.Context
-import android.util.Log
 import com.kotlinstrong.stronglib.base.BaseAdapter
 
-open class AdsPagerAdapter<T>(context: Context?, variableId: Int, layoutId: Int,isLoop: Boolean) : BaseAdapter<T>(context, variableId, layoutId) {
-
-    private var canLoop: Boolean = isLoop
+open class AdsPagerAdapter<T>(context: Context?, variableId: Int, layoutId: Int) : BaseAdapter<T>(context, variableId, layoutId) {
 
     override fun onBindViewHolder(holder: RVViewHolder, position: Int) {
         val realPosition = position % list!!.size
@@ -14,7 +11,7 @@ open class AdsPagerAdapter<T>(context: Context?, variableId: Int, layoutId: Int,
     }
 
     override fun getItemCount(): Int {
-        return if (canLoop) Integer.MAX_VALUE else list!!.size
+        return list!!.size
     }
 
 }

@@ -1,6 +1,5 @@
 package com.kotlinstrong.stronglib.util.http
 
-import android.util.Log
 import com.kotlinstrong.stronglib.BuildConfig
 import okhttp3.logging.HttpLoggingInterceptor
 
