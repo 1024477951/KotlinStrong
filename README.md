@@ -15,7 +15,7 @@ this is a strong's kotlin app
     }
     在 Kotlin 中，一个 Lambda 就是一个匿名函数，Lambda 作为参数，java 中没有高阶函数的支持。
     在 java 中需要使用是传递一个匿名类作为参数，然后在实现抽象方法
-
+    Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。Kotlin中定义的接口当前不支持SAM转换。需要定义一个实现该接口的匿名对象
     addEvent(BR.click, object : Function<Article> {
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
 

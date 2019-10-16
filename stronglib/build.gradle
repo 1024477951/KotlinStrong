@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'android-aspectjx'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -74,4 +75,6 @@ dependencies {
     //Rx
     api rootProject.ext.dependencies["rxandroid"]
     api rootProject.ext.dependencies["rxjava"]
+    //Aspectjx
+    api rootProject.ext.dependencies["aspectjx"]
 }

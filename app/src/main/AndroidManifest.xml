@@ -34,7 +34,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".option.OptionsActivity"/>
+        <activity android:name=".option.OptionsActivity"
+                android:label="详情"/>
     </application>
 
 </manifest>

@@ -51,5 +51,7 @@ ext {
             //Gradle
             "glide"             : 'com.github.bumptech.glide:glide:4.9.0',
             "glide-compiler"    : 'com.github.bumptech.glide:compiler:4.9.0',
+            //AOP Aspectjx
+            "aspectjx"          : 'org.aspectj:aspectjrt:1.8.9',
     ]
 }

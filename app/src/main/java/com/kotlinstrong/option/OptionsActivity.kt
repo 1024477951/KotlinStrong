@@ -12,7 +12,7 @@ import com.kotlinstrong.R
 import com.kotlinstrong.base.BaseBindAvtivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class OptionsActivity : BaseBindAvtivity<OptionViewModel>(), ViewPager.OnPageChangeListener {
+class OptionsActivity : BaseBindAvtivity<OptionViewModel>() {
 
     override fun providerVMClass(): Class<OptionViewModel> = OptionViewModel::class.java
 
@@ -27,25 +27,6 @@ class OptionsActivity : BaseBindAvtivity<OptionViewModel>(), ViewPager.OnPageCha
         mViewModel.apply {
 
         }
-    }
-
-    /**
-     * 选择菜单
-     */
-    private fun select(position: Int) {
-//        viewPager.setCurrentItem(position, false)
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        select(position)
-    }
-
-    override fun onPageSelected(position: Int) {
-
     }
 
     override fun onDestroy() {
