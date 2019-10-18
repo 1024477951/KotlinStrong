@@ -43,7 +43,12 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
 //        var job = GlobalScope.launch(Dispatchers.Main) {
 //
 //        }
+        testAspect()
+        testAfterReturning()
     }
+
+    fun testAspect(){}
+    fun testAfterReturning():Int{ return 1 }
 
     override fun modelObserve() {
         super.modelObserve()

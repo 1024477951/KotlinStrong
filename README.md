@@ -19,6 +19,14 @@ this is a strong's kotlin app
     addEvent(BR.click, object : Function<Article> {
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
 
+    <!-- AspectJ -->
+    * AspectJ
+    *  Before:在方法执行之前插入代码
+    *  After:在方法执行之后插入代码
+    *  AfterReturning:在方法执行后返回一个结果在执行，如果没有结果则不执行
+    *  AfterThrowing:在方法执行中异常后执行
+    *  Around:在方法执行前后和抛出异常时执行，前面的综合
+
     <!-- 协程 -->
     协程是通过编译技术来实现的（不需要虚拟机VM/操作系统OS的支持），通过插入相关代码来生效。与之相反，线程/进程是需要虚拟机VM/操作系统OS的支持，
     通过调度CPU执行生效,协程挂起几乎无代价，无需上下文切换或涉及OS。最重要的是协程挂起可由用户控制：可决定挂起时发生什么，并根据需求优化/记录日志/拦截
