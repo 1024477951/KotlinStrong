@@ -17,6 +17,8 @@ import com.kotlinstrong.stronglib.base.BaseAdapter
 import com.kotlinstrong.stronglib.listener.Function
 import com.kotlinstrong.stronglib.listener.LongFunction
 import com.kotlinstrong.stronglib.listener.ViewMap
+import com.kotlinstrong.utils.aspect.AnnotationLogin
+import com.kotlinstrong.utils.aspect.AnnotationOnclick
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -45,7 +47,8 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         recyclerView.adapter = mAdapter
         mAdapter!!.addEvent(BR.click, object : Function<Article> {
             override fun call(view: View, t: Article) {
-                ActivityUtils.startActivity(OptionsActivity::class.java)
+                openActivity()
+//                openDetail()
             }
         })
         mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {
@@ -66,6 +69,18 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
             })
         }
     }
+
+    @AnnotationOnclick
+    private fun openActivity(){
+        ActivityUtils.startActivity(OptionsActivity::class.java)
+    }
+
+//    @AnnotationLogin
+//    private fun openDetail(){
+//        LogUtils.e("AspectClickUtils openDetail 1")
+//        ActivityUtils.startActivity(OptionsActivity::class.java)
+//        LogUtils.e("AspectClickUtils openDetail 2")
+//    }
 
     private fun setArticles(articleList: ArticleList) {
 //        LogUtils.e(tag,"success "+articleList.size)

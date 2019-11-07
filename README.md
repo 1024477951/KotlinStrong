@@ -9,6 +9,21 @@ this is a strong's kotlin app
 #
     #学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）#
 
+    常用关键字
+        添加注解 @JvmStatic、@JvmField 的作用是将private变为public
+        object：有三个用途
+            1.对象表达式
+                可以实现Java中匿名内部类的效果
+            2.对象声明
+                作用等同于class，同时还会生成该类的单例对象（注意该类的构造器已经私有，不能被继承）
+            3.伴生对象（companion object）
+                跟当前类相伴产生的，在Kotlin中是没有static关键字的，所以通常使用伴生对象来达成一样的作用
+                class A{
+                    companion object 伴生对象名{
+                        // 伴生对象名是可以省略
+                    }
+                }
+
    <!-- SAM 转换： Single Abstract Method Conversions，只有单个非默认抽象方法接口的转换（在 Java8 中也有这种机制）-->
     view.setOnClickListener{
         println("click")
@@ -19,14 +34,11 @@ this is a strong's kotlin app
     addEvent(BR.click, object : Function<Article> {
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
 
-    <!-- AspectJ -->
-    * AspectJ
-    *  Before:在方法执行之前插入代码
-    *  After:在方法执行之后插入代码
-    *  AfterReturning:在方法执行后返回一个结果在执行，如果没有结果则不执行
-    *  AfterThrowing:在方法执行中异常后执行
-    *  Around:在方法执行前后和抛出异常时执行，前面的综合
-
+    <!-- AOP AspectJ -->
+    介绍：通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能的技术。对业务逻辑的各个部分进行隔离，耦合度降低，提高程序的可重用性，同时提高了开发的效率。
+    OOP（面向对象编程）针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分，而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果。
+    AOP编程的主要用途有：日志记录，行为统计，安全控制，事务处理，异常处理，系统统一的认证、权限管理等。
+    AspectJ的配置很麻烦，这里使用框架AspectJX
     <!-- 协程 -->
     协程是通过编译技术来实现的（不需要虚拟机VM/操作系统OS的支持），通过插入相关代码来生效。与之相反，线程/进程是需要虚拟机VM/操作系统OS的支持，
     通过调度CPU执行生效,协程挂起几乎无代价，无需上下文切换或涉及OS。最重要的是协程挂起可由用户控制：可决定挂起时发生什么，并根据需求优化/记录日志/拦截
