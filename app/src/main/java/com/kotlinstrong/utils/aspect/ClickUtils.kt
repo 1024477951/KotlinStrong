@@ -1,6 +1,7 @@
 package com.kotlinstrong.utils.aspect
 
 import android.os.SystemClock
+import com.blankj.utilcode.util.LogUtils
 import kotlin.math.abs
 
 object ClickUtils {
@@ -17,7 +18,7 @@ object ClickUtils {
      */
     fun isFastDoubleClick(intervalMillis: Long): Boolean {
         //        long time = System.currentTimeMillis();
-        val time = SystemClock.elapsedRealtime()
+        val time: Long = SystemClock.elapsedRealtime()
         val timeInterval = abs(time - mLastClickTime)
         return if (timeInterval < intervalMillis) {
             true

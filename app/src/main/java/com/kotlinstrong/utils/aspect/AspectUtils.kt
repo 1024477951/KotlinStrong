@@ -8,31 +8,29 @@ import org.aspectj.lang.annotation.Before
 
 
 @Aspect
-open class AspectUtils {
+class AspectUtils {
 
     /**
-     *  Before:在方法执行之前插入代码
-     *  After:在方法执行之后插入代码
-     *  AfterReturning:在方法执行后返回一个结果在执行，如果没有结果则不执行
-     *  AfterThrowing:在方法执行中异常后执行
-     *  Around:在方法执行前后和抛出异常时执行，前面的综合
-     * */
+        @Aspect：声明切面，标记类
+        @Pointcut(切点表达式)：定义切点，标记方法
+        @Before(切点表达式)：前置通知，切点之前执行
+        @Around(切点表达式)：环绕通知，切点前后执行
+        @After(切点表达式)：后置通知，切点之后执行
+        @AfterReturning(切点表达式)：返回通知，切点方法返回结果之后执行
+        @AfterThrowing(切点表达式)：异常通知，切点抛出异常时执行
+     */
 
-    /** execution test方法里切入前后，call test方法外切入前后。
-     * 匹配所有public的方法：execution(public * *(..))
-     * 匹配包下所有类的方法：execution(* com.kotlinstrong.*(..)) （一个点表示不包含子包）
-     * execution(* com.kotlin.. *(..)) （两个点表示包含子包）
-     * 匹配实现特定接口的所有类的方法：execution(* com.kotlin.xxinterface+.*(..))
-     * 匹配所有test开头的方法：execution(* test*(..))
-     * 匹配所有方法：execution(* *.*(..))
-     * */
+    /**
+        execution(<@注解类型模式>? <修饰符模式>? <返回类型模式> <方法名模式>(<参数模式>) <异常模式>?)
+        修饰符模式:public等
+     */
     @Before("execution(* com.kotlinstrong.main.MainActivity.test*(..))")
     fun testAspectBefore(point: JoinPoint) {
-        LogUtils.e("AspectUtils $point.signature.name -Before")
+        LogUtils.e("AspectUtils ${point.signature.name} ---testAspectBefore")
     }
 
-    @AfterReturning("execution(* com.kotlinstrong.main.MainActivity.test*(..))",returning = "id")
-    fun testAspectAfterReturning(point: JoinPoint,id:Int) {
-        LogUtils.e("AspectUtils $point.signature.name -AfterReturning $id")
+    @AfterReturning("execution(* com.kotlinstrong.main.MainActivity.test*(..))", returning = "id")
+    fun testAspectAfterReturning(point: JoinPoint, id: Int) {
+        LogUtils.e("AspectUtils ${point.signature.name} ---testAspectAfterReturning $id")
     }
 }

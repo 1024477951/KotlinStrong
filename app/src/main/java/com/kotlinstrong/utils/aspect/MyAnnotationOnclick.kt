@@ -27,7 +27,7 @@ import kotlin.annotation.Retention
  * TYPEALIAS：@SinceKotlin("1.1") 类型别名，Kotlin1.1已可用。
  */
 @Target(AnnotationTarget.FUNCTION)
-annotation class AnnotationOnclick(
+annotation class MyAnnotationOnclick(
     /** 点击间隔时间 */
     val value: Long = 1000
 )
