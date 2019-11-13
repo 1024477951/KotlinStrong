@@ -6,9 +6,8 @@ this is a strong's kotlin app
 
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/home.gif)
 
+    ####学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）
 #
-    #学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）#
-
     常用关键字
         添加注解 @JvmStatic、@JvmField 的作用是将private变为public
         object：有三个用途
@@ -23,8 +22,10 @@ this is a strong's kotlin app
                         // 伴生对象名是可以省略
                     }
                 }
-
-   <!-- SAM 转换： Single Abstract Method Conversions，只有单个非默认抽象方法接口的转换（在 Java8 中也有这种机制）-->
+#
+   ####SAM 转换
+#
+   Single Abstract Method Conversions，只有单个非默认抽象方法接口的转换（在 Java8 中也有这种机制）
     view.setOnClickListener{
         println("click")
     }
@@ -33,9 +34,10 @@ this is a strong's kotlin app
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。Kotlin中定义的接口当前不支持SAM转换。需要定义一个实现该接口的匿名对象
     addEvent(BR.click, object : Function<Article> {
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
-
-    <!-- AOP AspectJ -->
-    博客地址：https://www.cnblogs.com/LiuZhen/p/11851590.html
+#
+    ####AOP AspectJ
+#
+    博客地址：[https://www.cnblogs.com/LiuZhen/p/11851590.html](https://www.cnblogs.com/LiuZhen/p/11851590.html)
 
     AspectJ是一个面向切面编程的一个框架，它扩展了java语言，并定义了实现AOP的语法。
     在将.java文件编译为.class文件时默认使用javac编译工具，AspectJ会有一套符合java字节码编码规范的编译工具来替代javac，在将.java文件编译为.class文件时，会动态的插入一些代码来做到对某一类特定东西的统一处理。
@@ -44,7 +46,9 @@ this is a strong's kotlin app
     OOP（面向对象编程）针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分，而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果。
     AOP编程的主要用途有：日志记录，行为统计，安全控制，事务处理，异常处理，系统统一的认证、权限管理等。
     AspectJ的配置很麻烦，这里使用框架AspectJX
-    <!-- 协程 -->
+#
+    ####协程
+#
     协程是通过编译技术来实现的（不需要虚拟机VM/操作系统OS的支持），通过插入相关代码来生效。与之相反，线程/进程是需要虚拟机VM/操作系统OS的支持，
     通过调度CPU执行生效,协程挂起几乎无代价，无需上下文切换或涉及OS。最重要的是协程挂起可由用户控制：可决定挂起时发生什么，并根据需求优化/记录日志/拦截
     协程并不是为了取代线程，协程对线程进行抽象，你可以看成协程是一个异步调用的框架.
@@ -102,4 +106,3 @@ this is a strong's kotlin app
     或最后的 return。同时，生成的 Continuation 匿名内部类会保存下一步需要调用的 suspending 方法的 label 值，
     表示应该执行 switch 中的哪个 case，从而串联起整个调用过程
 #
-
