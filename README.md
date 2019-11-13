@@ -6,7 +6,7 @@ this is a strong's kotlin app
 
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/home.gif)
 
-    #### 学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）
+#### 学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）
 #
     常用关键字
         添加注解 @JvmStatic、@JvmField 的作用是将private变为public
@@ -23,7 +23,7 @@ this is a strong's kotlin app
                     }
                 }
 #
-   #### SAM 转换
+#### SAM 转换
 #
    Single Abstract Method Conversions，只有单个非默认抽象方法接口的转换（在 Java8 中也有这种机制）
     view.setOnClickListener{
@@ -35,7 +35,7 @@ this is a strong's kotlin app
     addEvent(BR.click, object : Function<Article> {
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
 #
-    #### AOP AspectJ
+#### AOP AspectJ
 #
     博客地址：[https://www.cnblogs.com/LiuZhen/p/11851590.html](https://www.cnblogs.com/LiuZhen/p/11851590.html)
 
@@ -47,7 +47,7 @@ this is a strong's kotlin app
     AOP编程的主要用途有：日志记录，行为统计，安全控制，事务处理，异常处理，系统统一的认证、权限管理等。
     AspectJ的配置很麻烦，这里使用框架AspectJX
 #
-    #### 协程
+#### 协程
 #
     协程是通过编译技术来实现的（不需要虚拟机VM/操作系统OS的支持），通过插入相关代码来生效。与之相反，线程/进程是需要虚拟机VM/操作系统OS的支持，
     通过调度CPU执行生效,协程挂起几乎无代价，无需上下文切换或涉及OS。最重要的是协程挂起可由用户控制：可决定挂起时发生什么，并根据需求优化/记录日志/拦截
