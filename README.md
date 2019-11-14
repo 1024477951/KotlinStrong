@@ -36,9 +36,8 @@ this is a strong's kotlin app
     Java代码依赖于SAM转换，使用单个抽象方法将lambda自动转换为接口。目前 Kotlin中定义的接口不支持 SAM转换。相反，需要定义实现接口的匿名对象
 #
 #### AOP AspectJ
+博客地址：[https://www.cnblogs.com/LiuZhen/p/11851590.html](https://www.cnblogs.com/LiuZhen/p/11851590.html)
 #
-    博客地址：[https://www.cnblogs.com/LiuZhen/p/11851590.html](https://www.cnblogs.com/LiuZhen/p/11851590.html)
-
     AspectJ是一个面向切面编程的一个框架，它扩展了java语言，并定义了实现AOP的语法。
     在将.java文件编译为.class文件时默认使用javac编译工具，AspectJ会有一套符合java字节码编码规范的编译工具来替代javac，在将.java文件编译为.class文件时，会动态的插入一些代码来做到对某一类特定东西的统一处理。
 
