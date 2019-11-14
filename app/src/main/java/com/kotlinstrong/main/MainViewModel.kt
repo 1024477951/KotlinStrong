@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.bean.LoginBean
+import com.kotlinstrong.utils.aspect.MyAnnotationTime
 
 class MainViewModel : BaseViewModel() {
 
@@ -21,6 +22,7 @@ class MainViewModel : BaseViewModel() {
 
     val loginLiveData: MutableLiveData<LoginBean> = MutableLiveData()
 
+    @MyAnnotationTime
     fun getArticleList(page: Int) {
         launch {
             val result = withContext(Dispatchers.IO) { repository.getArticleList(page) }
