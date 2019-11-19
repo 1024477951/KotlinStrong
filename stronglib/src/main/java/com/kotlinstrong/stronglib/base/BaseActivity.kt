@@ -9,19 +9,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected var tag: String = javaClass.simpleName
 
-    fun start(context: Context) {
-        start(context, null)
-    }
-
-    fun start(context: Context, extras: Intent?) {
-        val intent = Intent()
-        intent.setClass(context, this::class.java)
-        if (extras != null) {
-            intent.putExtras(extras)
-        }
-        context.startActivity(intent)
-    }
-
     var context:Context? = null
 
     /**

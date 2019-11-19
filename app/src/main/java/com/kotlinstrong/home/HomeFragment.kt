@@ -47,8 +47,9 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         recyclerView.adapter = mAdapter
         mAdapter!!.addEvent(BR.click, object : Function<Article> {
             override fun call(view: View, t: Article) {
-                openActivity()
-//                openDetail()
+//                ActivityUtils.startActivity(OptionsActivity::class.java)
+//                openActivity()
+                openDetail()
             }
         })
         mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {
@@ -58,14 +59,13 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
             }
         })
         refreshLayout.setOnRefreshLoadMoreListener(this)
-        mAdapter!!.setNewList(ArrayList())
         mViewModel.getArticleList(0)
     }
 
     override fun modelObserve() {
         mViewModel.apply {
             mArticleList.observe(this@HomeFragment, Observer {
-                setArticles(it)
+                setArticles(it!!)
             })
         }
     }
@@ -84,7 +84,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 //        LogUtils.e(tag,"success "+articleList.size)
         var article = Article(-1,mViewModel.getAdsList())
         articleList.datas.add(0,article)
-        mAdapter!!.setList(articleList.datas,true)
+        mAdapter!!.setNewList(articleList.datas)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

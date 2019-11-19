@@ -56,7 +56,6 @@ class AspectUtils {
     @Around("methodAnnotated()")
     @Throws(Throwable::class)
     fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
-//        LogUtils.e("====aroundJoinPoint")
         // 取出方法的注解,返回连接点处的签名
         val methodSignature = joinPoint.signature as MethodSignature
         val method = methodSignature.method
@@ -81,8 +80,8 @@ class AspectUtils {
     @Around("methodLogin()")
     @Throws(Throwable::class)
     fun aroundLoginPoint(joinPoint: ProceedingJoinPoint) {
-//        LogUtils.e("====aroundLoginPoint")
         ToastUtils.showShort("login")
+        //此处判断是否登录，如果没有不执行方法，跳转到登录，如果已经登录只执行原方法
         joinPoint.proceed()
         ActivityUtils.startActivity(LoginActivity::class.java)
     }

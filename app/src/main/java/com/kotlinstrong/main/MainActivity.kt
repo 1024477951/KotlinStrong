@@ -37,12 +37,7 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
         addTab(contact, 1)
         addTab(dynamic, 2)
         addTab(me, 3)
-//        select(0)
 
-//        mViewModel.login()
-//        var job = GlobalScope.launch(Dispatchers.Main) {
-//
-//        }
         testAspect()
         testAfterReturning()
     }

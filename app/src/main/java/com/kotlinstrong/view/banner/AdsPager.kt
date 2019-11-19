@@ -36,7 +36,7 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
     private fun init() {
         layoutMan = LoopLayoutManager()
         layoutManager = layoutMan
-        mAdapter = AdsPagerAdapter<String>(context, BR.data, R.layout.item_head_ads)
+        mAdapter = AdsPagerAdapter(context, BR.data, R.layout.item_head_ads)
         mAdapter!!.addEvent(BR.click,object : Function<String> {
             override fun call(view: View, t: String) {
                 ToastUtils.showShort(t)

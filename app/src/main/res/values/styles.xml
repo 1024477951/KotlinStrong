@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="splashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@mipmap/splash</item>
+        <item name="colorPrimary">@color/color_272727</item>
+        <item name="colorPrimaryDark">@color/color_232122</item>
+        <item name="colorAccent">@color/color_232122</item>
+    </style>
 </resources>
