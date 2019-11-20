@@ -75,6 +75,10 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
         return list!!.size
     }
 
+    fun getItem(position: Int): T {
+        return list!![position]
+    }
+
     override fun getItemViewType(position: Int): Int {
         return viewMap?.layoutId(list!![position]) ?: layoutId
     }

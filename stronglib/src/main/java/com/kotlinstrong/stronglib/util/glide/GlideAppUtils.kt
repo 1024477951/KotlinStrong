@@ -1,10 +1,8 @@
 package com.kotlinstrong.stronglib.util.glide
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.kotlinstrong.stronglib.base.BaseApp
 
 open class GlideAppUtils {
     companion object {
@@ -19,7 +17,7 @@ open class GlideAppUtils {
                 .into(imageView)
         }
 
-        fun load(imageView: ImageView, drawable: Drawable,error: Int){
+        fun load(imageView: ImageView, drawable: Int,error: Int){
             GlideApp.with(Utils.getApp())
                 .load(drawable)
                 .skipMemoryCache(false)

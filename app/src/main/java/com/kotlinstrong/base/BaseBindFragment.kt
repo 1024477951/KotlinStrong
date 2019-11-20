@@ -13,9 +13,9 @@ abstract class BaseBindFragment<VM : BaseViewModel> : BaseFragment() , Lifecycle
     /** base model */
     open fun providerVMClass(): Class<VM>? = null
     /** base layout */
-    override fun layoutId(): Int {
-        return R.layout.layout_error
-    }
+//    override fun layoutId(): Int {
+//        return R.layout.layout_error
+//    }
     /** livedata 监听 */
     open fun modelObserve() {}
 

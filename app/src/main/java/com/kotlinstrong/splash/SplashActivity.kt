@@ -15,7 +15,7 @@ class SplashActivity : BaseActivity() {
         Handler().postDelayed({
             ActivityUtils.startActivity(MainActivity::class.java)
             finish()
-        }, 1000)
+        }, 500)
     }
 
     /**

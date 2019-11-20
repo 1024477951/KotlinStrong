@@ -26,9 +26,9 @@ import kotlinx.android.synthetic.main.layout_head_ads.*
 
 class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
-    override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
-
     override fun layoutId() = R.layout.fragment_home
+
+    override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
     private var mAdapter: BaseAdapter<Article>? = null
 
@@ -48,8 +48,8 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         mAdapter!!.addEvent(BR.click, object : Function<Article> {
             override fun call(view: View, t: Article) {
 //                ActivityUtils.startActivity(OptionsActivity::class.java)
-//                openActivity()
-                openDetail()
+                openActivity()
+//                openDetail()
             }
         })
         mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {

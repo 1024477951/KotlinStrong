@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="data"
+                type="com.kotlinstrong.bean.AppMenuBean" />
+
+        <variable
+                name="click"
+                type="com.kotlinstrong.stronglib.listener.Function" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/d42.0"
+            android:onClick="@{v->click.call(v,data)}" >
+
+        <ImageView
+                android:id="@+id/iv_face"
+                android:layout_width="@dimen/d90.0"
+                android:layout_height="@dimen/d90.0"
+                app:load_resId="@{data.resId}"
+                app:layout_constraintBottom_toTopOf="@id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"  />
+
+        <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d5.0"
+                android:text="@{data.title}"
+                android:textColor="@color/color_444444"
+                android:textSize="@dimen/d42.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_face" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
