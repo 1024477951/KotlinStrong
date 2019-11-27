@@ -28,7 +28,10 @@ class MainViewModel : BaseViewModel() {
     fun getArticleList(page: Int) {
         launch {
             val result = withContext(Dispatchers.IO) { repository.getArticleList(page) }
-            executeResponse(result, { }, { mArticleList.postValue(result.data) }
+            executeResponse(
+                result,
+                { mArticleList.postValue(result.data) },
+                { mArticleList.postValue(result.data) }
             )
         }
     }
@@ -71,6 +74,10 @@ class MainViewModel : BaseViewModel() {
         list.add(AppMenuBean("menu1",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_pc,null))
         list.add(AppMenuBean("menu2",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_pc,null))
         list.add(AppMenuBean("menu3",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_pc,null))
+
+        list.add(AppMenuBean("模块5",AppMenuBean.TYPE_TITLE,0,null))
+        list.add(AppMenuBean("menu1",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_pc,null))
+        list.add(AppMenuBean("menu2",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_pc,null))
         return list
     }
 

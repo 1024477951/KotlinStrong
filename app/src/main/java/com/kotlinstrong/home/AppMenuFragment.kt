@@ -82,7 +82,6 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-
         refreshLayout.finishRefresh()
     }
 

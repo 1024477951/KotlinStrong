@@ -15,6 +15,7 @@ android {
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true//65536
+        resConfigs('zh-rCN')//避免生成不必要的资源文件（默认是英语，不能剔除）
     }
     buildTypes {
         release {

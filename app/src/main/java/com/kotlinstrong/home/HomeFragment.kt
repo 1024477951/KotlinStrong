@@ -22,6 +22,7 @@ import com.kotlinstrong.utils.aspect.MyAnnotationOnclick
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_error.view.*
 import kotlinx.android.synthetic.main.layout_head_ads.*
 
 class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
@@ -31,6 +32,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
     private var mAdapter: BaseAdapter<Article>? = null
+    private var root: View? = null
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
@@ -60,6 +62,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
         })
         refreshLayout.setOnRefreshLoadMoreListener(this)
         mViewModel.getArticleList(0)
+        root = view_stub.inflate().tv_val
     }
 
     override fun modelObserve() {
@@ -82,8 +85,9 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     private fun setArticles(articleList: ArticleList) {
 //        LogUtils.e(tag,"success "+articleList.size)
-        var article = Article(-1,mViewModel.getAdsList())
-        articleList.datas.add(0,article)
+        root!!.visibility = View.GONE
+        var article = Article(-1, mViewModel.getAdsList())
+        articleList.datas.add(0, article)
         mAdapter!!.setNewList(articleList.datas)
     }
 

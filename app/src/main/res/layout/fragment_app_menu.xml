@@ -28,7 +28,8 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/color_e1e1e1" />
+                android:divider="@color/color_e1e1e1"
+                android:layout_marginBottom="@dimen/d30.0"/>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
