@@ -11,11 +11,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.base.BaseBindAvtivity
-import com.kotlinstrong.stronglib.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeListener {
 
@@ -40,6 +36,7 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
 
         testAspect()
         testAfterReturning()
+
     }
 
     fun testAspect(){}

@@ -50,7 +50,7 @@ class MainViewModel : BaseViewModel() {
         list.add(AppMenuBean(null,AppMenuBean.TYPE_AD,0,getAdsList()))
 
         list.add(AppMenuBean("模块1",AppMenuBean.TYPE_TITLE,0,null))
-        list.add(AppMenuBean("menu1",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))
+        list.add(AppMenuBean("文件加密",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_encrypt,null))
         list.add(AppMenuBean("menu2",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))
         list.add(AppMenuBean("menu3",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))
         list.add(AppMenuBean("menu4",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))

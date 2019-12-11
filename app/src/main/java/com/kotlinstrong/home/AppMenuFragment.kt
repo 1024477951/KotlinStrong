@@ -1,7 +1,11 @@
 package com.kotlinstrong.home
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
@@ -15,6 +19,7 @@ import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.main.MainViewModel
 import com.kotlinstrong.option.OptionsActivity
 import com.kotlinstrong.stronglib.base.BaseAdapter
+import com.kotlinstrong.stronglib.cutil.EncryptUtils
 import com.kotlinstrong.stronglib.listener.Function
 import com.kotlinstrong.stronglib.listener.LongFunction
 import com.kotlinstrong.stronglib.listener.ViewMap
@@ -25,6 +30,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.layout_head_ads.*
 
 class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener {
+
+    private val requestCode = 0x1024
 
     override fun layoutId() = R.layout.fragment_app_menu
 
@@ -46,7 +53,9 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
         mAdapter!!.addEvent(BR.click, object : Function<AppMenuBean> {
             @MyAnnotationOnclick
             override fun call(view: View, t: AppMenuBean) {
-                ToastUtils.showShort(t.title)
+                when(t.resId){
+                    R.mipmap.icon_app_encrypt -> testEncrypt()
+                }
             }
         })
         recyclerView.adapter = mAdapter
@@ -76,6 +85,16 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
         }
     }
+    /** 加密测试 */
+    fun testEncrypt(){
+        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE ) !== PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
+                return
+            }
+        }
+        EncryptUtils.test()
+    }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         refreshLayout.finishLoadMore()
@@ -83,6 +102,21 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         refreshLayout.finishRefresh()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            requestCode -> if (grantResults.contains(PackageManager.PERMISSION_GRANTED)){
+                EncryptUtils.test()
+            }else{
+                ToastUtils.showShort("没有权限")
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     override fun onDestroy() {

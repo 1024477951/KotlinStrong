@@ -12,9 +12,10 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode 1
         versionName "1.0"
-
+        ndk {//externalNativeBuildDebug
+            abiFilters 'armeabi-v7a', 'x86'
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
     dataBinding {
         enabled = true
@@ -24,6 +25,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
         }
     }
 
