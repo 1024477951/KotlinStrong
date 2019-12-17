@@ -7,17 +7,23 @@ cmake_minimum_required(VERSION 3.4.1)
 
 # 生成动态库
 add_library( # Sets the name of the library.
-             encrypt
+             Encrypt
              # Sets the library as a shared library.
              SHARED
              # Provides a relative path to your source file(s).
-             encrypt.cpp)
+             Encrypt.cpp)
 add_library( # Sets the name of the library.
-             signature
+             Signature
              # Sets the library as a shared library.
              SHARED
              # Provides a relative path to your source file(s).
-             signature.cpp)
+             Signature.cpp)
+add_library( # Sets the name of the library.
+             SystemUtils
+             # Sets the library as a shared library.
+             SHARED
+             # Provides a relative path to your source file(s).
+             SystemUtils.cpp)
 #查找log库链接
 find_library( # Sets the name of the path variable.
               log-lib
@@ -26,9 +32,11 @@ find_library( # Sets the name of the path variable.
               log )
 #将查找到的log库设置到我们的动态库里
 target_link_libraries( # Specifies the target library.
-                       encrypt
+                       Encrypt
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
-target_link_libraries(signature
+target_link_libraries(Signature
+                      ${log-lib} )
+target_link_libraries(SystemUtils
                       ${log-lib} )
