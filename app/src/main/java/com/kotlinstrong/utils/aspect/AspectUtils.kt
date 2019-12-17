@@ -38,7 +38,7 @@ class AspectUtils {
         val time = System.currentTimeMillis()
         joinPoint.proceed()
         val millis = System.currentTimeMillis() - time
-        LogUtils.e("AspectUtils ${joinPoint.signature.name} millis $millis")
+        LogUtils.d("AspectUtils ${joinPoint.signature.name} millis $millis")
     }
     /** 耗时统计 end ------------------------------------ **/
 

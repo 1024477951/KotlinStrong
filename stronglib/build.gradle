@@ -13,7 +13,16 @@ android {
         versionCode 1
         versionName "1.0"
         ndk {//externalNativeBuildDebug
-            abiFilters 'armeabi-v7a', 'x86'
+            /** CPU类型
+             * armeabiv-v7a: 第7代及以上的ARM处理器;
+             * arm64-v8a: 第8代、64位ARM处理器;
+             * armeabi: 第5代、第6代的ARM处理器;（平台不支持）
+             * mips:一种RISC处理器。（平台不支持）
+             * mips64:64位的。（平台不支持）
+             * x86: 平板;
+             * x86_64:64位的平板
+             * */
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

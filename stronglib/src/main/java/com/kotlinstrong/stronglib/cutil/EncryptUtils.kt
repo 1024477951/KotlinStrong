@@ -1,5 +1,6 @@
 package com.kotlinstrong.stronglib.cutil
 
+import android.content.Context
 import android.os.Environment
 import android.util.Log
 import java.io.File
@@ -7,36 +8,31 @@ import java.io.File
 /** 加密 */
 class EncryptUtils {
 
-//属性声明都是静态的，方法并不是静态，必须通过@JvmStatic注解
-
+    //属性声明都是静态的，方法并不是静态，必须通过@JvmStatic注解
     companion object {
         private const val TAG = "EncryptUtils"
         // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("encrypt")
+            System.loadLibrary("signature")
         }
 
         val path = Environment.getExternalStorageDirectory().absolutePath + File.separator
 
-        /**
-         * 创建文件
-         */
+        /** 创建文件 */
         @JvmStatic
         external fun createFile (path: String)
-        /**
-         * 对一个字符串进行加密
-         */
+        /** 对一个字符串进行加密 */
         @JvmStatic
         external fun encryption (filePath: String,encryptPath: String)
-        /**
-         * 对一个字符串进行加密
-         */
+        /** 对一个字符串进行加密 */
         @JvmStatic
         external fun decryption (filePath: String,decryptionPath: String)
+        /** 签名效验，返回验证结果 */
+        @JvmStatic
+        external fun checkSignature (context: Context?):Boolean//因为加载源在Utils，所以需要当前context做参数，默认的参数无法获取
 
-        /**
-         * 测试加解密
-         */
+        /** 测试加解密 */
         @JvmStatic
         fun test(): String {
             val fileName = "testJni.txt"
@@ -45,9 +41,7 @@ class EncryptUtils {
             return encryptPath
         }
 
-        /**
-         * 加密
-         */
+        /** 加密 */
         @JvmStatic
         fun encryption(fileName: String): String {
             val normalPath = path + fileName
@@ -61,9 +55,7 @@ class EncryptUtils {
             return encryptPath
         }
 
-        /**
-         * 解密
-         */
+        /** 解密 */
         @JvmStatic
         fun decryption(encryptPath: String) {
             if (!File(encryptPath).exists()) {

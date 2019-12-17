@@ -156,7 +156,7 @@
                     android:layout_below="@+id/fl_dynamic"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/d4.0"
-                    android:text="动态"/>
+                    android:text="菜单"/>
 
         </RelativeLayout>
 

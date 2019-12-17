@@ -55,6 +55,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
             override fun call(view: View, t: AppMenuBean) {
                 when(t.resId){
                     R.mipmap.icon_app_encrypt -> testEncrypt()
+                    R.mipmap.icon_app_signature ->  ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature(context)}")
                 }
             }
         })
@@ -94,6 +95,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
             }
         }
         EncryptUtils.test()
+        ToastUtils.showShort("前往根目录查看结果")
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

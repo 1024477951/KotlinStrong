@@ -51,7 +51,7 @@ abstract class BaseRetrofitClient {
     abstract fun addInterceptor(): Interceptor
 
     protected fun getRetrofit(baseUrl: String): Retrofit{
-        LogUtils.e("==>","getRetrofit -- 只会获取一次")
+        LogUtils.d("==>","getRetrofit -- 只会获取一次")
         return Retrofit.Builder()
             .client(client)
             .baseUrl(baseUrl)
