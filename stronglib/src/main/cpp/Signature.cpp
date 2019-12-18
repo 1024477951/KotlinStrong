@@ -3,8 +3,8 @@
 //
 #include <jni.h>
 #include <string>
-#include <android/log.h>
 #include "SystemUtils.cpp"
+#include "LogUtils.cpp"
 
 //app包名
 static char *package_name = "com.kotlinstrong";
@@ -30,7 +30,7 @@ jstring getSignature(JNIEnv *env, jobject obj)
     jfieldID signatures_fieldId = env->GetFieldID(pi_clazz, "signatures", "[Landroid/content/pm/Signature;");
     jobject signatures_obj = env->GetObjectField(pi_obj, signatures_fieldId);
     jobjectArray signaturesArray = (jobjectArray)signatures_obj;
-    jsize size = env->GetArrayLength(signaturesArray);
+//    jsize size = env->GetArrayLength(signaturesArray);
     jobject signature_obj = env->GetObjectArrayElement(signaturesArray, 0);
     jclass signature_clazz = env->GetObjectClass(signature_obj);
     jmethodID string_id = env->GetMethodID(signature_clazz, "toCharsString", "()Ljava/lang/String;");
@@ -39,20 +39,30 @@ jstring getSignature(JNIEnv *env, jobject obj)
 //    Logger("signsture: %s", c_msg);
     return str;
 }
-
+/** 验证程序包和签名 */
 jboolean checkSignature(JNIEnv *env, jobject context){
+
+    //根据传入的context对象getPackageName
+    jstring pkg_str = getPackname(env, context);
+    const char *pkg = env->GetStringUTFChars(pkg_str, NULL);
+    //对比
+    if (strcmp(package_name, pkg) != 0) {
+        Logger("程序包验证失败：%s",pkg);
+        return false;
+    }
+    Logger("程序包验证成功：%s",pkg);
     //调用String的toCharsString
     jstring signature_string = getSignature(env,context);
     //转换为char*
     const char *signature_char = env->GetStringUTFChars(signature_string, NULL);
-    Logger("EncryptUtils--> current app signature:%s\n", signature_char);
-    Logger("EncryptUtils--> real app signature:%s\n", app_signature);
+    Logger("app signature:%s\n", signature_char);
+    Logger("cpp signature:%s\n", app_signature);
     //对比签名
     if (strcmp(signature_char, app_signature) == 0) {
-        Logger("EncryptUtils--> true");
+        Logger("程序签名验证通过");
         return true;
     } else {
-        Logger("EncryptUtils--> false");
+        Logger("程序签名验证失败");
         return false;
     }
 }
@@ -60,11 +70,8 @@ jboolean checkSignature(JNIEnv *env, jobject context){
 extern "C"
 JNIEXPORT jboolean JNICALL
 Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_checkSignature(
-        JNIEnv *env, jobject type, jobject context) {
-    if(context == NULL){
-        Logger("context is null")
-    }
-    return checkSignature(env,context);
+        JNIEnv *env, jobject) {
+    return checkSignature(env,getAndroidApplication(env));
 }
 
 

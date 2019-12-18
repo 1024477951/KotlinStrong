@@ -1,9 +1,7 @@
 #include <jni.h>//包含一个源代码文件
 #include <string>
-#include <android/log.h>
+#include "LogUtils.cpp"
 #include <cstdio>
-
-#define Logger(FORMAT, ...) __android_log_print(ANDROID_LOG_ERROR,"EncryptUtils encrypt.cpp",FORMAT,##__VA_ARGS__);
 
 /**
  * extern "C" : 实现 C 和 C++ 的混合编程，用于 C++ 代码调用 C 的函数

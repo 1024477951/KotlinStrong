@@ -3,10 +3,12 @@
 //
 #include <jni.h>
 #include <string>
-#include <android/log.h>
 
-#define Logger(FORMAT, ...) __android_log_print(ANDROID_LOG_ERROR,"EncryptUtils signature.cpp",FORMAT,##__VA_ARGS__);
-
+/** 防止java层传入恶意的context对象，如果是恶意的context，获取时为null。
+ * 应用加了签名验证也能通过工具分析出签名，加载的时候然系统返回你插入进去的签名，传入你自己的context，
+ * 从而可以根据自身的context获取到本身的context。
+ * 还能增加判断我们工程下某些java类是不是存在，类中方法是不是存在，这样要使用就得把项目中的一些类、
+ * 方法全部一模一样的保留才能使用我们的.so库文件，又增加一些复杂度。*/
 jobject getAndroidApplication(JNIEnv *env) {
     jclass activityThreadClazz = env->FindClass("android/app/ActivityThread");
 

@@ -1,6 +1,5 @@
 package com.kotlinstrong.stronglib.cutil
 
-import android.content.Context
 import android.os.Environment
 import android.util.Log
 import java.io.File
@@ -13,8 +12,8 @@ class EncryptUtils {
         private const val TAG = "EncryptUtils"
         // Used to load the 'native-lib' library on application startup.
         init {
-            System.loadLibrary("encrypt")
-            System.loadLibrary("signature")
+            System.loadLibrary("Encrypt")
+            System.loadLibrary("Signature")
         }
 
         val path = Environment.getExternalStorageDirectory().absolutePath + File.separator
@@ -30,7 +29,7 @@ class EncryptUtils {
         external fun decryption (filePath: String,decryptionPath: String)
         /** 签名效验，返回验证结果 */
         @JvmStatic
-        external fun checkSignature (context: Context?):Boolean//因为加载源在Utils，所以需要当前context做参数，默认的参数无法获取
+        external fun checkSignature ():Boolean
 
         /** 测试加解密 */
         @JvmStatic

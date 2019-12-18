@@ -7,36 +7,41 @@ cmake_minimum_required(VERSION 3.4.1)
 
 # 生成动态库
 add_library( # Sets the name of the library.
-             Encrypt
-             # Sets the library as a shared library.
-             SHARED
-             # Provides a relative path to your source file(s).
-             Encrypt.cpp)
+        Encrypt
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        Encrypt.cpp)
 add_library( # Sets the name of the library.
-             Signature
-             # Sets the library as a shared library.
-             SHARED
-             # Provides a relative path to your source file(s).
-             Signature.cpp)
+        Signature
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        Signature.cpp)
 add_library( # Sets the name of the library.
-             SystemUtils
-             # Sets the library as a shared library.
-             SHARED
-             # Provides a relative path to your source file(s).
-             SystemUtils.cpp)
+        SystemUtils
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        SystemUtils.cpp)
+add_library( # Sets the name of the library.
+        LogUtils
+        # Sets the library as a shared library.
+        SHARED
+        # Provides a relative path to your source file(s).
+        LogUtils.cpp)
 #查找log库链接
 find_library( # Sets the name of the path variable.
-              log-lib
-              # Specifies the name of the NDK library that
-              # you want CMake to locate.
-              log )
+        log-lib
+        # Specifies the name of the NDK library that
+        # you want CMake to locate.
+        log)
 #将查找到的log库设置到我们的动态库里
-target_link_libraries( # Specifies the target library.
-                       Encrypt
-                       # Links the target library to the log library
-                       # included in the NDK.
-                       ${log-lib} )
-target_link_libraries(Signature
-                      ${log-lib} )
-target_link_libraries(SystemUtils
-                      ${log-lib} )
+target_link_libraries(Encrypt ${log-lib})
+target_link_libraries(Signature ${log-lib})
+target_link_libraries(
+        # Specifies the target library.
+        LogUtils
+        # Links the target library to the log library
+        # included in the NDK.
+        ${log-lib})
