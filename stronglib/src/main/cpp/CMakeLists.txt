@@ -5,33 +5,22 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-# 生成动态库
-add_library( # Sets the name of the library.
+# 生成动态库(so)
+add_library(
+        # 生成的so库名称
         Encrypt
         # Sets the library as a shared library.
+        # STATIC：静态库，是目标文件的归档文件，在链接其它目标的时候使用
+        # SHARED：动态库，会被动态链接，在运行时被加载
+        # MODULE：模块库，是不会被链接到其它目标中的插件，但是可能会在运行时使用dlopen-系列的函数动态链接
         SHARED
-        # Provides a relative path to your source file(s).
+        # 资源文件
         Encrypt.cpp)
-add_library( # Sets the name of the library.
-        Signature
-        # Sets the library as a shared library.
-        SHARED
-        # Provides a relative path to your source file(s).
-        Signature.cpp)
-add_library( # Sets the name of the library.
-        SystemUtils
-        # Sets the library as a shared library.
-        SHARED
-        # Provides a relative path to your source file(s).
-        SystemUtils.cpp)
-add_library( # Sets the name of the library.
-        LogUtils
-        # Sets the library as a shared library.
-        SHARED
-        # Provides a relative path to your source file(s).
-        LogUtils.cpp)
-#查找log库链接
-find_library( # Sets the name of the path variable.
+add_library(Signature SHARED Signature.cpp)
+
+# 从系统查找链接依赖库
+find_library(
+        # log库存放的位置，在log-lib中
         log-lib
         # Specifies the name of the NDK library that
         # you want CMake to locate.
@@ -39,9 +28,3 @@ find_library( # Sets the name of the path variable.
 #将查找到的log库设置到我们的动态库里
 target_link_libraries(Encrypt ${log-lib})
 target_link_libraries(Signature ${log-lib})
-target_link_libraries(
-        # Specifies the target library.
-        LogUtils
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib})

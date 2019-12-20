@@ -1,8 +1,11 @@
 //
-// Created by LiuZhen on 2019/12/11.
+// Created by LiuZhen on 2019/12/19.
 //
-#include <jni.h>
-#include <string>
+#include "../../../../../../../../AppData/Local/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/jni.h"
+#include "../../../../../../../../AppData/Local/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1/string"
+
+#ifndef KOTLINSTRONG_SYSTEMUTILS_H
+#define KOTLINSTRONG_SYSTEMUTILS_H
 
 /** 防止java层传入恶意的context对象，如果是恶意的context，获取时为null。
  * 应用加了签名验证也能通过工具分析出签名，加载的时候然系统返回你插入进去的签名，传入你自己的context，
@@ -33,5 +36,4 @@ jstring getPackname(JNIEnv *env, jobject obj)
 //    jstring packName = static_cast<jstring>(env->CallObjectMethod(obj, mId));
     return packName;
 }
-
-
+#endif //KOTLINSTRONG_SYSTEMUTILS_H

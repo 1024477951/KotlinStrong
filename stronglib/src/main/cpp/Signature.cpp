@@ -3,8 +3,8 @@
 //
 #include <jni.h>
 #include <string>
-#include "SystemUtils.cpp"
-#include "LogUtils.cpp"
+#include "utils/SystemUtils.h"
+#include "utils/LogUtils.h"
 
 //app包名
 static char *package_name = "com.kotlinstrong";

@@ -1,12 +1,11 @@
 # KotlinStrong
 this is a strong's kotlin app
-自己学习kotlin所封装的一个网络访问框架，mvvm模式（livedata + databinding），base抽离成了lib通用库，继承就能使用，方便的很
-代码中大量注释和见解，还包括新特性（比如协程）的介绍原理
-适配器也是自己封装的,DiffUtil差异刷新，BaseDataBinding视图事件，lib中的网络访问对外扩展方法（拦截器）
+自己学习kotlin所封装的一个网络访问框架，mvvm模式（livedata + databinding），base抽离成了lib通用库
+lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解
 
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/home.gif)
 
-#### 学习笔记（以下是看了很多资料及文档和大神的博客在总结出来的）
+#### 学习笔记
 #
     常用关键字
         添加注解 @JvmStatic、@JvmField 的作用是将private变为public
@@ -45,6 +44,11 @@ this is a strong's kotlin app
     OOP（面向对象编程）针对业务处理过程的实体及其属性和行为进行抽象封装，以获得更加清晰高效的逻辑单元划分，而AOP则是针对业务处理过程中的切面进行提取，它所面对的是处理过程中的某个步骤或阶段，以获得逻辑过程中各部分之间低耦合性的隔离效果。
     AOP编程的主要用途有：日志记录，行为统计，安全控制，事务处理，异常处理，系统统一的认证、权限管理等。
     AspectJ的配置很麻烦，这里使用框架AspectJX
+#
+#### jni
+#
+    Encrypt 加密
+    Signature 签名
 #
 #### 协程
 #
