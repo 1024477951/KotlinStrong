@@ -1,12 +1,13 @@
 #include <jni.h>//包含一个源代码文件
 #include <string>
-#include "LogUtils.cpp"
+#include "utils/LogUtils.h"
 #include <cstdio>
 
 /**
  * extern "C" : 实现 C 和 C++ 的混合编程，用于 C++ 代码调用 C 的函数
  * JNIEnv    : 指向全部JNI方法的指针,不能跨线程传递(调用Java的方法 and 获取Java中的变量和对象等等)
  * jobject / jclass : 调用 Java 中 native 方法的实例或 Class 对象
+ * 在计算机中 ，所有的文件都是以二进制存储的 ，所有可以进行运算来进行文件的加密解密
  * */
 
 /** createFile */
@@ -24,7 +25,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_createFile(JNIEnv *env, jobje
     FILE *fp = fopen(normalPath, "wb");
 
     //把字符串写入到指定的流 stream 中，但不包括空字符。
-    fputs("账号：123 \n 密码：123; \n账号：456 \n 密码：456; \n", fp);
+    fputs("账号：123\n密码：123;\n账号：456\n密码：456;\n", fp);
 
     //关闭流 fp。刷新所有的缓冲区
     fclose(fp);
@@ -55,7 +56,9 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_encryption(JNIEnv *env, jclas
         Logger("%s", "文件打开失败");
         return;
     }
-
+    if(encrypt_fp == NULL) {
+        Logger("%s","没有写权限") ;
+    }
     //一次读取一个字符
     int ch = 0;
     int i = 0;
@@ -86,7 +89,7 @@ JNIEXPORT void JNICALL
 Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_decryption(JNIEnv *env, jclass type,
                                                               jstring encryptPath_,
                                                               jstring decryptPath_) {
-    ////获取字符串保存在JVM中内存中
+    //获取字符串保存在JVM中内存中
     const char *encryptPath = env->GetStringUTFChars(encryptPath_, nullptr);
     const char *decryptPath = env->GetStringUTFChars(decryptPath_, nullptr);
 
@@ -118,3 +121,230 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_decryption(JNIEnv *env, jclas
     env->ReleaseStringUTFChars(encryptPath_, encryptPath);
     env->ReleaseStringUTFChars(decryptPath_, decryptPath);
 }
+
+/*获取文件大小*/
+long getFileSize(char* filePath) {
+
+    FILE* fp = fopen(filePath,"rb");
+    if(fp == NULL) {
+        Logger("%s","文件不存在，或没有读文件权限");
+    }
+    fseek(fp,0,SEEK_END);
+    return ftell(fp);
+}
+
+/** 文件分割 */
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass type,
+                                                       jstring splitFilePath_,
+                                                       jstring suffix_,
+                                                       jint fileNum) {
+    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, 0);
+    const char *suffix = env->GetStringUTFChars(suffix_, 0);
+
+    // 要分割文件 ， 首先要得到分割文件的路径列表 ,申请动态内存存储路径列表
+    char** split_path_list = (char**)malloc(sizeof(char*) * fileNum);
+
+    // 得到文件大小
+    long file_size = getFileSize(splitFilePath);
+
+    // 得到路径字符长度
+    int file_path_str_len = strlen(splitFilePath);
+
+    // 组合路径
+    char file_path[file_path_str_len + 5] ;
+    strcpy(file_path,splitFilePath);
+    strtok(file_path,".");
+    strcat(file_path,"_%d");
+    strcat(file_path,suffix);
+
+    int i=0 ;
+    for (; i < fileNum; ++i) {
+
+        // 申请单个文件的路径动态内存存储
+        split_path_list[i] = (char*)malloc(sizeof(char) * 128);
+        // 组合分割的单个文件路径
+        sprintf(split_path_list[i],file_path,(i+1)) ;
+
+        Logger("%s",split_path_list[i]);
+    }
+
+
+
+    Logger("文件大小 == %ld",file_size);
+    Logger("文件路径 == %s",splitFilePath);
+    // 读文件
+    FILE* fp = fopen(splitFilePath,"rb");
+    if(fp == NULL) {
+        Logger("%s","文件不存在，或文件不可读");
+        return;
+    }
+
+    // 整除 ， 说明各个文件划分大小一致
+    if (file_size % fileNum) {
+        // 单个文件大小
+        int part_file_size = file_size/fileNum ;
+        Logger("单个文件大小 == %d",part_file_size);
+        int i = 0 ;
+        // 分割多少个文件就分段读多少次
+        for (; i < fileNum; i++) {
+            // 写文件
+            FILE* fwp = fopen(split_path_list[i],"wb");
+            if(fwp == NULL) {
+                Logger("%s","没有文件写入权限");
+                return;
+            }
+            int j = 0 ;
+            // 单个文件有多大 ， 就读写多少次
+            for (; j < part_file_size; j++) {
+                // 边读边写
+                fputc(fgetc(fp),fwp) ;
+            }
+
+            // 关闭文件流
+            fclose(fwp);
+        }
+    }
+        /*文件大小不整除*/
+    else{
+        // 不整除
+        int part_file_size = file_size / (fileNum -1 ) ;
+        Logger("单个文件大小 == %d",part_file_size);
+        int i = 0 ;
+        for (; i < (fileNum - 1); i++) {
+            // 写文件
+            FILE* fwp = fopen(split_path_list[i],"wb");
+
+            if(fwp == NULL) {
+                Logger("%s","没有文件写入权限") ;
+                return;
+            }
+
+            int j = 0 ;
+            for (; j < part_file_size; j++) {
+                // 边读边写
+                fputc(fgetc(fp),fwp);
+            }
+
+            // 关闭流
+            fclose(fwp);
+        }
+
+        // 剩余部分
+        FILE* last_fwp = fopen(split_path_list[fileNum - 1],"wb") ;
+        i= 0 ;
+        for (; i < file_size % (fileNum -1); i++) {
+            fputc(fgetc(fp),last_fwp) ;
+        }
+
+        // 关闭流
+        fclose(last_fwp);
+
+    }
+
+
+    // 关闭文件流
+    fclose(fp);
+
+    // 释放动态内存
+    i= 0 ;
+    for (; i < fileNum ; i++) {
+        free(split_path_list[i]) ;
+    }
+
+    free(split_path_list);
+
+    env->ReleaseStringUTFChars(splitFilePath_, splitFilePath);
+    env->ReleaseStringUTFChars(suffix_, suffix);
+}
+
+
+
+/** 合并文件 */
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass type,
+                                                       jstring splitFilePath_,
+                                                       jstring splitSuffix_,
+                                                       jstring mergeSuffix_, jint fileNum) {
+    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, 0);
+    const char *splitSuffix = env->GetStringUTFChars(splitSuffix_, 0);
+    const char *mergeSuffix = env->GetStringUTFChars(mergeSuffix_, 0);
+
+    // 1. 申请split文件路径列表动态内存
+    char** split_path_list = (char**)malloc(sizeof(char*) * fileNum) ;
+
+
+    // 2. 组装split文件路径
+    int split_file_path_len = strlen(splitFilePath) ;
+    int split_file_path_suffix_len = strlen(splitSuffix);
+    char split_file_path[split_file_path_len + split_file_path_suffix_len] ;
+    strcpy(split_file_path,splitFilePath);
+    strtok(split_file_path,".");
+    strcat(split_file_path,"_%d");
+    strcat(split_file_path,splitSuffix);
+
+    // 3. 组装merge文件路径
+    int merge_file_path_len = strlen(mergeSuffix);
+    char merge_file_path[split_file_path_len + merge_file_path_len] ;
+    strcpy(merge_file_path,splitFilePath);
+    strtok(merge_file_path,".");
+    strcat(merge_file_path,mergeSuffix);
+
+    Logger("merge 文件路径 = %s",merge_file_path) ;
+
+    // 4. 循环得到split文件路径列表
+    int file_path_str_len = strlen(split_file_path);
+    int i= 0;
+    for (; i < fileNum; i++) {
+        split_path_list[i] = (char*)malloc(sizeof(char) * file_path_str_len) ;
+
+        sprintf(split_path_list[i],split_file_path,(i+1)) ;
+
+        Logger("split文件路径列表 = %s",split_path_list[i]) ;
+    }
+
+    // 5. 创建并打开 merge file
+    FILE* merge_fwp = fopen(merge_file_path,"wb") ;
+
+    // 6. 边读边写 ， 读多个文件，写入一个文件
+    i = 0 ;
+    for (; i < fileNum ; i++) {
+
+        FILE* split_frp = fopen(split_path_list[i],"rb") ;
+        if(split_frp == NULL) {
+            Logger("%s","文件不存在，或没有读文件权限");
+            return;
+        }
+        long part_split_file_size = getFileSize(split_path_list[i]);
+        int j = 0 ;
+        for (; j < part_split_file_size; j++) {
+            fputc(fgetc(split_frp),merge_fwp);
+        }
+
+        // 关闭流
+        fclose(split_frp) ;
+
+        // 每合并一个文件 ，就删除它
+        remove(split_path_list[i]) ;
+    }
+
+    // 关闭文件流
+    fclose(merge_fwp);
+
+    // 释放动态内存
+    i = 0 ;
+    for (; i < fileNum; i++) {
+        free(split_path_list[i]) ;
+    }
+
+    free(split_path_list);
+
+    Logger("%s","文件合并完成") ;
+
+    env->ReleaseStringUTFChars(splitFilePath_, splitFilePath);
+    env->ReleaseStringUTFChars(splitSuffix_, splitSuffix);
+    env->ReleaseStringUTFChars(mergeSuffix_, mergeSuffix);
+}
+

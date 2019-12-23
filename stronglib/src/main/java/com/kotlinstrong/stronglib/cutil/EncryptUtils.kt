@@ -21,10 +21,10 @@ class EncryptUtils {
         /** 创建文件 */
         @JvmStatic
         external fun createFile (path: String)
-        /** 对一个字符串进行加密 */
+        /** 加密 */
         @JvmStatic
         external fun encryption (filePath: String,encryptPath: String)
-        /** 对一个字符串进行加密 */
+        /** 解密 */
         @JvmStatic
         external fun decryption (filePath: String,decryptionPath: String)
         /** 签名效验，返回验证结果 */
