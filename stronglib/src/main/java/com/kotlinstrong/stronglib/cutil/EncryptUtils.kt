@@ -30,6 +30,12 @@ class EncryptUtils {
         /** 签名效验，返回验证结果 */
         @JvmStatic
         external fun checkSignature ():Boolean
+        /** 文件分割 */
+        @JvmStatic
+        external fun fileSplit (splitFilePath: String,suffix: String,fileNum:Int)
+        /** 合并文件 */
+        @JvmStatic
+        external fun fileMerge (splitFilePath: String,splitSuffix: String,mergeSuffix: String,fileNum:Int)
 
         /** 测试加解密 */
         @JvmStatic
@@ -64,6 +70,29 @@ class EncryptUtils {
             val decryptPath = encryptPath.replace("encryption_", "decryption_")
             decryption(encryptPath, decryptPath)
             Log.d(TAG, "解密完成了...")
+        }
+
+        /** 文件分割 */
+        @JvmStatic
+        fun fileSplit (){
+            val splitFilePath = path + File.separator + "testJni.txt"
+            try {
+                fileSplit(splitFilePath, ".s",3)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        /** 文件合并 */
+        @JvmStatic
+        fun fileMerge (){
+            val splitFilePath = path + File.separator + "testMergeJni.txt"
+            val splitSuffix = ".s"//保持跟切割格式一致
+            val mergeSuffix = ".txt"
+            try {
+                fileMerge(splitFilePath, splitSuffix, mergeSuffix, 3)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

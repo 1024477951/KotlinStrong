@@ -18,11 +18,11 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_createFile(JNIEnv *env, jobje
     Logger("createFile path = %s", path_);
     //得到一个UTF-8编码的字符串（java使用 UTF-16 编码的，中文英文都是2字节，jni内部使用UTF-8编码，ascii字符是1字节，中文是3字节）
     const char *normalPath = env->GetStringUTFChars(path_, nullptr);
-    if (normalPath == NULL) {
+    if (normalPath == nullptr) {
         return;
     }
     //wb:打开或新建一个二进制文件；只允许写数据
-    FILE *fp = fopen(normalPath, "wb");
+    FILE *fp = fopen(normalPath, "wbe");
 
     //把字符串写入到指定的流 stream 中，但不包括空字符。
     fputs("账号：123\n密码：123;\n账号：456\n密码：456;\n", fp);
@@ -49,14 +49,14 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_encryption(JNIEnv *env, jclas
 
     //rb:只读打开一个二进制文件，允许读数据。
     //wb:只写打开或新建一个二进制文件；只允许写数据
-    FILE *normal_fp = fopen(normalPath, "rb");
-    FILE *encrypt_fp = fopen(encryptPath, "wb");
+    FILE *normal_fp = fopen(normalPath, "rbe");
+    FILE *encrypt_fp = fopen(encryptPath, "wbe");
 
     if (normal_fp == nullptr) {
         Logger("%s", "文件打开失败");
         return;
     }
-    if(encrypt_fp == NULL) {
+    if(encrypt_fp == nullptr) {
         Logger("%s","没有写权限") ;
     }
     //一次读取一个字符
@@ -97,8 +97,8 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_decryption(JNIEnv *env, jclas
 
     //rb:只读打开一个二进制文件，允许读数据。
     //wb:只写打开或新建一个二进制文件；只允许写数据
-    FILE *encrypt_fp = fopen(encryptPath, "rb");
-    FILE *decrypt_fp = fopen(decryptPath, "wb");
+    FILE *encrypt_fp = fopen(encryptPath, "rbe");
+    FILE *decrypt_fp = fopen(decryptPath, "wbe");
 
     if (encrypt_fp == nullptr) {
         Logger("%s", "加密文件打开失败");
@@ -123,10 +123,10 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_decryption(JNIEnv *env, jclas
 }
 
 /*获取文件大小*/
-long getFileSize(char* filePath) {
+long getFileSize(const char* filePath) {
 
-    FILE* fp = fopen(filePath,"rb");
-    if(fp == NULL) {
+    FILE* fp = fopen(filePath,"rbe");
+    if(fp == nullptr) {
         Logger("%s","文件不存在，或没有读文件权限");
     }
     fseek(fp,0,SEEK_END);
@@ -140,8 +140,8 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
                                                        jstring splitFilePath_,
                                                        jstring suffix_,
                                                        jint fileNum) {
-    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, 0);
-    const char *suffix = env->GetStringUTFChars(suffix_, 0);
+    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, nullptr);
+    const char *suffix = env->GetStringUTFChars(suffix_, nullptr);
 
     // 要分割文件 ， 首先要得到分割文件的路径列表 ,申请动态内存存储路径列表
     char** split_path_list = (char**)malloc(sizeof(char*) * fileNum);
@@ -150,7 +150,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
     long file_size = getFileSize(splitFilePath);
 
     // 得到路径字符长度
-    int file_path_str_len = strlen(splitFilePath);
+    int file_path_str_len = static_cast<int>(strlen(splitFilePath));
 
     // 组合路径
     char file_path[file_path_str_len + 5] ;
@@ -170,13 +170,11 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
         Logger("%s",split_path_list[i]);
     }
 
-
-
     Logger("文件大小 == %ld",file_size);
     Logger("文件路径 == %s",splitFilePath);
     // 读文件
-    FILE* fp = fopen(splitFilePath,"rb");
-    if(fp == NULL) {
+    FILE* fp = fopen(splitFilePath,"rbe");
+    if(fp == nullptr) {
         Logger("%s","文件不存在，或文件不可读");
         return;
     }
@@ -184,15 +182,14 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
     // 整除 ， 说明各个文件划分大小一致
     if (file_size % fileNum) {
         // 单个文件大小
-        int part_file_size = file_size/fileNum ;
+        int part_file_size = static_cast<int>(file_size / fileNum);
         Logger("单个文件大小 == %d",part_file_size);
-        int i = 0 ;
         // 分割多少个文件就分段读多少次
-        for (; i < fileNum; i++) {
+        for (i = 0; i < fileNum; i++) {
             // 写文件
-            FILE* fwp = fopen(split_path_list[i],"wb");
-            if(fwp == NULL) {
-                Logger("%s","没有文件写入权限");
+            FILE* fwp = fopen(split_path_list[i],"wbe");
+            if(fwp == nullptr) {
+                Logger("%s","FILE is null");
                 return;
             }
             int j = 0 ;
@@ -209,15 +206,14 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
         /*文件大小不整除*/
     else{
         // 不整除
-        int part_file_size = file_size / (fileNum -1 ) ;
+        int part_file_size = static_cast<int>(file_size / (fileNum - 1));
         Logger("单个文件大小 == %d",part_file_size);
-        int i = 0 ;
-        for (; i < (fileNum - 1); i++) {
+        for (i = 0; i < (fileNum - 1); i++) {
             // 写文件
-            FILE* fwp = fopen(split_path_list[i],"wb");
+            FILE* fwp = fopen(split_path_list[i],"wbe");
 
-            if(fwp == NULL) {
-                Logger("%s","没有文件写入权限") ;
+            if(fwp == nullptr) {
+                Logger("%s","FILE is null") ;
                 return;
             }
 
@@ -232,17 +228,14 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
         }
 
         // 剩余部分
-        FILE* last_fwp = fopen(split_path_list[fileNum - 1],"wb") ;
+        FILE* last_fwp = fopen(split_path_list[fileNum - 1],"wbe") ;
         i= 0 ;
         for (; i < file_size % (fileNum -1); i++) {
             fputc(fgetc(fp),last_fwp) ;
         }
-
         // 关闭流
         fclose(last_fwp);
-
     }
-
 
     // 关闭文件流
     fclose(fp);
@@ -268,25 +261,25 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass
                                                        jstring splitFilePath_,
                                                        jstring splitSuffix_,
                                                        jstring mergeSuffix_, jint fileNum) {
-    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, 0);
-    const char *splitSuffix = env->GetStringUTFChars(splitSuffix_, 0);
-    const char *mergeSuffix = env->GetStringUTFChars(mergeSuffix_, 0);
+    const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, nullptr);
+    const char *splitSuffix = env->GetStringUTFChars(splitSuffix_, nullptr);
+    const char *mergeSuffix = env->GetStringUTFChars(mergeSuffix_, nullptr);
 
-    // 1. 申请split文件路径列表动态内存
+    // 申请split文件路径列表动态内存
     char** split_path_list = (char**)malloc(sizeof(char*) * fileNum) ;
 
 
-    // 2. 组装split文件路径
-    int split_file_path_len = strlen(splitFilePath) ;
-    int split_file_path_suffix_len = strlen(splitSuffix);
+    // 组装split文件路径
+    int split_file_path_len = static_cast<int>(strlen(splitFilePath));
+    int split_file_path_suffix_len = static_cast<int>(strlen(splitSuffix));
     char split_file_path[split_file_path_len + split_file_path_suffix_len] ;
     strcpy(split_file_path,splitFilePath);
     strtok(split_file_path,".");
     strcat(split_file_path,"_%d");
     strcat(split_file_path,splitSuffix);
 
-    // 3. 组装merge文件路径
-    int merge_file_path_len = strlen(mergeSuffix);
+    // 组装merge文件路径
+    int merge_file_path_len = static_cast<int>(strlen(mergeSuffix));
     char merge_file_path[split_file_path_len + merge_file_path_len] ;
     strcpy(merge_file_path,splitFilePath);
     strtok(merge_file_path,".");
@@ -294,8 +287,8 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass
 
     Logger("merge 文件路径 = %s",merge_file_path) ;
 
-    // 4. 循环得到split文件路径列表
-    int file_path_str_len = strlen(split_file_path);
+    // 循环得到split文件路径列表
+    int file_path_str_len = static_cast<int>(strlen(split_file_path));
     int i= 0;
     for (; i < fileNum; i++) {
         split_path_list[i] = (char*)malloc(sizeof(char) * file_path_str_len) ;
@@ -306,14 +299,14 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass
     }
 
     // 5. 创建并打开 merge file
-    FILE* merge_fwp = fopen(merge_file_path,"wb") ;
+    FILE* merge_fwp = fopen(merge_file_path,"wbe") ;
 
     // 6. 边读边写 ， 读多个文件，写入一个文件
     i = 0 ;
     for (; i < fileNum ; i++) {
 
-        FILE* split_frp = fopen(split_path_list[i],"rb") ;
-        if(split_frp == NULL) {
+        FILE* split_frp = fopen(split_path_list[i],"rbe") ;
+        if(split_frp == nullptr) {
             Logger("%s","文件不存在，或没有读文件权限");
             return;
         }

@@ -2,9 +2,7 @@ package com.kotlinstrong.main
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.GsonUtils
-import com.blankj.utilcode.util.JsonUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.bean.AppMenuBean
 import com.kotlinstrong.stronglib.base.BaseViewModel
@@ -49,11 +47,11 @@ class MainViewModel : BaseViewModel() {
         val list: MutableList<AppMenuBean> = ArrayList<AppMenuBean>()
         list.add(AppMenuBean(null,AppMenuBean.TYPE_AD,0,getAdsList()))
 
-        list.add(AppMenuBean("模块1",AppMenuBean.TYPE_TITLE,0,null))
+        list.add(AppMenuBean("Jni相关",AppMenuBean.TYPE_TITLE,0,null))
         list.add(AppMenuBean("文件加密",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_encrypt,null))
         list.add(AppMenuBean("签名验证",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_signature,null))
-        list.add(AppMenuBean("menu3",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))
-        list.add(AppMenuBean("menu4",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_right,null))
+        list.add(AppMenuBean("文件切割",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_cut,null))
+        list.add(AppMenuBean("文件合并",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_merge,null))
 
         list.add(AppMenuBean("模块2",AppMenuBean.TYPE_TITLE,0,null))
         list.add(AppMenuBean("menu1",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_leave,null))

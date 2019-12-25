@@ -18,6 +18,10 @@ class SplashActivity : BaseActivity() {
         }, 500)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        window.setBackgroundDrawable(null)
+    }
     /**
      * 应用启动流程（此处参考了终端研发部的文章，很全面）
         Launcher startActivity

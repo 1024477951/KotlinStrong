@@ -54,8 +54,22 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
             @MyAnnotationOnclick
             override fun call(view: View, t: AppMenuBean) {
                 when(t.resId){
-                    R.mipmap.icon_app_encrypt -> testEncrypt()
+                    R.mipmap.icon_app_encrypt ->
+                        if (checkFilePermission()){
+                            EncryptUtils.test()
+                            ToastUtils.showShort("前往根目录查看结果")
+                        }
                     R.mipmap.icon_app_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
+                    R.mipmap.icon_app_cut ->
+                        if (checkFilePermission()){
+                            EncryptUtils.fileSplit()
+                            ToastUtils.showShort("前往根目录查看结果")
+                        }
+                    R.mipmap.icon_app_merge ->
+                        if (checkFilePermission()){
+                            EncryptUtils.fileMerge()
+                            ToastUtils.showShort("前往根目录查看结果")
+                        }
                 }
             }
         })
@@ -86,16 +100,15 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
         }
     }
-    /** 加密测试 */
-    fun testEncrypt(){
+
+    fun checkFilePermission(): Boolean{
         if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE ) !== PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
-                return
+                return false
             }
         }
-        EncryptUtils.test()
-        ToastUtils.showShort("前往根目录查看结果")
+        return true
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
