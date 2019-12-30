@@ -57,18 +57,18 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
                     R.mipmap.icon_app_encrypt ->
                         if (checkFilePermission()){
                             EncryptUtils.test()
-                            ToastUtils.showShort("前往根目录查看结果")
+                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                         }
                     R.mipmap.icon_app_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
                     R.mipmap.icon_app_cut ->
                         if (checkFilePermission()){
                             EncryptUtils.fileSplit()
-                            ToastUtils.showShort("前往根目录查看结果")
+                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                         }
                     R.mipmap.icon_app_merge ->
                         if (checkFilePermission()){
                             EncryptUtils.fileMerge()
-                            ToastUtils.showShort("前往根目录查看结果")
+                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                         }
                 }
             }

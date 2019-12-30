@@ -22,7 +22,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_createFile(JNIEnv *env, jobje
         return;
     }
     //wb:打开或新建一个二进制文件；只允许写数据
-    FILE *fp = fopen(normalPath, "wbe");
+    FILE *fp = fopen(normalPath, "wb");
 
     //把字符串写入到指定的流 stream 中，但不包括空字符。
     fputs("账号：123\n密码：123;\n账号：456\n密码：456;\n", fp);
@@ -127,7 +127,7 @@ long getFileSize(const char* filePath) {
 
     FILE* fp = fopen(filePath,"rbe");
     if(fp == nullptr) {
-        Logger("%s","文件不存在，或没有读文件权限");
+        Logger("%s","FILE is null");
     }
     fseek(fp,0,SEEK_END);
     return ftell(fp);
@@ -143,94 +143,81 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
     const char *splitFilePath = env->GetStringUTFChars(splitFilePath_, nullptr);
     const char *suffix = env->GetStringUTFChars(suffix_, nullptr);
 
-    // 要分割文件 ， 首先要得到分割文件的路径列表 ,申请动态内存存储路径列表
-    char** split_path_list = (char**)malloc(sizeof(char*) * fileNum);
-
     // 得到文件大小
     long file_size = getFileSize(splitFilePath);
+    Logger("文件大小 == %ld",file_size);
+
+    // 返回char*型指针所占空间：4 (Byte) * fileNum
+    char** split_path_list = (char**)malloc(sizeof(char*) * fileNum);
 
     // 得到路径字符长度
     int file_path_str_len = static_cast<int>(strlen(splitFilePath));
-
-    // 组合路径
+    //动态获取路径（在旧的路径上新增后缀，以示区分）
+    std::string str = splitFilePath;
+    int position = static_cast<int>(str.find_last_of("."));
+    const char *splitPath = str.substr(0,position).c_str();
+    Logger("splitPath %s",splitPath);
+    //添加新的文件路径（包含文件名称）
     char file_path[file_path_str_len + 5] ;
-    strcpy(file_path,splitFilePath);
-    strtok(file_path,".");
-    strcat(file_path,"_%d");
+    strcpy(file_path,splitPath);//复制字符串(目的字符串，源字符串)
+    strcat(file_path,"split_%d");//追加字符串
     strcat(file_path,suffix);
-
-    int i=0 ;
-    for (; i < fileNum; ++i) {
-
+    Logger("file_path end %s",file_path);
+    for (int i=0; i < fileNum; ++i) {
         // 申请单个文件的路径动态内存存储
         split_path_list[i] = (char*)malloc(sizeof(char) * 128);
         // 组合分割的单个文件路径
         sprintf(split_path_list[i],file_path,(i+1)) ;
-
-        Logger("%s",split_path_list[i]);
+        Logger("for split_path_list %s",split_path_list[i]);
     }
 
-    Logger("文件大小 == %ld",file_size);
-    Logger("文件路径 == %s",splitFilePath);
     // 读文件
     FILE* fp = fopen(splitFilePath,"rbe");
     if(fp == nullptr) {
         Logger("%s","文件不存在，或文件不可读");
         return;
     }
-
     // 整除 ， 说明各个文件划分大小一致
     if (file_size % fileNum) {
         // 单个文件大小
         int part_file_size = static_cast<int>(file_size / fileNum);
         Logger("单个文件大小 == %d",part_file_size);
         // 分割多少个文件就分段读多少次
-        for (i = 0; i < fileNum; i++) {
+        for (int i = 0; i < fileNum; i++) {
             // 写文件
             FILE* fwp = fopen(split_path_list[i],"wbe");
             if(fwp == nullptr) {
                 Logger("%s","FILE is null");
                 return;
             }
-            int j = 0 ;
             // 单个文件有多大 ， 就读写多少次
-            for (; j < part_file_size; j++) {
-                // 边读边写
+            for (int j = 0; j < part_file_size; j++) {
+                //fgetc读取，并且fputc写入文件
                 fputc(fgetc(fp),fwp) ;
             }
-
-            // 关闭文件流
+            //关闭文件流
             fclose(fwp);
         }
-    }
+    } else {
         /*文件大小不整除*/
-    else{
-        // 不整除
         int part_file_size = static_cast<int>(file_size / (fileNum - 1));
         Logger("单个文件大小 == %d",part_file_size);
-        for (i = 0; i < (fileNum - 1); i++) {
+        for (int i = 0; i < (fileNum - 1); i++) {
             // 写文件
             FILE* fwp = fopen(split_path_list[i],"wbe");
-
             if(fwp == nullptr) {
                 Logger("%s","FILE is null") ;
                 return;
             }
-
-            int j = 0 ;
-            for (; j < part_file_size; j++) {
-                // 边读边写
+            for (int j = 0; j < part_file_size; j++) {
                 fputc(fgetc(fp),fwp);
             }
-
             // 关闭流
             fclose(fwp);
         }
-
         // 剩余部分
         FILE* last_fwp = fopen(split_path_list[fileNum - 1],"wbe") ;
-        i= 0 ;
-        for (; i < file_size % (fileNum -1); i++) {
+        for (int i= 0; i < file_size % (fileNum -1); i++) {
             fputc(fgetc(fp),last_fwp) ;
         }
         // 关闭流
@@ -239,20 +226,15 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
 
     // 关闭文件流
     fclose(fp);
-
     // 释放动态内存
-    i= 0 ;
-    for (; i < fileNum ; i++) {
+    for (int i= 0; i < fileNum ; i++) {
         free(split_path_list[i]) ;
     }
-
     free(split_path_list);
 
     env->ReleaseStringUTFChars(splitFilePath_, splitFilePath);
     env->ReleaseStringUTFChars(suffix_, suffix);
 }
-
-
 
 /** 合并文件 */
 extern "C"
@@ -265,75 +247,61 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass
     const char *splitSuffix = env->GetStringUTFChars(splitSuffix_, nullptr);
     const char *mergeSuffix = env->GetStringUTFChars(mergeSuffix_, nullptr);
 
-    // 申请split文件路径列表动态内存
     char** split_path_list = (char**)malloc(sizeof(char*) * fileNum) ;
+    //动态获取路径（在旧的路径上新增后缀，以示区分）
+    std::string str = splitFilePath;
+    int position = static_cast<int>(str.find_last_of("."));
+    const char *basePath = str.substr(0,position).c_str();
 
-
-    // 组装split文件路径
+    //组装split文件路径
     int split_file_path_len = static_cast<int>(strlen(splitFilePath));
     int split_file_path_suffix_len = static_cast<int>(strlen(splitSuffix));
     char split_file_path[split_file_path_len + split_file_path_suffix_len] ;
-    strcpy(split_file_path,splitFilePath);
-    strtok(split_file_path,".");
-    strcat(split_file_path,"_%d");
-    strcat(split_file_path,splitSuffix);
+    strcpy(split_file_path,basePath);//复制
+    strcat(split_file_path,"split_%d");//组装成切割的路径，跟切割对应
+    strcat(split_file_path,splitSuffix);//切割的文件后缀
 
-    // 组装merge文件路径
+    //组装merge文件路径
     int merge_file_path_len = static_cast<int>(strlen(mergeSuffix));
     char merge_file_path[split_file_path_len + merge_file_path_len] ;
-    strcpy(merge_file_path,splitFilePath);
-    strtok(merge_file_path,".");
-    strcat(merge_file_path,mergeSuffix);
+    strcpy(merge_file_path,basePath);//复制
+    strcat(merge_file_path,mergeSuffix);//合并后的路径(包含名称)
 
     Logger("merge 文件路径 = %s",merge_file_path) ;
 
-    // 循环得到split文件路径列表
+    //循环得到split文件路径列表
     int file_path_str_len = static_cast<int>(strlen(split_file_path));
-    int i= 0;
-    for (; i < fileNum; i++) {
+    for (int i= 0; i < fileNum; i++) {
         split_path_list[i] = (char*)malloc(sizeof(char) * file_path_str_len) ;
-
         sprintf(split_path_list[i],split_file_path,(i+1)) ;
-
         Logger("split文件路径列表 = %s",split_path_list[i]) ;
     }
-
-    // 5. 创建并打开 merge file
+    //创建并打开 merge file
     FILE* merge_fwp = fopen(merge_file_path,"wbe") ;
-
-    // 6. 边读边写 ， 读多个文件，写入一个文件
-    i = 0 ;
-    for (; i < fileNum ; i++) {
-
+    //边读边写，读多个文件，写入一个文件
+    for (int i = 0; i < fileNum ; i++) {
         FILE* split_frp = fopen(split_path_list[i],"rbe") ;
         if(split_frp == nullptr) {
             Logger("%s","文件不存在，或没有读文件权限");
             return;
         }
         long part_split_file_size = getFileSize(split_path_list[i]);
-        int j = 0 ;
-        for (; j < part_split_file_size; j++) {
+        for (int j = 0; j < part_split_file_size; j++) {
             fputc(fgetc(split_frp),merge_fwp);
         }
 
         // 关闭流
         fclose(split_frp) ;
-
         // 每合并一个文件 ，就删除它
         remove(split_path_list[i]) ;
     }
-
     // 关闭文件流
     fclose(merge_fwp);
-
     // 释放动态内存
-    i = 0 ;
-    for (; i < fileNum; i++) {
+    for (int i = 0; i < fileNum; i++) {
         free(split_path_list[i]) ;
     }
-
     free(split_path_list);
-
     Logger("%s","文件合并完成") ;
 
     env->ReleaseStringUTFChars(splitFilePath_, splitFilePath);

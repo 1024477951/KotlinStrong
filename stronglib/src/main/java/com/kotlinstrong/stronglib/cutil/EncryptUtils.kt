@@ -2,6 +2,7 @@ package com.kotlinstrong.stronglib.cutil
 
 import android.os.Environment
 import android.util.Log
+import com.blankj.utilcode.util.Utils
 import java.io.File
 
 /** 加密 */
@@ -16,7 +17,7 @@ class EncryptUtils {
             System.loadLibrary("Signature")
         }
 
-        val path = Environment.getExternalStorageDirectory().absolutePath + File.separator
+        val path = Utils.getApp().getExternalFilesDir("").absolutePath + File.separator
 
         /** 创建文件 */
         @JvmStatic
@@ -51,6 +52,7 @@ class EncryptUtils {
         fun encryption(fileName: String): String {
             val normalPath = path + fileName
             val file = File(normalPath)
+            Log.d(TAG, "normalPath：$normalPath file: ${file.exists()}")
             if (!file.exists()) {
                 createFile(normalPath)
             }
@@ -75,7 +77,7 @@ class EncryptUtils {
         /** 文件分割 */
         @JvmStatic
         fun fileSplit (){
-            val splitFilePath = path + File.separator + "testJni.txt"
+            val splitFilePath = path + "testJni.txt"
             try {
                 fileSplit(splitFilePath, ".s",3)
             } catch (e: Exception) {
@@ -85,9 +87,9 @@ class EncryptUtils {
         /** 文件合并 */
         @JvmStatic
         fun fileMerge (){
-            val splitFilePath = path + File.separator + "testMergeJni.txt"
+            val splitFilePath = path + "testJni.txt"
             val splitSuffix = ".s"//保持跟切割格式一致
-            val mergeSuffix = ".txt"
+            val mergeSuffix = "_merge.txt"
             try {
                 fileMerge(splitFilePath, splitSuffix, mergeSuffix, 3)
             } catch (e: Exception) {
