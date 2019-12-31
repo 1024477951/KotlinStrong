@@ -282,7 +282,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass
     for (int i = 0; i < fileNum ; i++) {
         FILE* split_frp = fopen(split_path_list[i],"rbe") ;
         if(split_frp == nullptr) {
-            Logger("%s","文件不存在，或没有读文件权限");
+            Logger("%s","FILE is null");
             return;
         }
         long part_split_file_size = getFileSize(split_path_list[i]);

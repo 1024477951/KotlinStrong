@@ -46,6 +46,8 @@ lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和�
     AspectJ的配置很麻烦，这里使用框架AspectJX
 #
 #### jni
+    cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)
+    文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
 #
     Encrypt 加密
     Signature 签名
