@@ -1,1 +1,7 @@
-include ':app', ':stronglib'
+include ':stronglib'
+
+def openApp = Integer.parseInt(openApp)
+def isOpenAppAll = Boolean.parseBoolean(isOpenAppAll)
+if (openApp == 1 || isOpenAppAll) {//目前只有一个app
+    include ":app"
+}

@@ -5,10 +5,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'android-aspectjx'
 
+def APP_NAME = "KotlinStrong"
+def PKGNAME_NAME
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
-        applicationId rootProject.ext.android["applicationId"]
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
@@ -16,6 +17,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true//65536
         resConfigs('zh-rCN')//避免生成不必要的资源文件（默认是英语，不能剔除）
+        int workType = java.lang.Integer.parseInt(networkEnvironment)
+        if (workType == 0){
+            APP_NAME = "KotlinStrong"
+            PKGNAME_NAME = rootProject.ext.android["applicationId"]
+            applicationId PKGNAME_NAME
+        }else if (workType == 1){
+            APP_NAME = "KotlinStrongTest"
+            PKGNAME_NAME = rootProject.ext.android["applicationTestId"]
+            applicationId PKGNAME_NAME
+        }
+        manifestPlaceholders = [
+                PKGNAME_NAME: PKGNAME_NAME,// 包名
+                APP_NAME    : APP_NAME,//  app名称
+        ]
     }
     buildTypes {
         release {
