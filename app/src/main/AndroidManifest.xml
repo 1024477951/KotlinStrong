@@ -14,10 +14,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--全局悬浮窗 -->
+    <!--全局悬浮窗，可以将窗口显示在所有其他应用程序的顶层 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--录音权限-->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!--将应用加入电池优化白名单-->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
             android:name=".stronglib.base.BaseApp"

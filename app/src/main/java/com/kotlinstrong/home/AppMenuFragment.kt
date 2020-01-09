@@ -1,9 +1,13 @@
 package com.kotlinstrong.home
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,6 +27,7 @@ import com.kotlinstrong.stronglib.cutil.EncryptUtils
 import com.kotlinstrong.stronglib.listener.Function
 import com.kotlinstrong.stronglib.listener.LongFunction
 import com.kotlinstrong.stronglib.listener.ViewMap
+import com.kotlinstrong.stronglib.util.system.BatteryUtils
 import com.kotlinstrong.utils.aspect.MyAnnotationOnclick
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -69,6 +74,14 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
                         if (checkFilePermission()){
                             EncryptUtils.fileMerge()
                             ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                        }
+                    R.mipmap.icon_app_battery ->
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
+                                BatteryUtils.requestIgnoreBatteryOptimizations(this@AppMenuFragment)
+                            }else{
+                                ToastUtils.showShort("已经在名单中")
+                            }
                         }
                 }
             }
@@ -132,6 +145,24 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Activity.RESULT_FIRST_USER){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                when{
+                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
+                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
+                        Handler().postDelayed({
+                            BatteryUtils.setAppIgnore()
+                        },1000)
+                    } else -> {
+                        ToastUtils.showShort("加入失败")
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

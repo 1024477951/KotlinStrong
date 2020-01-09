@@ -54,7 +54,7 @@ class MainViewModel : BaseViewModel() {
         list.add(AppMenuBean("文件合并",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_merge,null))
 
         list.add(AppMenuBean("模块2",AppMenuBean.TYPE_TITLE,0,null))
-        list.add(AppMenuBean("menu1",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_leave,null))
+        list.add(AppMenuBean("加入白名单",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_battery,null))
         list.add(AppMenuBean("menu2",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_leave,null))
         list.add(AppMenuBean("menu3",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_leave,null))
         list.add(AppMenuBean("menu4",AppMenuBean.TYPE_MENU,R.mipmap.app_icon_leave,null))
