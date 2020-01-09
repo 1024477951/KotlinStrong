@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.Utils
@@ -27,7 +26,6 @@ class BatteryUtils {
             if (powerManager != null) {
                 isIgnoring = powerManager.isIgnoringBatteryOptimizations(Utils.getApp().packageName)
             }
-            Log.e("BatteryUtils","isIgnoring $isIgnoring")
             return isIgnoring
         }
 
