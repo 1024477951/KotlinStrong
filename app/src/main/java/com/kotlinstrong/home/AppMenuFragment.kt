@@ -167,7 +167,9 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun onDestroy() {
         super.onDestroy()
-        pager_ads.onDestory()
+        if(pager_ads != null){
+            pager_ads.onDestory()
+        }
     }
 
 }

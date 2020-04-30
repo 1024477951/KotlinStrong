@@ -112,8 +112,4 @@ class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeLi
         menus = null
     }
 
-    open fun getMyPackageName(): String{
-        return packageName
-    }
-
 }

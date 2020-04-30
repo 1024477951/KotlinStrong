@@ -1,5 +1,6 @@
 package com.kotlinstrong.main
 
+import android.util.Log
 import android.util.SparseArray
 import androidx.fragment.app.FragmentManager
 import com.kotlinstrong.base.TabFragment
@@ -21,6 +22,7 @@ object TabsHelper {
     }
     /**  初始化缓存数据 */
     fun init(fm: FragmentManager) {
+        Log.e("TabsHelper","TabsHelper init fragment")
         for (tab in Tabs.values()) {
             var fragment: TabFragment<MainViewModel>? = null
             val fs = fm.fragments

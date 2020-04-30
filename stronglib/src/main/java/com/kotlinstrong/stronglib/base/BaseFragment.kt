@@ -24,8 +24,10 @@ abstract class BaseFragment : Fragment() {
         if (contentView == null) {
             contentView = inflater.inflate(layoutId(), container, false)
         } else {
-            val parent = contentView!!.parent as ViewGroup
-            parent.removeView(contentView)
+            if (contentView!!.parent is ViewGroup) {
+                val parent = contentView!!.parent as ViewGroup
+                parent.removeView(contentView)
+            }
         }
         return contentView
     }
@@ -36,7 +38,10 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        (contentView?.parent as ViewGroup).removeView(contentView)
+        if (contentView!!.parent is ViewGroup) {
+            val parent = contentView!!.parent as ViewGroup
+            parent.removeView(contentView)
+        }
         super.onDestroyView()
     }
 }

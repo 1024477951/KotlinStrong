@@ -1,9 +1,11 @@
 package com.kotlinstrong.stronglib.base
 
 import android.content.Context
-import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -25,6 +27,22 @@ abstract class BaseActivity : AppCompatActivity() {
         context = this
         setContentView(layoutId())
         initData(intent.extras)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val mSysThemeConfig =
+            newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (mSysThemeConfig) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        }
+        // 需调用 recreate() ，从而使更改生效
+        recreate();
     }
 
 }
