@@ -20,9 +20,13 @@ import com.kotlinstrong.base.TabFragment
 import com.kotlinstrong.bean.AppMenuBean
 import com.kotlinstrong.bean.Article
 import com.kotlinstrong.bean.ArticleList
+import com.kotlinstrong.home.item.ArticleHeadBindItem
+import com.kotlinstrong.home.item.MenuContentBindItem
+import com.kotlinstrong.home.item.MenuTitleBindItem
 import com.kotlinstrong.main.MainViewModel
 import com.kotlinstrong.option.OptionsActivity
 import com.kotlinstrong.stronglib.base.BaseAdapter
+import com.kotlinstrong.stronglib.bean.BaseBindItem
 import com.kotlinstrong.stronglib.cutil.EncryptUtils
 import com.kotlinstrong.stronglib.listener.Function
 import com.kotlinstrong.stronglib.listener.LongFunction
@@ -42,54 +46,25 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    private var mAdapter: BaseAdapter<AppMenuBean>? = null
+    private var mAdapter: BaseAdapter<BaseBindItem>? = null
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
-        mAdapter = BaseAdapter(context, BR.data, object : ViewMap<AppMenuBean> {
-            override fun layoutId(t: AppMenuBean): Int {
-                return when {
-                    t.type == AppMenuBean.TYPE_AD -> R.layout.layout_app_menu_ads
-                    t.type == AppMenuBean.TYPE_TITLE -> R.layout.item_app_menu_text
-                    else -> R.layout.item_app_menu_child
-                }
-            }
-        })
-        mAdapter!!.addEvent(BR.click, object : Function<AppMenuBean> {
-            @MyAnnotationOnclick
-            override fun call(view: View, t: AppMenuBean) {
-                when(t.resId){
-                    R.mipmap.icon_app_encrypt ->
-                        if (checkFilePermission()){
-                            EncryptUtils.test()
-                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                        }
-                    R.mipmap.icon_app_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
-                    R.mipmap.icon_app_cut ->
-                        if (checkFilePermission()){
-                            EncryptUtils.fileSplit()
-                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                        }
-                    R.mipmap.icon_app_merge ->
-                        if (checkFilePermission()){
-                            EncryptUtils.fileMerge()
-                            ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                        }
-                    R.mipmap.icon_app_battery ->
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
-                                BatteryUtils.requestIgnoreBatteryOptimizations(this@AppMenuFragment)
-                            }else{
-                                ToastUtils.showShort("已经在名单中")
-                            }
-                        }
-                }
-            }
-        })
+
+        mAdapter = BaseAdapter()
         recyclerView.adapter = mAdapter
         refreshLayout.setOnRefreshLoadMoreListener(this)
 
-        var list = mViewModel.getAppMenuList()
+        val dataList = mViewModel.getAppMenuList()
+
+        val list = ArrayList<BaseBindItem>()
+        list.add(ArticleHeadBindItem(mViewModel.getAdsList()))
+        for (data in dataList){
+            when(data.type){
+                AppMenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))
+                else -> list.add(MenuContentBindItem(data,click))
+            }
+        }
         mAdapter!!.setNewList(list)
 
         val gridLayoutManager = GridLayoutManager(context,3)
@@ -98,7 +73,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
                 val bean = mAdapter!!.getItem(position)
                 var size: Int//根据类型返回不同长度的显示
                 size = when {
-                    bean.type == AppMenuBean.TYPE_AD || bean.type == AppMenuBean.TYPE_TITLE -> 3
+                    bean is ArticleHeadBindItem || bean is MenuTitleBindItem -> 3
                     else -> 1
                 }
                 return size
@@ -169,6 +144,38 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
         super.onDestroy()
         if(pager_ads != null){
             pager_ads.onDestory()
+        }
+    }
+
+    private val click = object : Function<AppMenuBean> {
+        @MyAnnotationOnclick
+        override fun call(view: View, t: AppMenuBean) {
+            when(t.resId){
+                R.mipmap.icon_app_encrypt ->
+                    if (checkFilePermission()){
+                        EncryptUtils.test()
+                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                    }
+                R.mipmap.icon_app_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
+                R.mipmap.icon_app_cut ->
+                    if (checkFilePermission()){
+                        EncryptUtils.fileSplit()
+                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                    }
+                R.mipmap.icon_app_merge ->
+                    if (checkFilePermission()){
+                        EncryptUtils.fileMerge()
+                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                    }
+                R.mipmap.icon_app_battery ->
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
+                            BatteryUtils.requestIgnoreBatteryOptimizations(this@AppMenuFragment)
+                        }else{
+                            ToastUtils.showShort("已经在名单中")
+                        }
+                    }
+            }
         }
     }
 

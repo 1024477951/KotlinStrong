@@ -10,10 +10,10 @@ import androidx.viewpager.widget.ViewPager
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
 import com.kotlinstrong.R
-import com.kotlinstrong.base.BaseBindAvtivity
+import com.kotlinstrong.base.BaseBindActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseBindAvtivity<MainViewModel>(), ViewPager.OnPageChangeListener {
+class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeListener {
 
     private var menus: SparseArray<CheckBox>? = SparseArray()
     private var adapter: BounceAdapter? = null

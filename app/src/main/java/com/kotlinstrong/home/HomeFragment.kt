@@ -5,18 +5,16 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.base.TabFragment
-import com.kotlinstrong.bean.Article
 import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.main.MainViewModel
-import com.kotlinstrong.BR
+import com.kotlinstrong.home.item.ArticleContent1BindItem
+import com.kotlinstrong.home.item.ArticleContent2BindItem
+import com.kotlinstrong.home.item.ArticleHeadBindItem
 import com.kotlinstrong.option.OptionsActivity
 import com.kotlinstrong.stronglib.base.BaseAdapter
-import com.kotlinstrong.stronglib.listener.Function
-import com.kotlinstrong.stronglib.listener.LongFunction
-import com.kotlinstrong.stronglib.listener.ViewMap
+import com.kotlinstrong.stronglib.bean.BaseBindItem
 import com.kotlinstrong.utils.aspect.MyAnnotationLogin
 import com.kotlinstrong.utils.aspect.MyAnnotationOnclick
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -31,35 +29,15 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    private var mAdapter: BaseAdapter<Article>? = null
+    private var mAdapter: BaseAdapter<BaseBindItem>? = null
     private var root: View? = null
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
         LogUtils.d("==>",tag)
-        mAdapter = BaseAdapter(context, BR.data, object : ViewMap<Article> {
-            override fun layoutId(t: Article): Int {
-                return when {
-                    t.id == -1 -> R.layout.layout_head_ads
-                    t.envelopePic!!.isNotEmpty() -> R.layout.item_text
-                    else -> R.layout.item_article
-                }
-            }
-        })
+        mAdapter = BaseAdapter()
         recyclerView.adapter = mAdapter
-        mAdapter!!.addEvent(BR.click, object : Function<Article> {
-            override fun call(view: View, t: Article) {
-//                ActivityUtils.startActivity(OptionsActivity::class.java)
-                openActivity()
-//                openDetail()
-            }
-        })
-        mAdapter!!.addLongEvent(BR.longClick, object : LongFunction<Article> {
-            override fun call(view: View, t: Article): Boolean {
-                ToastUtils.showShort("longClick "+t.title)
-                return true
-            }
-        })
+
         refreshLayout.setOnRefreshLoadMoreListener(this)
         mViewModel.getArticleList(0)
         root = view_stub.inflate().tv_val
@@ -84,11 +62,19 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
     }
 
     private fun setArticles(articleList: ArticleList) {
-//        LogUtils.e(tag,"success "+articleList.size)
         root!!.visibility = View.GONE
-        var article = Article(-1, mViewModel.getAdsList())
-        articleList.datas.add(0, article)
-        mAdapter!!.setNewList(articleList.datas)
+
+        val list: MutableList<BaseBindItem> = ArrayList()
+        list.add(ArticleHeadBindItem(mViewModel.getAdsList()))
+        for (article in articleList.datas){
+            if (article.envelopePic!!.isNotEmpty()){
+                list.add(ArticleContent1BindItem(article))
+            }else{
+                list.add(ArticleContent2BindItem(article))
+            }
+        }
+
+        mAdapter!!.setNewList(list)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

@@ -4,19 +4,13 @@ import android.content.Context
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.ToastUtils
-import com.kotlinstrong.BR
-import com.kotlinstrong.R
-import com.kotlinstrong.stronglib.listener.Function
-import java.lang.ref.WeakReference
+import com.kotlinstrong.stronglib.base.BaseAdapter
+import com.kotlinstrong.stronglib.bean.BaseBindItem
 
 open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
 
-    private var mAdapter: AdsPagerAdapter<String>? = null
+    private var mAdapter: BaseAdapter<BaseBindItem>? = null
     private var isLoop: Boolean = false
     private var layoutMan: LoopLayoutManager? = null
     private var loopTime: Long = 2000
@@ -36,12 +30,7 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
     private fun init() {
         layoutMan = LoopLayoutManager()
         layoutManager = layoutMan
-        mAdapter = AdsPagerAdapter(context, BR.data, R.layout.item_head_ads)
-        mAdapter!!.addEvent(BR.click,object : Function<String> {
-            override fun call(view: View, t: String) {
-                ToastUtils.showShort(t)
-            }
-        })
+        mAdapter = BaseAdapter()
         adapter = mAdapter
         LoopSnapHelper(object : LoopSnapHelper.CallBack {
             override fun changePosition(p: Int) {
@@ -87,7 +76,11 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
         mHandler.removeCallbacks(runnable)
     }
 
-    open fun setList(list: MutableList<String>){
+    open fun setList(items: MutableList<String>){
+        val list: MutableList<BaseBindItem> = ArrayList()
+        for (url in items){
+            list.add(BannerBindItem(url))
+        }
         mAdapter!!.setNewList(list)
     }
 

@@ -1,25 +1,17 @@
 package com.kotlinstrong.stronglib.base
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.SparseArray
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.IntRange
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseViewHolder
-import com.kotlinstrong.stronglib.listener.LongFunction
-import com.kotlinstrong.stronglib.listener.Function
-import com.kotlinstrong.stronglib.listener.ViewMap
+import com.kotlinstrong.stronglib.bean.BaseBindItem
+import com.kotlinstrong.stronglib.binding.BaseBindViewHolder
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /** recyclerView绑定适配器 * */
-open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>() {
+open class BaseAdapter<T : BaseBindItem> : RecyclerView.Adapter<BaseBindViewHolder> {
 
     /**
      *  无脑 notifyDataSetChanged()缺点：
@@ -33,42 +25,21 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
         就不会出现了。反之就有。
      * */
 
-    constructor(context: Context?, variableId: Int, viewMap: ViewMap<T>?) : this() {
-        this.context = context
+    constructor() {
         this.list = ArrayList<T>()
-        this.event = SparseArray()
-        this.longevent = SparseArray()
-        this.viewMap = viewMap
-        this.variableId = variableId
     }
 
-    constructor(context: Context?, variableId: Int, layoutId: Int) : this() {
-        this.context = context
-        this.list = ArrayList<T>()
-        this.event = SparseArray()
-        this.longevent = SparseArray()
-        this.variableId = variableId
-        this.layoutId = layoutId
-    }
     /** 首次加载数据 */
     fun setNewList(newList: MutableList<T>) {
         this.list = newList
         notifyDataSetChanged()
     }
 
-    private var context: Context? = null
     protected var list: MutableList<T>? = null
-    private var variableId: Int = 0
-    private var layoutId: Int = 0
     private var dataVersion: Int = 0
-    private var viewMap: ViewMap<T>? = null
-    private var event: SparseArray<Function<T>>? = null
-    private var longevent: SparseArray<LongFunction<T>>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RVViewHolder {
-        val inflater = LayoutInflater.from(context)
-        val binding: ViewDataBinding = DataBindingUtil.inflate(inflater, viewType, parent, false)
-        return RVViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindViewHolder {
+        return BaseBindItem.createViewHolder(parent,viewType)
     }
 
     override fun getItemCount(): Int {
@@ -80,19 +51,20 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
     }
 
     override fun getItemViewType(position: Int): Int {
-        return viewMap?.layoutId(list!![position]) ?: layoutId
+        return getItem(position).viewType
     }
 
-    override fun onBindViewHolder(holder: RVViewHolder, position: Int) {
-        holder.bindTo(list!![position])
+    override fun onBindViewHolder(holder: BaseBindViewHolder, position: Int) {
+        getItem(position).bind(holder,position)
     }
 
-    override fun onBindViewHolder(holder: RVViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.size > 0) {
-            holder.payloadsbindTo(list!![position])
-        } else {
-            onBindViewHolder(holder, position)
+    override fun onViewRecycled(holder: BaseBindViewHolder) {
+        super.onViewRecycled(holder)
+        val position = holder.adapterPosition
+        if (position < 0 || position >= itemCount) {
+            return
         }
+        getItem(position).onViewRecycled(holder)
     }
 
     @SuppressLint("StaticFieldLeak", "CheckResult")
@@ -144,95 +116,9 @@ open class BaseAdapter <T>() : RecyclerView.Adapter<BaseAdapter<T>.RVViewHolder>
         }
     }
 
-    fun setList(update: MutableList<T>?, needDiff: Boolean) {
-        if (needDiff) {
-            setList(update, null)
-        } else {
-            if (update == null) {
-                this.list = ArrayList()
-            } else {
-                this.list = update
-            }
-            notifyItemRangeChanged(0, list!!.size, list)
-        }
-    }
-
-    fun addList(@IntRange(from = 0) position: Int, add: Collection<T>?) {
-        if (add != null && add.isNotEmpty()) {
-            list!!.addAll(position, add)
-            notifyItemRangeInserted(position, add.size)
-        }
-    }
-
-    fun addList(add: Collection<T>?) {
-        if (add != null && add.isNotEmpty()) {
-            list!!.addAll(add)
-            notifyItemRangeInserted(list!!.size - add.size, add.size)
-        }
-    }
-
-    fun addData(index: Int, add: T) {
-        list!!.add(index, add)
-        notifyDataChanged()
-    }
-
-    fun addData(add: T) {
-        list!!.add(add)
-        notifyDataChanged(add)
-    }
-
     fun remove(index: Int) {
         this.list!!.removeAt(index)
         notifyItemRangeRemoved(index, 1)
-    }
-
-    fun remove(del: T) {
-        if (this.list!!.contains(del)) {
-            remove(this.list!!.indexOf(del))
-        }
-    }
-
-    fun notifyDataChanged(t: T) {
-        if (list!!.contains(t)) {
-            notifyItemChanged(list!!.indexOf(t), list!![list!!.indexOf(t)])
-        }
-    }
-
-    fun notifyDataChanged() {
-        notifyItemRangeChanged(0, list!!.size, list)
-    }
-
-    inner class RVViewHolder(var binding: ViewDataBinding) : BaseViewHolder(binding.root) {
-
-        fun bindTo(value: T) {
-            binding.setVariable(variableId, value)
-            for (i in 0 until event!!.size()) {
-                binding.setVariable(event!!.keyAt(i), event!!.valueAt(i))
-            }
-            for (i in 0 until longevent!!.size()) {
-                binding.setVariable(longevent!!.keyAt(i), longevent!!.valueAt(i))
-            }
-            binding.executePendingBindings()
-        }
-
-        fun payloadsbindTo(value: T) {
-            binding.setVariable(variableId, value)
-            for (i in 0 until event!!.size()) {
-                binding.setVariable(event!!.keyAt(i), event!!.valueAt(i))
-            }
-            for (i in 0 until longevent!!.size()) {
-                binding.setVariable(longevent!!.keyAt(i), longevent!!.valueAt(i))
-            }
-            binding.executePendingBindings()
-        }
-    }
-
-    fun addEvent(variableId: Int, function: Function<T>) {
-        event!!.put(variableId, function)
-    }
-
-    fun addLongEvent(variableId: Int, function: LongFunction<T>) {
-        longevent!!.put(variableId, function)
     }
 
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.kotlinstrong.stronglib.base.BaseActivity
 import com.kotlinstrong.stronglib.base.BaseViewModel
 
-abstract class BaseBindAvtivity<VM : BaseViewModel> : BaseActivity() , LifecycleObserver {
+abstract class BaseBindActivity<VM : BaseViewModel> : BaseActivity() , LifecycleObserver {
 
     lateinit var mViewModel: VM//lateinit : 编译期在检查时不要因为属性变量未被初始化而报错
     /** base model */

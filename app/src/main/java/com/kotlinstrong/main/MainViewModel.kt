@@ -45,7 +45,6 @@ class MainViewModel : BaseViewModel() {
 
     fun getAppMenuList(): MutableList<AppMenuBean>{
         val list: MutableList<AppMenuBean> = ArrayList<AppMenuBean>()
-        list.add(AppMenuBean(null,AppMenuBean.TYPE_AD,0,getAdsList()))
 
         list.add(AppMenuBean("Jni相关",AppMenuBean.TYPE_TITLE,0,null))
         list.add(AppMenuBean("文件加密",AppMenuBean.TYPE_MENU,R.mipmap.icon_app_encrypt,null))
