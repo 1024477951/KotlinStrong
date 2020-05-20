@@ -26,8 +26,8 @@ class BannerBindItem(@LayoutRes layoutId: Int) : BaseBindItem(layoutId) {
         val url = observableField.get()
 
         binding.data = url
-        binding.click = object : Function<Article>{
-            override fun call(view: View, t: Article) {
+        binding.click = object : Function<String>{
+            override fun call(view: View, t: String) {
                 ToastUtils.showShort("banner click success")
             }
         }
