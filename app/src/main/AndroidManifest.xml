@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kotlinstrong">
+        package="com.kotlinstrong">
 
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,16 +22,17 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
-        android:name=".stronglib.base.BaseApp"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="${APP_NAME}"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true">
+            android:name=".stronglib.base.BaseApp"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="${APP_NAME}"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true">
         <activity
-            android:name=".splash.SplashActivity"
-            android:configChanges="uiMode"
-            android:theme="@style/splashTheme">
+                android:name=".splash.SplashActivity"
+                android:configChanges="uiMode"
+                android:launchMode="singleTop"
+                android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,21 +40,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".main.MainActivity"
-            android:configChanges="uiMode"
-            android:label="首页"
-            android:theme="@style/AppTheme" />
+                android:name=".main.MainActivity"
+                android:configChanges="uiMode"
+                android:label="首页"
+                android:launchMode="singleTop"
+                android:theme="@style/AppTheme" />
         <activity
-            android:name=".login.LoginActivity"
-            android:configChanges="uiMode"
-            android:label="登录"
-            android:launchMode="singleTask"
-            android:theme="@style/AppTheme" />
+                android:name=".login.LoginActivity"
+                android:configChanges="uiMode"
+                android:label="登录"
+                android:launchMode="singleTop"
+                android:theme="@style/AppTheme" />
         <activity
-            android:name=".option.OptionsActivity"
-            android:configChanges="uiMode"
-            android:label="详情"
-            android:theme="@style/AppTheme" />
+                android:name=".option.OptionsActivity"
+                android:configChanges="uiMode"
+                android:label="详情"
+                android:launchMode="singleTop"
+                android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

@@ -2,7 +2,6 @@ package com.kotlinstrong.splash
 
 import android.os.Bundle
 import android.os.Handler
-import com.blankj.utilcode.util.ActivityUtils
 import com.kotlinstrong.R
 import com.kotlinstrong.main.MainActivity
 import com.kotlinstrong.stronglib.base.BaseActivity
@@ -13,7 +12,7 @@ class SplashActivity : BaseActivity() {
 
     override fun initData(bundle: Bundle?) {
         Handler().postDelayed({
-            ActivityUtils.startActivity(MainActivity::class.java)
+            MainActivity.startMainActivity()
             finish()
         }, 500)
     }
