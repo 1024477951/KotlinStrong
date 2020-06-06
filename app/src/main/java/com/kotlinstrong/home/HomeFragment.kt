@@ -29,8 +29,8 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    private var mAdapter: BaseAdapter<BaseBindItem>? = null
-    private var root: View? = null
+    private lateinit var mAdapter: BaseAdapter<BaseBindItem>
+    private lateinit var root: View
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
@@ -62,7 +62,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
     }
 
     private fun setArticles(articleList: ArticleList) {
-        root!!.visibility = View.GONE
+        root.visibility = View.GONE
 
         val list: MutableList<BaseBindItem> = ArrayList()
         list.add(ArticleHeadBindItem(mViewModel.getAdsList()))
@@ -74,7 +74,7 @@ class HomeFragment : TabFragment<MainViewModel>() ,OnRefreshLoadMoreListener{
             }
         }
 
-        mAdapter!!.setNewList(list)
+        mAdapter.setNewList(list)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

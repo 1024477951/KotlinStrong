@@ -22,8 +22,8 @@ class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeLi
         }
     }
 
-    private var menus: SparseArray<CheckBox>? = SparseArray()
-    private var adapter: BounceAdapter? = null
+    private var menus: SparseArray<CheckBox> = SparseArray()
+    private lateinit var adapter: BounceAdapter
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
@@ -76,7 +76,7 @@ class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeLi
     private fun addTab(view: View, position: Int) {
         val checkBox = view.findViewWithTag<CheckBox>("check")
         checkBox.isChecked = false
-        menus!!.put(position, checkBox)
+        menus.put(position, checkBox)
     }
 
 
@@ -84,10 +84,10 @@ class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeLi
      * 选择菜单
      */
     private fun select(position: Int) {
-        if (menus!!.get(position).isChecked)
+        if (menus.get(position).isChecked)
             return //防止执行多次
-        for (i in 0 until menus!!.size()) {
-            val box = menus!!.get(i) ?: continue
+        for (i in 0 until menus.size()) {
+            val box = menus.get(i) ?: continue
             box.isChecked = (i == position)
         }
         viewPager.setCurrentItem(position, false)
@@ -115,8 +115,7 @@ class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeLi
 
     override fun onDestroy() {
         super.onDestroy()
-        menus!!.clear()
-        menus = null
+        menus.clear()
     }
 
 }

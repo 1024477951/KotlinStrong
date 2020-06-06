@@ -12,7 +12,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected var tag: String = javaClass.simpleName
 
-    var context:Context? = null
+    lateinit var context:Context
 
     /**
      *  加载布局

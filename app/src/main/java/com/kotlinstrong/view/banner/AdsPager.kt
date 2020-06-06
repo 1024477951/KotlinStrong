@@ -10,9 +10,9 @@ import com.kotlinstrong.stronglib.bean.BaseBindItem
 
 open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
 
-    private var mAdapter: BaseAdapter<BaseBindItem>? = null
+    private lateinit var mAdapter: BaseAdapter<BaseBindItem>
     private var isLoop: Boolean = false
-    private var layoutMan: LoopLayoutManager? = null
+    private lateinit var layoutMan: LoopLayoutManager
     private var loopTime: Long = 2000
     private var position: Int = 0
 
@@ -21,7 +21,7 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
     private var mHandler = Handler(Handler.Callback {
         false
     })
-    private var runnable: Runnable? = null
+    private lateinit var runnable: Runnable
 
     init {
         init()
@@ -43,11 +43,11 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
                 smoothMoveToPosition(position)
                 ++position
             }
-            mHandler!!.postDelayed(runnable,loopTime)
+            mHandler.postDelayed(runnable,loopTime)
         }
         if (!isLoop) {//预防多次启动
             startLoop()
-            mHandler!!.postDelayed(runnable,loopTime)
+            mHandler.postDelayed(runnable,loopTime)
         }
 //        LogUtils.e("AdsPager","init startTime $loopTime")
     }
@@ -81,7 +81,7 @@ open class AdsPager(context: Context, attrs: AttributeSet?) : RecyclerView(conte
         for (url in items){
             list.add(BannerBindItem(url))
         }
-        mAdapter!!.setNewList(list)
+        mAdapter.setNewList(list)
     }
 
     /**

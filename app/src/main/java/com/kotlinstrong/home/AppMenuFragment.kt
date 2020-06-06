@@ -46,7 +46,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    private var mAdapter: BaseAdapter<BaseBindItem>? = null
+    private lateinit var mAdapter: BaseAdapter<BaseBindItem>
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
@@ -65,12 +65,12 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
                 else -> list.add(MenuContentBindItem(data,click))
             }
         }
-        mAdapter!!.setNewList(list)
+        mAdapter.setNewList(list)
 
         val gridLayoutManager = GridLayoutManager(context,3)
         gridLayoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
-                val bean = mAdapter!!.getItem(position)
+                val bean = mAdapter.getItem(position)
                 var size: Int//根据类型返回不同长度的显示
                 size = when {
                     bean is ArticleHeadBindItem || bean is MenuTitleBindItem -> 3
