@@ -40,10 +40,6 @@ class MainActivity : BaseBindActivity<MainViewModel>(), ViewPager.OnPageChangeLi
         addTab(contact, 1)
         addTab(dynamic, 2)
         addTab(me, 3)
-
-        testAspect()
-        testAfterReturning()
-
     }
 
     fun testAspect(){}

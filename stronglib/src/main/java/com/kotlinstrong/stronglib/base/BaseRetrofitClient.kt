@@ -5,16 +5,13 @@ import com.blankj.utilcode.util.Utils
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.kotlinstrong.stronglib.BuildConfig
+import com.kotlinstrong.stronglib.factory.LiveDataCallAdapterFactory
 import com.kotlinstrong.stronglib.util.http.InterceptorFactory
-import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.CookieJar
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.net.Proxy
@@ -29,14 +26,12 @@ abstract class BaseRetrofitClient {
     private val client by lazy {
         val cacheFile = File(Utils.getApp().cacheDir, "app_caheData")
         //设置缓存大小
-        val cache = Cache(cacheFile, (1024 * 1024 * 14).toLong())//google建议放到这里
+        val cache = Cache(cacheFile, (1024 * 1024 * 14).toLong())//google建议放到这里 缓存14M
         val cookieJar: CookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(
             Utils.getApp()))
 
         var client = OkHttpClient.Builder()
-        if (addInterceptor() != null){//扩展拦截器
-            client.addInterceptor(addInterceptor())
-        }
+        client.addInterceptor(addInterceptor())
         client
             .writeTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
             .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
@@ -44,6 +39,7 @@ abstract class BaseRetrofitClient {
             .cache(cache)//添加缓存
             .cookieJar(cookieJar)
             .addInterceptor(InterceptorFactory.LogInterceptor())
+//            .addNetworkInterceptor()
             .proxy(Proxy.NO_PROXY)//避免被抓包
             .build()
     }
@@ -56,7 +52,7 @@ abstract class BaseRetrofitClient {
             .client(client)
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
     }
 }

@@ -17,7 +17,7 @@ class EncryptUtils {
             System.loadLibrary("Signature")
         }
 
-        val path = Utils.getApp().getExternalFilesDir("").absolutePath + File.separator
+        val path = Utils.getApp().getExternalFilesDir("")!!.absolutePath + File.separator
 
         /** 创建文件 */
         @JvmStatic

@@ -45,7 +45,7 @@ class BatteryUtils {
          * 跳转到指定应用的首页
          */
         private fun showActivity(packageName: String) {
-            val intent: Intent = Utils.getApp().packageManager.getLaunchIntentForPackage(packageName)
+            val intent: Intent? = Utils.getApp().packageManager.getLaunchIntentForPackage(packageName)
             Utils.getApp().startActivity(intent)
         }
 

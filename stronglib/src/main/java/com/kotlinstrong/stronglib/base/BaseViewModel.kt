@@ -1,8 +1,6 @@
 package com.kotlinstrong.stronglib.base
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -131,18 +129,8 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
         }
     }
 
-    fun Context.openBrowser(url: String) {
-        Intent(Intent.ACTION_VIEW, Uri.parse(url)).run { startActivity(this) }
-    }
-
-    suspend fun executeResponse(response: BaseResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
-                                errorBlock: suspend CoroutineScope.() -> Unit) {
-        coroutineScope {
-            if (response.code != 200)
-                errorBlock()
-            else
-                successBlock()
-        }
+    override fun onCleared() {
+        super.onCleared()
     }
 
     /**

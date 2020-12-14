@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatCheckBox
  * 首页菜单按钮
  */
 open class BounceView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
-    AppCompatCheckBox(context, attrs, defStyleAttr) {
+    AppCompatCheckBox(context!!, attrs, defStyleAttr) {
 
     init {
         init()

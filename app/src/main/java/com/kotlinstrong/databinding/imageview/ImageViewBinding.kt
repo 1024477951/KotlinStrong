@@ -7,17 +7,7 @@ import com.kotlinstrong.stronglib.util.glide.GlideAppUtils
 
 /**  ImageView 视图绑定 */
 
-@BindingAdapter("load_resId")
-fun loadResId(imageView: ImageView, resId: Int){
+@BindingAdapter("setResId")
+fun setResId(imageView: ImageView, resId: Int){
     GlideAppUtils.load(imageView, resId, R.mipmap.empty)
-}
-
-@BindingAdapter("article_url")
-fun setArticleUrl(imageView: ImageView, url: String?){
-    url?.let { GlideAppUtils.load(imageView, it, R.mipmap.empty) }
-}
-
-@BindingAdapter("article_ads_src")
-fun setArticleAdsSrc(imageView: ImageView, url: String?){
-    url?.let { GlideAppUtils.load(imageView, it, R.mipmap.empty) }
 }

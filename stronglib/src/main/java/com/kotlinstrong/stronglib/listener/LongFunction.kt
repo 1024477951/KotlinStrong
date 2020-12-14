@@ -2,6 +2,6 @@ package com.kotlinstrong.stronglib.listener
 
 import android.view.View
 
-interface LongFunction<T> {
-    fun call(view: View, t: T): Boolean
+interface LongFunction {
+    fun longClick(view: View, position: Int): Boolean
 }

@@ -11,32 +11,23 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.blankj.utilcode.util.ActivityUtils
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.kotlinstrong.BR
 import com.kotlinstrong.R
 import com.kotlinstrong.base.TabFragment
 import com.kotlinstrong.bean.AppMenuBean
-import com.kotlinstrong.bean.Article
-import com.kotlinstrong.bean.ArticleList
-import com.kotlinstrong.home.item.ArticleHeadBindItem
 import com.kotlinstrong.home.item.MenuContentBindItem
 import com.kotlinstrong.home.item.MenuTitleBindItem
 import com.kotlinstrong.main.MainViewModel
-import com.kotlinstrong.option.OptionsActivity
 import com.kotlinstrong.stronglib.base.BaseAdapter
 import com.kotlinstrong.stronglib.bean.BaseBindItem
+import com.kotlinstrong.stronglib.binding.BaseBindViewHolder
 import com.kotlinstrong.stronglib.cutil.EncryptUtils
 import com.kotlinstrong.stronglib.listener.Function
-import com.kotlinstrong.stronglib.listener.LongFunction
-import com.kotlinstrong.stronglib.listener.ViewMap
 import com.kotlinstrong.stronglib.util.system.BatteryUtils
 import com.kotlinstrong.utils.aspect.MyAnnotationOnclick
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.layout_head_ads.*
+import kotlinx.android.synthetic.main.fragment_app_menu.*
 
 class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener {
 
@@ -46,23 +37,21 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
 
-    private lateinit var mAdapter: BaseAdapter<BaseBindItem>
+    private var mAdapter: BaseAdapter<BaseBindItem> = BaseAdapter()
 
     override fun initData(bundle: Bundle?) {
         super.initData(bundle)
 
-        mAdapter = BaseAdapter()
         recyclerView.adapter = mAdapter
         refreshLayout.setOnRefreshLoadMoreListener(this)
 
         val dataList = mViewModel.getAppMenuList()
 
         val list = ArrayList<BaseBindItem>()
-        list.add(ArticleHeadBindItem(mViewModel.getAdsList()))
         for (data in dataList){
             when(data.type){
                 AppMenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))
-                else -> list.add(MenuContentBindItem(data,click))
+                else -> list.add(MenuContentBindItem(data))
             }
         }
         mAdapter.setNewList(list)
@@ -73,7 +62,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
                 val bean = mAdapter.getItem(position)
                 var size: Int//根据类型返回不同长度的显示
                 size = when {
-                    bean is ArticleHeadBindItem || bean is MenuTitleBindItem -> 3
+                    bean is MenuTitleBindItem -> 3
                     else -> 1
                 }
                 return size
@@ -90,7 +79,7 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
     }
 
     fun checkFilePermission(): Boolean{
-        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE ) !== PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE ) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
                 return false
@@ -142,15 +131,13 @@ class AppMenuFragment : TabFragment<MainViewModel>() , OnRefreshLoadMoreListener
 
     override fun onDestroy() {
         super.onDestroy()
-        if(pager_ads != null){
-            pager_ads.onDestory()
-        }
     }
 
-    private val click = object : Function<AppMenuBean> {
+    private val click = object : Function {
         @MyAnnotationOnclick
-        override fun call(view: View, t: AppMenuBean) {
-            when(t.resId){
+        override fun click(view: View, position: Int) {
+            val bean : AppMenuBean = mAdapter.getItem(position) as AppMenuBean
+            when(bean.resId){
                 R.mipmap.icon_app_encrypt ->
                     if (checkFilePermission()){
                         EncryptUtils.test()

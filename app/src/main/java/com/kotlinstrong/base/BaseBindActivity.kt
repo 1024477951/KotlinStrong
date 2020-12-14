@@ -23,6 +23,7 @@ abstract class BaseBindActivity<VM : BaseViewModel> : BaseActivity() , Lifecycle
     private fun initVM() {
         providerVMClass()?.let {
             mViewModel = ViewModelProviders.of(this).get(it)
+            //让ViewModel拥有View的生命周期感应
             mViewModel.let(lifecycle::addObserver)
         }
     }

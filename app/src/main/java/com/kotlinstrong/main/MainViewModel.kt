@@ -1,6 +1,8 @@
 package com.kotlinstrong.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
 import com.kotlinstrong.R
@@ -10,7 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.kotlinstrong.bean.ArticleList
 import com.kotlinstrong.bean.LoginBean
-import com.kotlinstrong.utils.aspect.MyAnnotationTime
+import com.kotlinstrong.stronglib.base.BaseResponse
+import com.kotlinstrong.stronglib.factory.ApiResponse
 
 class MainViewModel : BaseViewModel() {
 
@@ -18,19 +21,12 @@ class MainViewModel : BaseViewModel() {
 
     private val repository by lazy { MainRepository() }
 
-    val mArticleList: MutableLiveData<ArticleList> = MutableLiveData()
-
     val loginLiveData: MutableLiveData<LoginBean> = MutableLiveData()
 
-    @MyAnnotationTime
-    fun getArticleList(page: Int) {
+    fun searchRepos(){
         launch {
-            val result = withContext(Dispatchers.IO) { repository.getArticleList(page) }
-            executeResponse(
-                result,
-                { mArticleList.postValue(result.data) },
-                { mArticleList.postValue(result.data) }
-            )
+            val result = withContext(Dispatchers.IO) { repository.searchRepos() }
+            LogUtils.d(result)
         }
     }
     /** 模拟请求数据 */
@@ -79,9 +75,6 @@ class MainViewModel : BaseViewModel() {
     }
 
     fun login() {
-        launch {
-            val result = withContext(Dispatchers.IO) { repository.login() }
-            executeResponse(result, { loginLiveData.postValue(result.data) }, { LogUtils.e(tag, GsonUtils.toJson(result)) })
-        }
+
     }
 }

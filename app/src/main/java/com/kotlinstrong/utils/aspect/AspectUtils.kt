@@ -13,78 +13,78 @@ import org.aspectj.lang.reflect.MethodSignature
 @Aspect
 class AspectUtils {
 
-    @Before("execution(* com.kotlinstrong.main.MainActivity.test*(..))")
-    fun testAspectBefore(point: JoinPoint) {
-        LogUtils.d("AspectUtils ${point.signature.name} ---testAspectBefore")
-    }
-
-    @AfterReturning("execution(* com.kotlinstrong.main.MainActivity.test*(..))", returning = "id")
-    fun testAspectAfterReturning(point: JoinPoint, id: Int) {
-        LogUtils.d("AspectUtils ${point.signature.name} ---testAspectAfterReturning $id")
-    }
-
-    /** 耗时统计 start ------------------------------------ **/
-    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationTime * *(..))")
-    fun methodTime(){}
-
-    @Around("methodTime()")
-    @Throws(Throwable::class)
-    fun aroundTimePoint(joinPoint: ProceedingJoinPoint) {
-        val methodSignature = joinPoint.signature as MethodSignature
-        val method = methodSignature.method
-        if (!method.isAnnotationPresent(MyAnnotationTime::class.java)) {
-            return
-        }
-        val time = System.currentTimeMillis()
-        joinPoint.proceed()
-        val millis = System.currentTimeMillis() - time
-        LogUtils.d("AspectUtils ${joinPoint.signature.name} millis $millis")
-    }
-    /** 耗时统计 end ------------------------------------ **/
-
-    /** 防抖 start ------------------------------------ **/
-    /*
-     * 定义切点，标记切点为所有被@AopOnclick注解的方法
-     * @+注解全路径
-     */
-    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationOnclick * *(..))")
-    fun methodAnnotated(){}
-    /*
-     * 定义一个切面方法，包裹切点方法
-     * ProceedingJoinPoint：继承自JoinPoint，为了支持Around注解，其他的几种切面只需要用到JoinPoint
-     */
-    @Around("methodAnnotated()")
-    @Throws(Throwable::class)
-    fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
-        // 取出方法的注解,返回连接点处的签名
-        val methodSignature = joinPoint.signature as MethodSignature
-        val method = methodSignature.method
-        //判断注释是否在method上
-        if (!method.isAnnotationPresent(MyAnnotationOnclick::class.java)) {
-            return
-        }
-        val aopOnclick = method.getAnnotation(MyAnnotationOnclick::class.java)
-        // 判断是否快速点击
-        if (!ClickUtils.isFastDoubleClick(aopOnclick.value)) {
-            // 执行原方法
-            joinPoint.proceed()
-        }
-    }
-    /** 防抖 end ------------------------------------ **/
-
-
-    /** 登录 start ------------------------------------ **/
-    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationLogin * *(..))")
-    fun methodLogin(){}
-
-    @Around("methodLogin()")
-    @Throws(Throwable::class)
-    fun aroundLoginPoint(joinPoint: ProceedingJoinPoint) {
-        ToastUtils.showShort("login")
-        //此处判断是否登录，如果没有不执行方法，跳转到登录，如果已经登录只执行原方法
-        joinPoint.proceed()
-        ActivityUtils.startActivity(LoginActivity::class.java)
-    }
+//    @Before("execution(* com.kotlinstrong.main.MainActivity.test*(..))")
+//    fun testAspectBefore(point: JoinPoint) {
+//        LogUtils.d("AspectUtils ${point.signature.name} ---testAspectBefore")
+//    }
+//
+//    @AfterReturning("execution(* com.kotlinstrong.main.MainActivity.test*(..))", returning = "id")
+//    fun testAspectAfterReturning(point: JoinPoint, id: Int) {
+//        LogUtils.d("AspectUtils ${point.signature.name} ---testAspectAfterReturning $id")
+//    }
+//
+//    /** 耗时统计 start ------------------------------------ **/
+//    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationTime * *(..))")
+//    fun methodTime(){}
+//
+//    @Around("methodTime()")
+//    @Throws(Throwable::class)
+//    fun aroundTimePoint(joinPoint: ProceedingJoinPoint) {
+//        val methodSignature = joinPoint.signature as MethodSignature
+//        val method = methodSignature.method
+//        if (!method.isAnnotationPresent(MyAnnotationTime::class.java)) {
+//            return
+//        }
+//        val time = System.currentTimeMillis()
+//        joinPoint.proceed()
+//        val millis = System.currentTimeMillis() - time
+//        LogUtils.d("AspectUtils ${joinPoint.signature.name} 耗时 millis $millis")
+//    }
+//    /** 耗时统计 end ------------------------------------ **/
+//
+//    /** 防抖 start ------------------------------------ **/
+//    /*
+//     * 定义切点，标记切点为所有被@AopOnclick注解的方法
+//     * @+注解全路径
+//     */
+//    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationOnclick * *(..))")
+//    fun methodAnnotated(){}
+//    /*
+//     * 定义一个切面方法，包裹切点方法
+//     * ProceedingJoinPoint：继承自JoinPoint，为了支持Around注解，其他的几种切面只需要用到JoinPoint
+//     */
+//    @Around("methodAnnotated()")
+//    @Throws(Throwable::class)
+//    fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
+//        // 取出方法的注解,返回连接点处的签名
+//        val methodSignature = joinPoint.signature as MethodSignature
+//        val method = methodSignature.method
+//        //判断注释是否在method上
+//        if (!method.isAnnotationPresent(MyAnnotationOnclick::class.java)) {
+//            return
+//        }
+//        val aopOnclick = method.getAnnotation(MyAnnotationOnclick::class.java)
+//        // 判断是否快速点击
+//        if (!ClickUtils.isFastDoubleClick(aopOnclick.value)) {
+//            // 执行原方法
+//            joinPoint.proceed()
+//        }
+//    }
+//    /** 防抖 end ------------------------------------ **/
+//
+//
+//    /** 登录 start ------------------------------------ **/
+//    @Pointcut("execution(@com.kotlinstrong.utils.aspect.MyAnnotationLogin * *(..))")
+//    fun methodLogin(){}
+//
+//    @Around("methodLogin()")
+//    @Throws(Throwable::class)
+//    fun aroundLoginPoint(joinPoint: ProceedingJoinPoint) {
+//        ToastUtils.showShort("login")
+//        //此处判断是否登录，如果没有不执行方法，跳转到登录，如果已经登录只执行原方法
+//        joinPoint.proceed()
+//        ActivityUtils.startActivity(LoginActivity::class.java)
+//    }
     /** 登录 end ------------------------------------ **/
 
     /**

@@ -9,12 +9,16 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.kotlinstrong.stronglib.binding.BaseBindViewHolder
+import com.kotlinstrong.stronglib.listener.Function
+import com.kotlinstrong.stronglib.listener.LongFunction
 
 abstract class BaseBindItem {
 
     val viewType: Int
+    private var function: Function? = null
+    private var longFunction: LongFunction? = null
 
-    abstract fun onBindViewHolder(holder: BaseBindViewHolder, position: Int)
+    abstract fun onBindViewHolder(position: Int)
 
     constructor(@LayoutRes layoutId: Int) {
         viewType = layoutId.hashCode() + this.hashCode()
@@ -46,15 +50,38 @@ abstract class BaseBindItem {
     }
 
     fun bind(holder: BaseBindViewHolder, position: Int) {
-        onBindViewHolder(holder,position)
+        onBindViewHolder(position)
+        if (function != null){
+            holder.itemView.setOnClickListener {
+                function?.click(it, position)
+            }
+        }else{
+            holder.itemView.setOnClickListener(null)
+        }
+        if (longFunction != null){
+            holder.itemView.setOnLongClickListener {
+                longFunction?.longClick(it, position)
+                return@setOnLongClickListener false
+            }
+        }else{
+            holder.itemView.setOnLongClickListener(null)
+        }
+    }
+
+    fun setFunction(function: Function?){
+        this.function = function
+    }
+    fun setLongFunction(function: LongFunction?){
+        this.longFunction = function
     }
 
     /** 确认被回收，且要放进 RecyclerViewPool 中前 */
-    fun onViewRecycled(holder: BaseBindViewHolder){}
+    fun onViewRecycled() {}
 
     /** --RecyclerView 回收机制--
         RecyclerView 在工作时会先将移出屏幕的 ViewHolder 放进一级缓存中，当一级缓存空间已满才会考虑将一级缓存中已有的 ViewHolder 移到 RecyclerViewPool 中去
         所以，并不是所有刚被移出屏幕的 ViewHoder 都会回调该方法
         官方建议我们可以在这里释放一些耗内存资源的工作，如 bitmap
      */
+
 }

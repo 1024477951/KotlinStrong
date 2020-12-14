@@ -1,14 +1,11 @@
 package com.kotlinstrong.stronglib.base
 
-import android.annotation.SuppressLint
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlinstrong.stronglib.bean.BaseBindItem
 import com.kotlinstrong.stronglib.binding.BaseBindViewHolder
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.kotlinstrong.stronglib.listener.Function
+import com.kotlinstrong.stronglib.listener.LongFunction
 
 /** recyclerView绑定适配器 * */
 open class BaseAdapter<T : BaseBindItem> : RecyclerView.Adapter<BaseBindViewHolder> {
@@ -29,10 +26,22 @@ open class BaseAdapter<T : BaseBindItem> : RecyclerView.Adapter<BaseBindViewHold
         this.list = ArrayList<T>()
     }
 
-    /** 首次加载数据 */
+    /** 替换数据源 */
     fun setNewList(newList: MutableList<T>) {
         this.list = newList
         notifyDataSetChanged()
+    }
+
+    fun addItems(list: MutableList<T>){
+        this.list?.addAll(list)
+        notifyItemRangeInserted(itemCount - list.size - 1, list.size)
+    }
+
+    fun addItem(bean: T?){
+        if (bean != null) {
+            list?.add(bean)
+            notifyItemInserted(itemCount - 1)
+        }
     }
 
     protected var list: MutableList<T>? = null
@@ -64,61 +73,7 @@ open class BaseAdapter<T : BaseBindItem> : RecyclerView.Adapter<BaseBindViewHold
         if (position < 0 || position >= itemCount) {
             return
         }
-        getItem(position).onViewRecycled(holder)
-    }
-
-    @SuppressLint("StaticFieldLeak", "CheckResult")
-    fun setList(update: MutableList<T>?, runnable: Runnable?) {
-        dataVersion++
-        if (update == null) {
-            val oldSize = list!!.size
-            list = ArrayList<T>()
-            notifyItemRangeRemoved(0, oldSize)
-        } else {
-            val startVersion = dataVersion
-            val oldItems = ArrayList<T>(list as ArrayList)
-            Observable.just(DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-                override fun getOldListSize(): Int {
-                    return oldItems.size
-                }
-
-                override fun getNewListSize(): Int {
-                    return update.size
-                }
-
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    val oldItem = oldItems[oldItemPosition]
-                    val newItem = update[newItemPosition]
-                    return oldItem != null && oldItem == newItem
-                }
-
-                override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    val oldItem = oldItems[oldItemPosition]
-                    val newItem = update[newItemPosition]
-                    //判断item的内容是否有变化,我的理解是只有notifyItemRangeChanged()才会调用
-                    return oldItem != null && oldItem == newItem
-                }
-            })).subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { diffResult ->
-                    if (startVersion != dataVersion) {
-                        return@subscribe
-                    }
-                    list = ArrayList(update)
-                    diffResult.dispatchUpdatesTo(this@BaseAdapter)
-                    /*
-                     * public static DiffResult calculateDiff(Callback cb, boolean detectMoves)
-                     * 设置给Adapter之前，先调用DiffUtil.calculateDiff()方法，计算出新老数据集转化的最小更新集
-                     * 第一个参数是DiffUtil.Callback对象
-                     * 第二个参数代表是否检测Item的移动，改为false算法效率更高
-                     */
-                    runnable?.run()//更新ui
-                }
-        }
-    }
-
-    fun remove(index: Int) {
-        this.list!!.removeAt(index)
-        notifyItemRangeRemoved(index, 1)
+        getItem(position).onViewRecycled()
     }
 
 }

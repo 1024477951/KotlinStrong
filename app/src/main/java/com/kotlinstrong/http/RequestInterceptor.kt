@@ -20,7 +20,7 @@ class RequestInterceptor: Interceptor {
         LogUtils.d("RequestInterceptor","Device "+"Android:"+DeviceUtils.getAndroidID())
         //从request中获取headers，通过给定的键url_name
         val headerValues = request.headers("url_head")
-        if(headerValues != null && headerValues.isNotEmpty()) {
+        if(headerValues.isNotEmpty()) {
             //如果有这个header，先将配置的header删除，因此header仅用作app和okhttp之间使用
             requestBuilder.removeHeader("url_head")
             //匹配获得新的BaseUrl

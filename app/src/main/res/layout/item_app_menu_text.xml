@@ -4,8 +4,8 @@
 
     <data>
         <variable
-                name="data"
-                type="com.kotlinstrong.bean.AppMenuBean" />
+                name="item"
+                type="com.kotlinstrong.home.item.MenuTitleBindItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/d42.0"
-                android:text="@{data.title}"
+                android:text="@{item.titleField}"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/d43.0"
                 android:textStyle="bold"
