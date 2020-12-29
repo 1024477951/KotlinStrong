@@ -1,7 +1,10 @@
-include ':stronglib'
+//include ':stronglib'
 
 def openApp = Integer.parseInt(openApp)
 def isOpenAppAll = Boolean.parseBoolean(isOpenAppAll)
 if (openApp == 1 || isOpenAppAll) {
-    include ":app"
+    include ':app'
+}
+if (openApp == 2 || isOpenAppAll) {
+    include ':yoojin'
 }

@@ -1,0 +1,2 @@
+com/strong/ui/BuildConfig.java
+ com.strong.ui.BuildConfig

@@ -1,19 +1,20 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from : "config.gradle"
+import com.config.Versions
+
 buildscript {
     repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
-        maven { url "https://jitpack.io" }
-        maven { url 'https://maven.google.com' }
-        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
-        jcenter()
         google()
-        mavenCentral()
+        jcenter()
+//        maven { url uri('./repo') }
+//        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+//        maven { url "https://jitpack.io" }
+//        maven { url 'https://maven.google.com' }
+//        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+//        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20"
-        classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6"
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
+        //classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,12 +22,13 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'https://maven.google.com' }
-        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
-        jcenter()
-        mavenCentral()
         google()
-        maven { url "https://jitpack.io" }
+        jcenter()
+//        maven { url "https://jitpack.io" }
+//        maven { url uri('./repo') }
+//        maven { url 'https://maven.google.com' }
+//        maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
+//        mavenCentral()
     }
 }
 

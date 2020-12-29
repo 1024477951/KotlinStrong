@@ -35,7 +35,7 @@ object TabsHelper {
             if (fragment == null) {
                 fragment = tab.clazz.newInstance()
             }
-            fragment.attachTabData(tab)
+            fragment?.attachTabData(tab)
             arr.put(tab.tabIndex, SoftReference(fragment))
         }
     }
