@@ -11,7 +11,7 @@ android {
     buildToolsVersion Versions.buildTools
 
     defaultConfig {
-        int workType = Integer.parseInt(networkEnvironment)
+        int workType = 1
         if (workType == 0){
             APP_NAME = "KotlinStrong"
             PKGNAME_NAME = "com.kotlinstrong.yoojin"

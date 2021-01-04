@@ -1,7 +1,5 @@
-//include ':stronglib'
-
-def openApp = Integer.parseInt(openApp)
-def isOpenAppAll = Boolean.parseBoolean(isOpenAppAll)
+def openApp = 2
+def isOpenAppAll = false
 if (openApp == 1 || isOpenAppAll) {
     include ':app'
 }
