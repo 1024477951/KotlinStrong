@@ -1,39 +1,94 @@
 import com.config.Versions
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
 }
 
-def APP_NAME = "KotlinStrong"
-def PKGNAME_NAME
+def APP_NAME
+def PKGNAME
+def versionType
+
 android {
+
+    signingConfigs {
+        config {
+            keyAlias 'yoojin'
+            keyPassword '123456'
+            storeFile file('../jks/yoojin.jks')
+            storePassword '123456'
+        }
+    }
+
     compileSdkVersion Versions.compileSdk
     buildToolsVersion Versions.buildTools
 
     defaultConfig {
+        //#0=生产环境|1=测试环境
         int workType = 1
         if (workType == 0){
-            APP_NAME = "KotlinStrong"
-            PKGNAME_NAME = "com.kotlinstrong.yoojin"
-        }else if (workType == 1){
-            APP_NAME = "KotlinStrongTest"
-            PKGNAME_NAME = "com.kotlinstrong.yoojin.test"
+            PKGNAME = "com.kotlinstrong.yoojin"
+            versionType = "release"
+            buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
+        }else{
+            PKGNAME = "com.kotlinstrong.yoojin.test"
+            versionType = "test"
+            buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
         }
-        applicationId PKGNAME_NAME
+        APP_NAME = "KtxApp-"+versionType
+        applicationId PKGNAME
         minSdkVersion Versions.minSdk
         targetSdkVersion Versions.targetSdk
         versionCode Versions.versionCode
         versionName Versions.versionName
+
+        resConfigs('zh-rCN')//避免生成不必要的资源文件（默认是英语，不能剔除）
+
         manifestPlaceholders = [
-                PKGNAME_NAME: PKGNAME_NAME,// 包名
+                PKGNAME_NAME: PKGNAME,// 包名
                 APP_NAME    : APP_NAME,//  app名称
         ]
+        ndk {//externalNativeBuildDebug
+            /** CPU类型
+             * armeabiv-v7a: 第7代及以上的ARM处理器;
+             * arm64-v8a: 第8代、64位ARM处理器;
+             * armeabi: 第5代、第6代的ARM处理器;（平台不支持）
+             * mips:一种RISC处理器。（平台不支持）
+             * mips64:64位的。（平台不支持）
+             * x86: 平板;
+             * x86_64:64位的平板
+             * */
+            boolean isX86 = false
+            if (isX86) {
+                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+            } else {
+                abiFilters 'armeabi-v7a', 'arm64-v8a'
+            }
+        }
+        //矢量图
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
         release {
+            //混淆
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //移除无用的resource文件
+            shrinkResources false
+            //Zipalign优化
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
         }
     }
     compileOptions {
@@ -43,12 +98,20 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        dataBinding = true
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${APP_NAME}-${defaultConfig.versionName}.apk"
+        }
+    }
 }
 
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
-    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "androidx.core:core-ktx:${Versions.core_ktx}"
     implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
     implementation "com.google.android.material:material:${Versions.material}"
     implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
