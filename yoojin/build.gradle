@@ -118,4 +118,9 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
+    //viewmodel
+    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+
+    implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
+
 }
