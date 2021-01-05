@@ -11,7 +11,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/lin_bottom"/>
 
-    <LinearLayout android:id="@+id/lin_bottom"
+    <com.strong.ui.view.menu.BottomMenuView
+        android:id="@+id/lin_bottom"
         android:layout_width="@dimen/d0.0"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -20,91 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/white"
-        android:weightSum="2">
-
-        <RelativeLayout android:id="@+id/rl_home"
-            android:layout_width="@dimen/d0.0"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_bounce_line"
-            android:padding="@dimen/d10.0"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <FrameLayout
-                android:id="@+id/fl_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" >
-
-                <com.strong.ui.view.bounce.BounceView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selected_tab_home"
-                    android:layout_marginTop="@dimen/d15.0"
-                    android:layout_marginLeft="@dimen/d35.0"
-                    android:layout_marginRight="@dimen/d35.0"
-                    android:clickable="false"
-                    android:checked="true"
-                    android:button="@null" />
-
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#696868"
-                android:textSize="@dimen/d30.0"
-                android:layout_below="@+id/fl_home"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/d4.0"
-                android:text="首页"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout android:id="@+id/rl_menu"
-            android:layout_width="@dimen/d0.0"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_bounce_line"
-            android:padding="@dimen/d10.0"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <FrameLayout
-                android:id="@+id/fl_dynamic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" >
-
-                <com.strong.ui.view.bounce.BounceView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/selected_tab_home"
-                    android:layout_marginTop="@dimen/d15.0"
-                    android:layout_marginLeft="@dimen/d35.0"
-                    android:layout_marginRight="@dimen/d35.0"
-                    android:clickable="false"
-                    android:checked="false"
-                    android:button="@null" />
-
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#696868"
-                android:textSize="@dimen/d30.0"
-                android:layout_below="@+id/fl_dynamic"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/d4.0"
-                android:text="菜单"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
+        android:background="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

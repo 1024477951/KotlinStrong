@@ -1,47 +1,59 @@
 package com.strong.ui
 
 import android.os.Bundle
-import android.util.SparseArray
-import android.view.View
-import android.widget.CheckBox
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.strong.ui.base.BaseFragment
+import com.strong.ui.view.menu.BottomMenuView
 
-/**
- * created by YooJin.
- * date: 2020/12/30 14:57
- * desc:
- */
 class TabFragment : BaseFragment() {
 
-    /* 菜单集合 */
-    private var menus: SparseArray<CheckBox> = SparseArray()
+    private lateinit var viewPager: ViewPager2
+    private lateinit var menus: BottomMenuView
+    private val fragmentList = arrayListOf<Fragment>()
+    private val homeFragment by lazy { FirstFragment() }
+    private val menuFragment by lazy { SecondFragment() }
 
     override fun layoutId() = R.layout.fragment_tab
 
     override fun initData(bundle: Bundle?) {
-
+        viewPager = view?.findViewById(R.id.viewPager)!!
+        menus = view?.findViewById(R.id.lin_bottom)!!
+        val list: MutableList<String> = ArrayList()
+        list.add("首页")
+        list.add("菜单")
+        menus.setTitles(list)
+        menus.setCallBack(object : BottomMenuView.CallBack{
+            override fun click(position: Int) {
+                viewPager.setCurrentItem(position, false)
+            }
+        })
+        initViewPager()
     }
 
-    fun click(view: View) {
-        var position = -1
-        when (view.id) {
-            R.id.rl_home -> position = 0
-            R.id.rl_menu -> position = 1
+    private fun initViewPager() {
+        fragmentList.run {
+            add(homeFragment)
+            add(menuFragment)
         }
-        if (position >= 0) select(position)
-    }
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                menus.select(position)
+            }
+        })
+        viewPager.isUserInputEnabled = false
+        viewPager.offscreenPageLimit = 2
+        viewPager.adapter = object : FragmentStateAdapter(this) {
+            override fun createFragment(position: Int) = fragmentList[position]
 
-    /**
-     * 选择菜单
-     */
-    private fun select(position: Int) {
-        if (menus.get(position).isChecked)
-            return //防止执行多次
-        for (i in 0 until menus.size()) {
-            val box = menus.get(i) ?: continue
-            box.isChecked = (i == position)
+            override fun getItemCount() = fragmentList.size
         }
-        //viewPager.setCurrentItem(position, false)
     }
 
 }
