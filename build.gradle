@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${Versions.gradle}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         //classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6"
     }
 }
@@ -16,6 +16,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        //cookie持久化jar包 添加以下语句
+        maven { url "https://jitpack.io" }
     }
 }
 

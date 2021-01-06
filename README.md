@@ -22,6 +22,17 @@ lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和�
                     }
                 }
 #
+#### LiveData
+#
+    LiveData可以通知指定某个字段的数据更新.
+    MutableLiveData整个实体类或者数据类型变化后才通知.
+        postValue():可以在其他线程中调用,主线程执行发布的任务之前多次调用此方法，则仅将分配最后一个值,
+                如果同时调用 .postValue(“a”)和.setValue(“b”)，一定是值b被值a覆盖
+        setValue():此方法只能在主线程里调用
+            
+        observe:关联生命周期,只在活跃状态下更新数据，就是在 onStart()、onPause()、onResume() 这三个生命周期下会回调数据更新
+        observeForever:不会被自动删除,需要手动调用removeObserver以停止，一直处于活动状态，不管是否在前台
+#
 #### SAM 转换
 #
    Single Abstract Method Conversions，只有单个非默认抽象方法接口的转换（在 Java8 中也有这种机制）
@@ -80,7 +91,8 @@ cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.
                 Dispatchers.Unconfined	不限制，使用父Coroutine的现场
                 newSingleThreadContext	使用新的线程 ]
 
-    suspend : ssuspend 方法能够使协程执行暂停，等执行完毕后在返回结果，同时不会阻塞线程。
+    suspend : suspend 挂起，主线程中调用接口执行到withContext时，withContext代码块将被挂起，然后执行后续代码，而挂起函数等于开了一个协程，执行成功后返回
+              suspend 方法能够使协程执行暂停，等执行完毕后在返回结果，同时不会阻塞线程。
               uspend修饰的方法只能在协程里面调用，编译后会增加一个 Continuation 的入参，用于实现回调，然后会在方法里面生成一个 switch 状态机，
               suspend方法的本质是异步返回(注意: 不是异步回调).就是将其拆成 “异步” + “返回”，首先, 数据不是同步回来的(同步指的是立即返回),
               而是异步回来的.其次, 接受数据不需要通过callback, 而是直接接收返回值.

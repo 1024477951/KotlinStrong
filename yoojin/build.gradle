@@ -1,3 +1,4 @@
+import com.config.Switch
 import com.config.Versions
 
 plugins {
@@ -24,9 +25,7 @@ android {
     buildToolsVersion Versions.buildTools
 
     defaultConfig {
-        //#0=生产环境|1=测试环境
-        int workType = 1
-        if (workType == 0){
+        if (Switch.workType == 0){
             PKGNAME = "com.kotlinstrong.yoojin"
             versionType = "release"
             buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
@@ -45,7 +44,7 @@ android {
         resConfigs('zh-rCN')//避免生成不必要的资源文件（默认是英语，不能剔除）
 
         manifestPlaceholders = [
-                PKGNAME_NAME: PKGNAME,// 包名
+                PKGNAME: PKGNAME,// 包名
                 APP_NAME    : APP_NAME,//  app名称
         ]
         ndk {//externalNativeBuildDebug
@@ -58,8 +57,7 @@ android {
              * x86: 平板;
              * x86_64:64位的平板
              * */
-            boolean isX86 = false
-            if (isX86) {
+            if (Switch.isX86) {
                 abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
             } else {
                 abiFilters 'armeabi-v7a', 'arm64-v8a'
@@ -109,18 +107,29 @@ android {
 }
 
 dependencies {
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     implementation "androidx.core:core-ktx:${Versions.core_ktx}"
+    //google
     implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
     implementation "com.google.android.material:material:${Versions.material}"
     implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
-
     //viewmodel
     implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
-
+    //utils
     implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
-
+    //okhttp
+    implementation "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    implementation "com.github.franmontiel:PersistentCookieJar:${Versions.cookie}"
+    //gson
+    implementation "com.google.code.gson:gson:${Versions.gson}"
+    //cymChad
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${Versions.cymChad}"
 }

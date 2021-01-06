@@ -14,7 +14,7 @@ interface ArticleApi {
 //    @JvmSuppressWildcards
     @Headers("url_head:article")
     @GET("/article/list/{page}/json")
-    fun getHomeArticles(@Path("page") page: Int): LiveData<ApiResponse<BaseResponse<ArticleList>>>
+    fun getHomeArticles(@Path("page") page: Int): LiveData<ApiResponse<BaseResponse<MenuBean>>>
 
     @GET("search/repositories")
     suspend fun searchRepos(@Query("q") query: String): LiveData<ApiResponse<RepoSearch>>
