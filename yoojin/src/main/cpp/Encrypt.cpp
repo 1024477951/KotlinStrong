@@ -13,7 +13,7 @@
 /** createFile */
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_createFile(JNIEnv *env, jobject type,
+Java_com_strong_utils_EncryptUtils_createFile(JNIEnv *env, jobject type,
                                                               jstring path_) {
     Logger("createFile path = %s", path_);
     //得到一个UTF-8编码的字符串（java使用 UTF-16 编码的，中文英文都是2字节，jni内部使用UTF-8编码，ascii字符是1字节，中文是3字节）
@@ -38,7 +38,7 @@ char password[] = "123";
 /** encryption */
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_encryption(JNIEnv *env, jclass type,
+Java_com_strong_utils_EncryptUtils_encryption(JNIEnv *env, jclass type,
                                                               jstring normalPath_,
                                                               jstring encryptPath_) {
     //获取字符串保存在JVM中内存中
@@ -86,7 +86,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_encryption(JNIEnv *env, jclas
 /** decryption */
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_decryption(JNIEnv *env, jclass type,
+Java_com_strong_utils_EncryptUtils_decryption(JNIEnv *env, jclass type,
                                                               jstring encryptPath_,
                                                               jstring decryptPath_) {
     //获取字符串保存在JVM中内存中
@@ -136,7 +136,7 @@ long getFileSize(const char* filePath) {
 /** 文件分割 */
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass type,
+Java_com_strong_utils_EncryptUtils_fileSplit(JNIEnv *env, jclass type,
                                                        jstring splitFilePath_,
                                                        jstring suffix_,
                                                        jint fileNum) {
@@ -239,7 +239,7 @@ Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileSplit(JNIEnv *env, jclass
 /** 合并文件 */
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_kotlinstrong_stronglib_cutil_EncryptUtils_fileMerge(JNIEnv *env, jclass type,
+Java_com_strong_utils_EncryptUtils_fileMerge(JNIEnv *env, jclass type,
                                                        jstring splitFilePath_,
                                                        jstring splitSuffix_,
                                                        jstring mergeSuffix_, jint fileNum) {

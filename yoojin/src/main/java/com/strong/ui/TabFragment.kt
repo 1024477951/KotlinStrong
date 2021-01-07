@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.strong.R
 import com.strong.ui.base.BaseFragment
+import com.strong.ui.home.HomeFragment
 import com.strong.ui.view.menu.BottomMenuView
 
 class TabFragment : BaseFragment() {
@@ -12,7 +14,7 @@ class TabFragment : BaseFragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var menus: BottomMenuView
     private val fragmentList = arrayListOf<Fragment>()
-    private val homeFragment by lazy { FirstFragment() }
+    private val homeFragment by lazy { HomeFragment() }
     private val menuFragment by lazy { SecondFragment() }
 
     override fun layoutId() = R.layout.fragment_tab

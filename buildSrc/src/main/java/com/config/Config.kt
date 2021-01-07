@@ -36,7 +36,11 @@ object Versions {
     const val gson = "2.8.6"
     const val cookie = "1.0.1"
 
-    const val cymChad = "2.9.47-androidx"
+    const val cymChad = "2.9.50"
+
+    const val smart = "1.1.2"
+    const val glide = "4.11.0"
+    const val transformations = "4.2.0"
 }
 
 object Libs {

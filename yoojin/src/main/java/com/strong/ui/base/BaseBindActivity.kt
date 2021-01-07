@@ -21,11 +21,11 @@ abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCom
     /** 初始化数据 */
     abstract fun initData(bundle: Bundle?)
 
+    /** base model */
+    abstract fun providerVMClass(): Class<VM>
+
     lateinit var binding: V
     lateinit var mViewModel: VM//lateinit : 编译期在检查时不要因为属性变量未被初始化而报错
-
-    /** base model */
-    open fun providerVMClass(): Class<VM>? = null
 
     /** livedata 监听 */
     open fun modelObserve() {}
@@ -47,12 +47,9 @@ abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCom
     }
 
     private fun initVM() {
-        providerVMClass()?.let {
-            //ViewModelProviders过时，现在google推荐直接使用ViewModelProvider创建
-            mViewModel = ViewModelProvider(this).get(it)
-            //让ViewModel拥有View的生命周期感应
-            mViewModel.let(lifecycle::addObserver)
-        }
+        //ViewModelProviders过时，现在google推荐直接使用ViewModelProvider创建
+        mViewModel = ViewModelProvider(this).get(providerVMClass())
+        mViewModel.let(lifecycle::addObserver)
     }
 
     override fun onDestroy() {

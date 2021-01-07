@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.strong.ui.R
+import com.strong.R
 
 /**
  * created by YooJin.

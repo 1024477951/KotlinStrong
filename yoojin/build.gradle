@@ -4,6 +4,7 @@ import com.config.Versions
 plugins {
     id "com.android.application"
     id "kotlin-android"
+    id "kotlin-kapt"
 }
 
 def APP_NAME
@@ -132,4 +133,11 @@ dependencies {
     implementation "com.google.code.gson:gson:${Versions.gson}"
     //cymChad
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${Versions.cymChad}"
+    //smart
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:${Versions.smart}"
+    implementation "com.scwang.smartrefresh:SmartRefreshHeader:${Versions.smart}"
+    //glide
+    implementation "com.github.bumptech.glide:glide:${Versions.glide}"
+    implementation "jp.wasabeef:glide-transformations:${Versions.transformations}"
+    kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
 }

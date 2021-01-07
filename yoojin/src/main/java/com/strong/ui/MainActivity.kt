@@ -2,6 +2,7 @@ package com.strong.ui
 
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
+import com.strong.R
 import com.strong.ui.base.BaseActivity
 
 class MainActivity : BaseActivity() {

@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryVariant">#03A9F4</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorSecondaryVariant">#018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--home-->
+    <color name="text_color_menu_title">#212121</color>
+
+    <!--通用颜色-->
+    <color name="bg_color_refresh_footer">#00FFFFFF</color>
+    <color name="bg_color_titleBar">#FFFFFF</color>
+    <color name="bg_color_titleBar_back">#4B4C51</color>
+
+    <color name="text_color_refresh_footer">#015293</color>
+    <color name="text_color_titleBar_title">#333333</color>
+
+    <!-- other 颜色值不会更换，固定-->
+    <color name="text_color_white">#FFFFFF</color>
+    <color name="text_color_7C8698">#7C8698</color>
+    <color name="text_color_EEEEE">#EEEEEE</color>
+    <color name="text_color_A3A5A9">#A3A5A9</color>
+    <color name="text_color_999999">#999999</color>
+    <color name="text_color_015293">#015293</color>
+
+    <color name="bg_color_0672D6">#0672D6</color>
+
 </resources>

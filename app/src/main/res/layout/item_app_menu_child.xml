@@ -6,7 +6,7 @@
 
         <variable
                 name="item"
-                type="com.kotlinstrong.home.item.MenuContentBindItem" />
+                type="com.strong.ui.home.item.MenuContentBindItem" />
 
     </data>
 
