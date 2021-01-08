@@ -51,7 +51,7 @@ class EncryptUtils {
         fun encryption(fileName: String): String {
             val normalPath = path + fileName
             val file = File(normalPath)
-            Log.d(TAG, "normalPath：$normalPath file: ${file.exists()}")
+            //Log.d(TAG, "normalPath：$normalPath file: ${file.exists()}")
             if (!file.exists()) {
                 createFile(normalPath)
             }

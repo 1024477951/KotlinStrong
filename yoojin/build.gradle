@@ -27,11 +27,11 @@ android {
 
     defaultConfig {
         if (Switch.workType == 0){
-            PKGNAME = "com.kotlinstrong.yoojin"
+            PKGNAME = "com.strong"
             versionType = "release"
             buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
         }else{
-            PKGNAME = "com.kotlinstrong.yoojin.test"
+            PKGNAME = "com.strong.test"
             versionType = "test"
             buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
         }

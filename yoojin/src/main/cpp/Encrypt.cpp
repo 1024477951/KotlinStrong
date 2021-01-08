@@ -25,7 +25,7 @@ Java_com_strong_utils_EncryptUtils_createFile(JNIEnv *env, jobject type,
     FILE *fp = fopen(normalPath, "wb");
 
     //把字符串写入到指定的流 stream 中，但不包括空字符。
-    fputs("账号：123\n密码：123;\n账号：456\n密码：456;\n", fp);
+    fputs("账号：123 密码：123;\n账号：456 密码：456;", fp);
 
     //关闭流 fp。刷新所有的缓冲区
     fclose(fp);
@@ -53,11 +53,11 @@ Java_com_strong_utils_EncryptUtils_encryption(JNIEnv *env, jclass type,
     FILE *encrypt_fp = fopen(encryptPath, "wbe");
 
     if (normal_fp == nullptr) {
-        Logger("%s", "文件打开失败");
+        Logger("%s", "文件打开失败")
         return;
     }
     if(encrypt_fp == nullptr) {
-        Logger("%s","没有写权限") ;
+        Logger("%s","没有写权限")
     }
     //一次读取一个字符
     int ch = 0;
