@@ -41,6 +41,9 @@ object Versions {
     const val smart = "1.1.2"
     const val glide = "4.11.0"
     const val transformations = "4.2.0"
+
+    const val aspectjx_plugin = "2.0.6"
+    const val aspectjx = "1.8.9"
 }
 
 object Libs {

@@ -9,9 +9,8 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.strong.ui.home.item.MenuContentBindItem
-import com.strong.ui.home.item.MenuTitleBindItem
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.strong.R
@@ -20,10 +19,16 @@ import com.strong.ui.adapter.BaseAdapter
 import com.strong.ui.base.BaseBindFragment
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.click.FunctionClick
+import com.strong.ui.home.item.MenuContentBindItem
+import com.strong.ui.home.item.MenuTitleBindItem
 import com.strong.utils.EncryptUtils
+import com.strong.utils.aspect.MyAnnotationOnclick
 import com.strong.utils.system.BatteryUtils
+import java.util.*
+import kotlin.collections.ArrayList
 
-class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
+
+class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
     OnRefreshLoadMoreListener {
 
     override fun layoutId() = R.layout.fragment_home
@@ -36,7 +41,13 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
     override fun initData(bundle: Bundle?) {
         mViewModel.getTestList()
         initList()
+        //切面测试
+        testAspect()
+        testAfterReturning()
     }
+
+    fun testAspect(){}
+    fun testAfterReturning():Int{ return 666 }
 
     private fun initList(){
         val dataList = mViewModel.getMenuList()
@@ -47,11 +58,11 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
         for (data in dataList){
             when(data.type){
                 MenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))
-                else -> list.add(MenuContentBindItem(data,click))
+                else -> list.add(MenuContentBindItem(data, click))
             }
         }
         mAdapter.setNewList(list)
-        val gridLayoutManager = GridLayoutManager(context,3)
+        val gridLayoutManager = GridLayoutManager(context, 3)
         gridLayoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
                 val bean = mAdapter.list?.get(position)
@@ -69,22 +80,22 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
     }
 
     private val click = object : FunctionClick{
-
+        @MyAnnotationOnclick
         override fun click(resId: Int) {
             when(resId){
                 R.mipmap.icon_home_menu_encrypt ->
-                    if (checkFilePermission()){
+                    if (checkFilePermission()) {
                         EncryptUtils.test()
                         ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                     }
                 R.mipmap.icon_home_menu_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
                 R.mipmap.icon_home_menu_cut ->
-                    if (checkFilePermission()){
+                    if (checkFilePermission()) {
                         EncryptUtils.fileSplit()
                         ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                     }
                 R.mipmap.icon_home_menu_merge ->
-                    if (checkFilePermission()){
+                    if (checkFilePermission()) {
                         EncryptUtils.fileMerge()
                         ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                     }
@@ -92,7 +103,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
                             BatteryUtils.requestIgnoreBatteryOptimizations(this@HomeFragment)
-                        }else{
+                        } else {
                             ToastUtils.showShort("已经在名单中")
                         }
                     }
@@ -107,7 +118,10 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
     }
 
     fun checkFilePermission(): Boolean{
-        if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.WRITE_EXTERNAL_STORAGE ) } != PackageManager.PERMISSION_GRANTED) {
+        if (context?.let { ContextCompat.checkSelfPermission(
+                it,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) } != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
                 return false
@@ -122,9 +136,9 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
         grantResults: IntArray
     ) {
         when(requestCode){
-            requestCode -> if (grantResults.contains(PackageManager.PERMISSION_GRANTED)){
+            requestCode -> if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
 
-            }else{
+            } else {
                 ToastUtils.showShort("没有权限")
             }
         }
@@ -148,7 +162,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding,HomeViewModel>() ,
                         ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
                         Handler().postDelayed({
                             BatteryUtils.setAppIgnore()
-                        },1000)
+                        }, 1000)
                     } else -> {
                     ToastUtils.showShort("加入失败")
                 }

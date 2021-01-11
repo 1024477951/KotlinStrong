@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="foldTextView">
+        <attr name="fold_maxLines" format="integer" min="0" />
+    </declare-styleable>
+    <declare-styleable name="bannerTextView">
+        <attr name="banner_maxLines" format="integer" min="0" />
+    </declare-styleable>
+</resources>
