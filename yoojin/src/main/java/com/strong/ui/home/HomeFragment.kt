@@ -39,7 +39,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
     private var mAdapter = BaseAdapter()
 
     override fun initData(bundle: Bundle?) {
-        mViewModel.getTestList()
+        //mViewModel.getTestList()
         initList()
         //切面测试
         testAspect()

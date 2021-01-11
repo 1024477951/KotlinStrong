@@ -43,7 +43,9 @@ object Versions {
     const val transformations = "4.2.0"
 
     const val aspectjx_plugin = "2.0.6"
-    const val aspectjx = "1.8.9"
+    const val aspectjx = "1.9.6"
+
+    const val banner = "2.1.0"
 }
 
 object Libs {

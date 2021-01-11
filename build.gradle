@@ -8,6 +8,11 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:${Versions.gradle}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        /*
+            如果出现这个错误
+            Cannot cast object 'com.android.build.gradle.internal.pipeline.TransformTask$2$1@590ffd3a' with class 'com.android.build.gradle.internal.pipeline.TransformTask$2$1' to class 'com.android.build.gradle.internal.pipeline.TransformTask'
+            更新aspectjx版本
+        */
         classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:${Versions.aspectjx_plugin}"
     }
 }
@@ -19,6 +24,12 @@ allprojects {
         //cookie持久化jar包 添加以下语句
         maven { url "https://jitpack.io" }
     }
+    buildDir = new File(rootDir, "gradle-build/${path.replaceAll(':', '/')}")
+}
+
+def releaseTime() {
+    // return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08:00"))
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
 }
 
 task clean(type: Delete) {

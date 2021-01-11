@@ -1,6 +1,7 @@
 package com.strong.ui.home
 
 import android.util.Log
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.GsonUtils
 import com.strong.R
@@ -16,6 +17,8 @@ class HomeViewModel : BaseViewModel() {
     private val repository by lazy { HomeRepository() }
 
     val testLiveData: MutableLiveData<ArticleList> = MutableLiveData()
+
+    val titleField = ObservableField<String>()
 
     fun getTestList() {
         launchOnUI {

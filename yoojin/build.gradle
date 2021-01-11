@@ -5,6 +5,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "kotlin-kapt"
+    //id "android-aspectjx"
 }
 
 def APP_NAME
@@ -102,12 +103,13 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "${APP_NAME}-${defaultConfig.versionName}.apk"
+            outputFileName = "${APP_NAME}-${defaultConfig.versionName}-${rootProject.releaseTime()}-${versionType}.apk"
         }
     }
 }
 
 dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     implementation "androidx.core:core-ktx:${Versions.core_ktx}"
@@ -142,4 +144,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
     //aspectjx
     implementation "org.aspectj:aspectjrt:${Versions.aspectjx}"
+    //banner
+    implementation "com.youth.banner:banner:${Versions.banner}"
 }
