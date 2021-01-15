@@ -19,6 +19,7 @@ import com.strong.ui.adapter.BaseAdapter
 import com.strong.ui.base.BaseBindFragment
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.click.FunctionClick
+import com.strong.ui.home.item.HomeBannerBindItem
 import com.strong.ui.home.item.MenuContentBindItem
 import com.strong.ui.home.item.MenuTitleBindItem
 import com.strong.utils.EncryptUtils
@@ -50,11 +51,13 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
     fun testAfterReturning():Int{ return 666 }
 
     private fun initList(){
+        val bannerList = mViewModel.getBannerList()
         val dataList = mViewModel.getMenuList()
 
         binding.recyclerView.adapter = mAdapter
         binding.refreshLayout.setOnRefreshLoadMoreListener(this)
         val list = ArrayList<Any>()
+        list.add(HomeBannerBindItem(bannerList))
         for (data in dataList){
             when(data.type){
                 MenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))

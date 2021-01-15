@@ -18,6 +18,7 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/d400.0"
+            app:setBanner="@{item.list}"
             app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

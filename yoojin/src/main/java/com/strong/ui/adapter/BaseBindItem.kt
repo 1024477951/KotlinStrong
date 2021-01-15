@@ -45,7 +45,7 @@ abstract class BaseBindItem<V : ViewDataBinding> {
     }
 
     fun bind(holder: BaseBindViewHolder, position: Int) {
-        onBindViewHolder(position,holder.binding as V)
+        onBindViewHolder(position,holder.mBinding as V)
     }
 
     /** 确认被回收，且要放进 RecyclerViewPool 中前 */

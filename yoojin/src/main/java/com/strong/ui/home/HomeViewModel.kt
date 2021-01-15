@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.GsonUtils
 import com.strong.R
 import com.strong.ui.base.BaseViewModel
 import com.strong.ui.home.bean.ArticleList
+import com.strong.ui.home.bean.BannerBean
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.model.HomeRepository
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +29,14 @@ class HomeViewModel : BaseViewModel() {
             testLiveData.postValue(result.data)
             Log.e("result",GsonUtils.toJson(result.data))
         }
+    }
+
+    fun getBannerList(): MutableList<BannerBean>{
+        val list: MutableList<BannerBean> = ArrayList()
+        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第一个banner标题"))
+        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第二个banner标题"))
+        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第三个banner标题"))
+        return list
     }
 
     fun getMenuList(): MutableList<MenuBean>{
