@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="model"
+            type="com.strong.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +24,8 @@
             android:background="@color/white"
             app:srlEnableLoadMore="false"
             app:srlEnableAutoLoadMore="false"
-            app:srlHeaderMaxDragRate="2.5">
+            app:srlHeaderMaxDragRate="2.5"
+            app:onRefreshLoadMoreListener="@{model.refreshHome}">
 
             <com.scwang.smartrefresh.header.BezierCircleHeader
                 android:layout_width="match_parent"

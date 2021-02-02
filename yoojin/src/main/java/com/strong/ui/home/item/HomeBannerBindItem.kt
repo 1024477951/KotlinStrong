@@ -9,10 +9,10 @@ import com.strong.ui.home.bean.BannerBean
 
 class HomeBannerBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeBannerBinding>(layoutId) {
 
-    val list = ObservableField<List<BannerBean>>()
+    val bannerField = ObservableField<ArrayList<BannerBean>>()
 
-    constructor(bannerList: List<BannerBean>) : this(R.layout.item_home_banner){
-        list.set(bannerList)
+    constructor(banners: ArrayList<BannerBean>) : this(R.layout.item_home_banner){
+        bannerField.set(banners)
     }
 
     override fun onBindViewHolder(position: Int, binding: ItemHomeBannerBinding) {

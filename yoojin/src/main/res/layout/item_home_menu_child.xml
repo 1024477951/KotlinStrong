@@ -8,7 +8,6 @@
         <variable
             name="item"
             type="com.strong.ui.home.item.MenuContentBindItem" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

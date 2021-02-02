@@ -19,7 +19,10 @@ class HomeViewModel : BaseViewModel() {
 
     val testLiveData: MutableLiveData<ArticleList> = MutableLiveData()
 
-    val titleField = ObservableField<String>()
+    val refreshHome: ()-> Unit = {
+        getBannerList()
+        getMenuList()
+    }
 
     fun getTestList() {
         launchOnUI {
@@ -31,16 +34,18 @@ class HomeViewModel : BaseViewModel() {
         }
     }
 
-    fun getBannerList(): MutableList<BannerBean>{
-        val list: MutableList<BannerBean> = ArrayList()
-        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第一个banner标题"))
-        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第二个banner标题"))
-        list.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第三个banner标题"))
-        return list
+    val bannerLiveData: MutableLiveData<ArrayList<BannerBean>> = MutableLiveData()
+    fun getBannerList(){
+        val banners = ArrayList<BannerBean>()
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第一个banner标题"))
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第二个banner标题"))
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第三个banner标题"))
+        bannerLiveData.postValue(banners)
     }
 
-    fun getMenuList(): MutableList<MenuBean>{
-        val list: MutableList<MenuBean> = ArrayList()
+    val menuLiveData: MutableLiveData<ArrayList<MenuBean>> = MutableLiveData()
+    fun getMenuList(){
+        val list = ArrayList<MenuBean>()
 
         list.add(MenuBean("Jni相关",MenuBean.TYPE_TITLE,0,null))
         list.add(MenuBean("文件加密",MenuBean.TYPE_MENU, R.mipmap.icon_home_menu_encrypt,null))
@@ -71,7 +76,7 @@ class HomeViewModel : BaseViewModel() {
         list.add(MenuBean("模块5",MenuBean.TYPE_TITLE,0,null))
         list.add(MenuBean("menu1",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_pc,null))
         list.add(MenuBean("menu2",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_pc,null))
-        return list
+        menuLiveData.postValue(list)
     }
 
 }

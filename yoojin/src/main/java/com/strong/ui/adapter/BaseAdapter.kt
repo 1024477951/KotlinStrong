@@ -11,24 +11,6 @@ open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder> {
         this.list = ArrayList()
     }
 
-    /** 替换数据源 */
-    fun setNewList(newList: MutableList<Any>) {
-        this.list = newList
-        notifyDataSetChanged()
-    }
-
-    fun addItems(list: MutableList<Any>){
-        this.list?.addAll(list)
-        notifyItemRangeInserted(itemCount - list.size - 1, list.size)
-    }
-
-    fun addItem(bean: Any?){
-        if (bean != null) {
-            list?.add(bean)
-            notifyItemInserted(itemCount - 1)
-        }
-    }
-
     var list: MutableList<Any>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindViewHolder {
@@ -58,6 +40,37 @@ open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder> {
             return
         }
         getItem(position).onViewRecycled()
+    }
+
+    /** 替换数据源 */
+    fun setItems(newList: MutableList<Any>) {
+        this.list?.clear()
+        this.list?.addAll(newList)
+        notifyDataSetChanged()
+    }
+    fun setItem(bean: Any) {
+        this.list?.clear()
+        this.list?.add(bean)
+        notifyDataSetChanged()
+    }
+
+    fun addItems(list: MutableList<Any>){
+        this.list?.addAll(list)
+        notifyItemRangeInserted(itemCount - list.size - 1, list.size)
+    }
+
+    fun addItem(bean: Any?){
+        if (bean != null) {
+            list?.add(bean)
+            notifyItemInserted(itemCount - 1)
+        }
+    }
+
+    fun addItem(index: Int,bean: Any?){
+        if (bean != null) {
+            list?.add(index,bean)
+            notifyItemInserted(index)
+        }
     }
 
 }

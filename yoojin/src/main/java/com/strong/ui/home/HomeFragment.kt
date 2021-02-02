@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import com.strong.R
 import com.strong.databinding.FragmentHomeBinding
 import com.strong.ui.adapter.BaseAdapter
@@ -29,8 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
-    OnRefreshLoadMoreListener {
+class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun layoutId() = R.layout.fragment_home
 
@@ -40,6 +36,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
     private var mAdapter = BaseAdapter()
 
     override fun initData(bundle: Bundle?) {
+        binding.model = mViewModel
         //mViewModel.getTestList()
         initList()
         //切面测试
@@ -47,26 +44,17 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
         testAfterReturning()
     }
 
-    fun testAspect(){}
-    fun testAfterReturning():Int{ return 666 }
+    fun testAspect() {}
+    fun testAfterReturning(): Int {
+        return 666
+    }
 
-    private fun initList(){
-        val bannerList = mViewModel.getBannerList()
-        val dataList = mViewModel.getMenuList()
+    private fun initList() {
+        mViewModel.getBannerList()
 
         binding.recyclerView.adapter = mAdapter
-        binding.refreshLayout.setOnRefreshLoadMoreListener(this)
-        val list = ArrayList<Any>()
-        list.add(HomeBannerBindItem(bannerList))
-        for (data in dataList){
-            when(data.type){
-                MenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))
-                else -> list.add(MenuContentBindItem(data, click))
-            }
-        }
-        mAdapter.setNewList(list)
         val gridLayoutManager = GridLayoutManager(context, 3)
-        gridLayoutManager.spanSizeLookup = object: GridLayoutManager.SpanSizeLookup(){
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 val bean = mAdapter.list?.get(position)
                 //根据类型返回不同长度的显示
@@ -82,10 +70,69 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
         binding.recyclerView.layoutManager = gridLayoutManager
     }
 
-    private val click = object : FunctionClick{
+    override fun modelObserve() {
+        mViewModel.testLiveData.observe(this, {
+            ToastUtils.showShort("请求到 ${it.size} 条数据")
+        })
+        mViewModel.bannerLiveData.observe(this, {
+            if (it != null) {
+                mAdapter.setItem(HomeBannerBindItem(it))
+            }
+            mViewModel.getMenuList()
+        })
+        mViewModel.menuLiveData.observe(this, {
+            if (it != null) {
+                val list = ArrayList<Any>()
+                for (data in it) {
+                    when (data.type) {
+                        MenuBean.TYPE_TITLE -> list.add(MenuTitleBindItem(data))
+                        else -> list.add(MenuContentBindItem(data, click))
+                    }
+                }
+                mAdapter.addItems(list)
+            }
+        })
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            requestCode ->
+                if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+
+                } else {
+                    ToastUtils.showShort("没有权限")
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Activity.RESULT_FIRST_USER) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                when {
+                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
+                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
+                        Handler().postDelayed({
+                            BatteryUtils.setAppIgnore()
+                        }, 1000)
+                    }
+                    else -> {
+                        ToastUtils.showShort("加入失败")
+                    }
+                }
+            }
+        }
+    }
+
+    private val click = object : FunctionClick {
         @MyAnnotationOnclick
         override fun click(resId: Int) {
-            when(resId){
+            when (resId) {
                 R.mipmap.icon_home_menu_encrypt ->
                     if (checkFilePermission()) {
                         EncryptUtils.test()
@@ -114,17 +161,13 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
         }
     }
 
-    override fun modelObserve() {
-        mViewModel.testLiveData.observe(this, {
-            ToastUtils.showShort("请求到 ${it.size} 条数据")
-        })
-    }
-
-    fun checkFilePermission(): Boolean{
-        if (context?.let { ContextCompat.checkSelfPermission(
-                it,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) } != PackageManager.PERMISSION_GRANTED) {
+    fun checkFilePermission(): Boolean {
+        if (context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            } != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
                 return false
@@ -132,47 +175,5 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() ,
         }
         return true
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            requestCode -> if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-
-            } else {
-                ToastUtils.showShort("没有权限")
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        refreshLayout.finishRefresh()
-    }
-
-    override fun onLoadMore(refreshLayout: RefreshLayout) {
-        refreshLayout.finishLoadMore()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Activity.RESULT_FIRST_USER){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                when{
-                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
-                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
-                        Handler().postDelayed({
-                            BatteryUtils.setAppIgnore()
-                        }, 1000)
-                    } else -> {
-                    ToastUtils.showShort("加入失败")
-                }
-                }
-            }
-        }
-    }
-
 
 }

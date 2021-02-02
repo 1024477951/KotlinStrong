@@ -13,12 +13,12 @@ class MenuContentBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeMenuC
 
     val titleField = ObservableField<String>()
     val resField = ObservableInt()
-    private var function: FunctionClick? = null
+    private lateinit var function: FunctionClick
 
-    constructor(bean: MenuBean,click: FunctionClick) : this(R.layout.item_home_menu_child){
-        function = click
+    constructor(bean: MenuBean,function: FunctionClick) : this(R.layout.item_home_menu_child){
         titleField.set(bean.title)
         resField.set(bean.resId)
+        this.function = function;
     }
 
     override fun onBindViewHolder(position: Int, binding: ItemHomeMenuChildBinding) {
@@ -26,7 +26,7 @@ class MenuContentBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeMenuC
     }
 
     fun itemClick(){
-        function?.click(resField.get())
+        function.click(resField.get())
     }
 
 }
