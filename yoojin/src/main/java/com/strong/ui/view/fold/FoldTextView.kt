@@ -39,7 +39,7 @@ class FoldTextView(context: Context?, private val attrs: AttributeSet?, defStyle
     private var flag = false
     private val ellipsizeEndText = "..."
     private val foldText = "全部"
-    private val expandText = "展开"
+    private val expandText = "收起"
     private var originalText: CharSequence? = null
 
     init {
@@ -87,7 +87,7 @@ class FoldTextView(context: Context?, private val attrs: AttributeSet?, defStyle
                 if (isFold) {
                     val end =
                         layout.getLineEnd(maxLine.toInt() - 1) - ellipsizeEndText.length - foldText.length
-                    if (end > 0) {
+                    if (end > 0 && length() > end) {
                         val title = `val`.subSequence(0, end)
                         builder.append(title)
                     }

@@ -62,6 +62,10 @@ cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.
 
 文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
 
+#### 笔记
+
+屏幕适配插件笔记：[https://www.cnblogs.com/LiuZhen/p/14367974.html](https://www.cnblogs.com/LiuZhen/p/14367974.html)
+
 #
     Encrypt 加密
     Signature 签名
