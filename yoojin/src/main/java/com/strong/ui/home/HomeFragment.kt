@@ -60,6 +60,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                 //根据类型返回不同长度的显示
                 val size: Int
                 size = when (bean) {
+                    is HomeBannerBindItem -> 3
                     is MenuTitleBindItem -> 3
                     else -> 1
                 }

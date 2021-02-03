@@ -12,12 +12,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/d400.0"
+            android:layout_height="@dimen/dp_150"
             app:setBanner="@{item.bannerField}"
             app:layout_constraintTop_toTopOf="parent"/>
 

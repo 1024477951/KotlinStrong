@@ -14,7 +14,7 @@ import com.youth.banner.indicator.RectangleIndicator
 @BindingAdapter("setBanner")
 fun Banner<BannerBean, BannerAdapter>.setBanner(list: MutableList<BannerBean>?){
     if (list != null) {
-        LogUtils.e("BannerViewBinding","banner count "+list.size)
+        //LogUtils.e("BannerViewBinding","banner count "+list.size)
         setAdapter(BannerAdapter(list))
             //.addBannerLifecycleObserver()//添加生命周期观察者
             .setIndicator(RectangleIndicator(context))//设置指示器

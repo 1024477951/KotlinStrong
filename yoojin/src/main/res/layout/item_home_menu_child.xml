@@ -13,13 +13,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/d42.0"
+        android:layout_marginTop="@dimen/dp_15"
         app:bindViewClick="@{()->item.itemClick()}">
 
         <ImageView
             android:id="@+id/iv_face"
-            android:layout_width="@dimen/d90.0"
-            android:layout_height="@dimen/d90.0"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             app:layout_constraintBottom_toTopOf="@id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,11 +31,11 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/d5.0"
+            android:layout_marginTop="@dimen/dp_5"
             android:text="@{item.titleField}"
             tools:text="111"
             android:textColor="@color/text_color_999999"
-            android:textSize="@dimen/d42.0"
+            android:textSize="@dimen/sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

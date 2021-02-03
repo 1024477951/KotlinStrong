@@ -15,8 +15,8 @@
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
-            android:layout_width="@dimen/d0.0"
-            android:layout_height="@dimen/d0.0"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="@dimen/dp_0"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

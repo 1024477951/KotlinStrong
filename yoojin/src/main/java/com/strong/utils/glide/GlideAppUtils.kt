@@ -34,6 +34,17 @@ open class GlideAppUtils {
                 .transform(CenterCrop(), RoundedCornersTransformation(radius, 0))
                 .into(imageView)
         }
+        /** 加载填充+圆角图片 */
+        fun loadCrop(imageView: ImageView, path: String, error: Int,radius: Int){
+            GlideApp.with(Utils.getApp())
+                .load(path)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .dontAnimate()
+                .error(error)
+                .transform(CenterCrop(), RoundedCornersTransformation(radius, 0))
+                .into(imageView)
+        }
         /** 默认加载带圆角图片 */
         fun load(imageView: ImageView, path: String, error: Int,radius: Int){
             GlideApp.with(Utils.getApp())
