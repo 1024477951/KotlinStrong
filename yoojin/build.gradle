@@ -146,4 +146,8 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${Versions.aspectjx}"
     //banner
     implementation "com.youth.banner:banner:${Versions.banner}"
+    //沉浸式
+    implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
+    //radius ui
+    implementation "com.noober.background:core:${Versions.noober}"
 }

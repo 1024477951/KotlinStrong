@@ -37,9 +37,9 @@ class HomeViewModel : BaseViewModel() {
     val bannerLiveData: MutableLiveData<ArrayList<BannerBean>> = MutableLiveData()
     fun getBannerList(){
         val banners = ArrayList<BannerBean>()
-        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第一个banner标题"))
-        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第二个banner标题"))
-        banners.add(BannerBean("https://bs.storage.shmedia.tech/1167020.png","第三个banner标题"))
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/eb10a1118ba2450a9672098753e86e04.jpg","第一个banner标题"))
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/855106457f9a427f8c17e5f9a0c8979b.jpg","第二个banner标题"))
+        banners.add(BannerBean("https://bs.storage.shmedia.tech/e1c6e20001b64c9f8a1eb8043d8e533d.jpg","第三个banner标题"))
         bannerLiveData.postValue(banners)
     }
 

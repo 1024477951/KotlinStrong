@@ -17,7 +17,6 @@ object Versions {
 
     const val gradle = "4.1.1"
     const val kotlin = "1.4.21"
-
     const val core_ktx = "1.3.2"
 
     const val appcompat = "1.2.0"
@@ -25,7 +24,6 @@ object Versions {
     const val constraintLayout = "2.0.4"
     const val navigation = "2.3.2"
     const val recyclerView = "1.1.0"
-
     const val lifecycle = "2.2.0"
     const val viewmodel = "2.0.1"
 
@@ -37,7 +35,6 @@ object Versions {
     const val cookie = "1.0.1"
 
     const val cymChad = "3.0.2"
-
     const val smart = "1.1.2"
     const val glide = "4.11.0"
     const val transformations = "4.2.0"
@@ -46,6 +43,8 @@ object Versions {
     const val aspectjx = "1.9.6"
 
     const val banner = "2.1.0"
+    const val immersion = "3.0.0"
+    const val noober = "1.6.5"
 }
 
 object Libs {

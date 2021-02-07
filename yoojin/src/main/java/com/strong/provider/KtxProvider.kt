@@ -15,11 +15,11 @@ import com.blankj.utilcode.util.Utils
 class KtxProvider : ContentProvider() {
 
     companion object{
-        var mContext: Context? = null
+        lateinit var mContext: Context
     }
 
     override fun onCreate(): Boolean {
-        mContext = context
+        mContext = context!!
         //初始化全局Context提供者
         Utils.init(ContextProvider.get()?.getApplication())
         return false

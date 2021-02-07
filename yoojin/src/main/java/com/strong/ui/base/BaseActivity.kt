@@ -1,11 +1,11 @@
 package com.strong.ui.base
 
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import com.gyf.immersionbar.ImmersionBar
+import com.strong.R
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -27,22 +27,19 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         context = this
         setContentView(layoutId())
+        //初始化沉浸式
+        initImmersionBar()
         initData(intent.extras)
-        Log.d("current class name",javaClass.simpleName)
+        Log.d("current class name", javaClass.simpleName)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            Configuration.UI_MODE_NIGHT_YES -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
-        // 需调用 recreate() ，从而使更改生效
-        recreate()
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected open fun initImmersionBar() {
+        //设置共同沉浸式样式
+        ImmersionBar.with(this).navigationBarColor(R.color.colorPrimary).init()
     }
 
 }

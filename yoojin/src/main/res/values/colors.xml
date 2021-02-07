@@ -11,6 +11,8 @@
     <color name="text_color_menu_title">#212121</color>
 
     <color name="bg_color_banner_indicator">#25AEE7</color>
+    <color name="bg_color_home_titleBar_star">#8025AEE7</color>
+    <color name="bg_color_home_titleBar_end">#25AEE7</color>
 
     <!--通用颜色-->
     <color name="bg_color_refresh_footer">#00FFFFFF</color>
@@ -18,7 +20,7 @@
     <color name="bg_color_titleBar_back">#4B4C51</color>
 
     <color name="text_color_refresh_footer">#015293</color>
-    <color name="text_color_titleBar_title">#333333</color>
+    <color name="text_color_titleBar_title">#FFFFFF</color>
 
     <!-- other 颜色值不会更换，固定-->
     <color name="text_color_white">#FFFFFF</color>
@@ -28,6 +30,8 @@
     <color name="text_color_999999">#999999</color>
     <color name="text_color_015293">#015293</color>
 
+    <color name="bg_color_3159c7_83">#D43159C7</color>
     <color name="bg_color_0672D6">#0672D6</color>
+    <color name="bg_color_transparent">#00000000</color>
 
 </resources>

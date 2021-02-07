@@ -7,8 +7,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.strong.R
 import com.strong.databinding.FragmentHomeBinding
@@ -21,6 +23,8 @@ import com.strong.ui.home.item.MenuContentBindItem
 import com.strong.ui.home.item.MenuTitleBindItem
 import com.strong.utils.EncryptUtils
 import com.strong.utils.aspect.MyAnnotationOnclick
+import com.strong.utils.scroller.ScrollerCallBack
+import com.strong.utils.scroller.ScrollerUtils
 import com.strong.utils.system.BatteryUtils
 import java.util.*
 import kotlin.collections.ArrayList
@@ -69,6 +73,16 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         //调用这段代码之前需要先setAdapter才能生效
         binding.recyclerView.layoutManager = gridLayoutManager
+
+        ScrollerUtils.scroller(binding.recyclerView,binding.toolbar,object : ScrollerCallBack {
+
+            override fun alpha(alpha: Float) {
+                binding.tvTitle.alpha = alpha
+                //binding.toolbar.alpha = 1f - alpha
+                //Log.e("===", "(1f - alpha) ${1f - alpha} alpha $alpha")
+            }
+
+        })
     }
 
     override fun modelObserve() {

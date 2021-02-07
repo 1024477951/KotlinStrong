@@ -6,7 +6,7 @@ import android.content.Context
 
 class ContextProvider {
 
-    private var mContext: Context? = null
+    private var mContext: Context
 
     constructor(context: Context){
         mContext = context
@@ -22,7 +22,7 @@ class ContextProvider {
             if (instance == null) {
                 synchronized(ContextProvider::class.java) {
                     if (instance == null) {
-                        val context: Context = KtxProvider.mContext ?: throw IllegalStateException("context == null")
+                        val context: Context = KtxProvider.mContext
                         instance = ContextProvider(context)
                     }
                 }
@@ -39,6 +39,6 @@ class ContextProvider {
     }
 
     fun getApplication(): Application? {
-        return mContext!!.applicationContext as Application
+        return mContext.applicationContext as Application
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -13,34 +12,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refreshLayout"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include android:id="@+id/toolbar"
+                layout="@layout/include_toolbar"/>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:srlEnableLoadMore="false"
+                app:srlEnableAutoLoadMore="false"
+                app:srlHeaderMaxDragRate="2.5"
+                app:onRefreshLoadMoreListener="@{model.refreshHome}">
+
+                <com.scwang.smartrefresh.header.BezierCircleHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </LinearLayout>
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tv_title"
             android:layout_width="@dimen/dp_0"
-            android:layout_height="@dimen/dp_0"
+            android:layout_height="@dimen/dp_80"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/white"
-            app:srlEnableLoadMore="false"
-            app:srlEnableAutoLoadMore="false"
-            app:srlHeaderMaxDragRate="2.5"
-            app:onRefreshLoadMoreListener="@{model.refreshHome}">
-
-            <com.scwang.smartrefresh.header.BezierCircleHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:alpha="0"
+            app:bl_gradient_angle="90"
+            app:bl_gradient_startColor="@color/bg_color_home_titleBar_star"
+            app:bl_gradient_endColor="@color/bg_color_home_titleBar_end"
+            android:textColor="@color/text_color_titleBar_title"
+            android:textSize="@dimen/sp_24"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="标题"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
