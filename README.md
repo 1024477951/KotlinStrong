@@ -64,6 +64,9 @@ cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.
 
 #### 笔记
 
+贝塞尔波浪：[https://www.cnblogs.com/LiuZhen/p/14378702.html](https://www.cnblogs.com/LiuZhen/p/14378702.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
+
 屏幕适配插件笔记：[https://www.cnblogs.com/LiuZhen/p/14367974.html](https://www.cnblogs.com/LiuZhen/p/14367974.html)
 
 #
