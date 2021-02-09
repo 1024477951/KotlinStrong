@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.util.AttributeSet
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.strong.ui.view.blank.DrawWaterUtils
@@ -49,7 +50,14 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     }
 
     override fun surfaceCreated(p0: SurfaceHolder) {
-        drawWater.runDraw()
+        //Log.e("===","surfaceCreated drawWater.isAlive ${drawWater.isAlive}")
+        if (!drawWater.isAlive) {
+            //Log.e("===","run")
+            drawWater.runDraw()
+        }else{
+            //Log.e("===","notify")
+            drawWater.resumeThread()
+        }
     }
 
     override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {
@@ -57,6 +65,7 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder) {
+        //Log.e("===","surfaceDestroyed")
         drawWater.stopDraw()
     }
 

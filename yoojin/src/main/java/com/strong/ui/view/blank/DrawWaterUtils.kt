@@ -9,6 +9,8 @@ import android.view.SurfaceHolder
 import android.view.animation.LinearInterpolator
 import com.strong.R
 import com.strong.provider.KtxProvider
+import okhttp3.internal.notify
+import okhttp3.internal.wait
 
 
 /**
@@ -20,14 +22,17 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
 
     private var mWidth: Float = 0f
     private var mHeight: Float = 0f
+
     //波浪的高度
     private var mWaterHeight: Float = 0f
+
     //起伏的高度
     private var mWaterUp: Float = 0f
+
     /**
      * off = 偏移值
      */
-    private  var offx:Float = 0f
+    private var offx: Float = 0f
 
     private var path: Path = Path()
     private var paint: Paint = Paint()
@@ -47,7 +52,7 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
         circlePaint.style = Paint.Style.FILL
     }
 
-    fun init(width: Int, height: Int){
+    fun init(width: Int, height: Int) {
         mWidth = width.toFloat()
         mHeight = height.toFloat()
         //线性差值器
@@ -63,23 +68,33 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
         //起伏的高度
         mWaterUp = mWaterHeight / 2
     }
-
-    fun runDraw(){
+    /** 启动线程 */
+    fun runDraw() {
         isRun = true
         start()
         mValueAnimator.start()
     }
-
-    fun stopDraw(){
+    /** 恢复线程 */
+    fun resumeThread() {
+        synchronized(this) {
+            isRun = true
+            notify()
+            mValueAnimator.start()
+        }
+    }
+    /** 暂停线程 */
+    fun stopDraw() {
         isRun = false
         mValueAnimator.cancel()
     }
 
     override fun run() {
-        var canvas: Canvas?
-        while (isRun){
-            canvas = holder.lockCanvas()
-            synchronized(holder) {
+        synchronized(this) {
+            while (true) {
+                if (!isRun) {
+                    wait()
+                }
+                val canvas = holder.lockCanvas()
                 if (canvas != null) {
                     //清除画布
                     canvas.drawColor(
@@ -100,8 +115,8 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
             }
         }
     }
-
-    private fun water(canvas: Canvas){
+    /** 绘制波浪 */
+    private fun water(canvas: Canvas) {
         path.reset()
         //起点
         path.moveTo(-mWidth + offx, mWaterHeight)
