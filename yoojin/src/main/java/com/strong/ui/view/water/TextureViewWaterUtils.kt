@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.Log
 import android.view.SurfaceHolder
+import android.view.TextureView
 import android.view.animation.LinearInterpolator
 import com.strong.R
 import com.strong.provider.KtxProvider
@@ -19,7 +20,7 @@ import okhttp3.internal.wait
  * date: 2021/2/4 15:01
  * desc:绘制工具类
  */
-class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
+class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread() {
 
     private var mWidth: Float = 0f
     private var mHeight: Float = 0f
@@ -95,7 +96,7 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
                 if (!isRun) {
                     wait()
                 }
-                val canvas = holder.lockCanvas()
+                val canvas = textureView.lockCanvas()
                 if (canvas != null) {
                     //清除画布
                     canvas.drawColor(
@@ -111,7 +112,7 @@ class DrawWaterUtils(private val holder: SurfaceHolder) : Thread() {
 //                offx = 0f
 //            }
                     // 解除锁定，并提交修改内容
-                    holder.unlockCanvasAndPost(canvas)
+                    textureView.unlockCanvasAndPost(canvas)
                 }
             }
         }

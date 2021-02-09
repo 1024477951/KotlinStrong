@@ -55,7 +55,15 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun initList() {
         mViewModel.getBannerList()
+        ScrollerUtils.scroller(binding.recyclerView,binding.toolbar,object : ScrollerCallBack {
 
+            override fun alpha(alpha: Float) {
+                binding.tvTitle.alpha = alpha
+                binding.toolbar.alpha = 1f - alpha
+                //Log.e("===", "(1f - alpha) ${1f - alpha} alpha $alpha")
+            }
+
+        })
         binding.recyclerView.adapter = mAdapter
         val gridLayoutManager = GridLayoutManager(context, 3)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -73,16 +81,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         //调用这段代码之前需要先setAdapter才能生效
         binding.recyclerView.layoutManager = gridLayoutManager
-
-        ScrollerUtils.scroller(binding.recyclerView,binding.toolbar,object : ScrollerCallBack {
-
-            override fun alpha(alpha: Float) {
-                binding.tvTitle.alpha = alpha
-                //binding.toolbar.alpha = 1f - alpha
-                //Log.e("===", "(1f - alpha) ${1f - alpha} alpha $alpha")
-            }
-
-        })
     }
 
     override fun modelObserve() {

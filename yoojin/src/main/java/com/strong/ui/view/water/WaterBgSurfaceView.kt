@@ -30,8 +30,9 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     private fun init() {
         holder.addCallback(this)
         //透明处理
-        holder.setFormat(PixelFormat.TRANSPARENT)
+        holder.setFormat(PixelFormat.TRANSLUCENT)
         setZOrderOnTop(true)
+        setZOrderMediaOverlay(true)
         drawWater = DrawWaterUtils(holder)
     }
 
