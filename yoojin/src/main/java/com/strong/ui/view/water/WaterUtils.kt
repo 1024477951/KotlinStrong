@@ -1,4 +1,4 @@
-package com.strong.ui.view.blank
+package com.strong.ui.view.water
 
 import android.graphics.Canvas
 import android.graphics.Paint

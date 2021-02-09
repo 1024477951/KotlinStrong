@@ -5,10 +5,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.PixelFormat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.strong.ui.view.blank.DrawWaterUtils
 
 /**
  * created by YooJin.
