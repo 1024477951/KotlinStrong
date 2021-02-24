@@ -6,4 +6,14 @@
     <declare-styleable name="bannerTextView">
         <attr name="banner_maxLines" format="integer" min="0" />
     </declare-styleable>
+    <declare-styleable name="circleProgress">
+        <attr name="circle_max" format="float" />
+        <attr name="circle_progress" format="float" />
+        <attr name="circle_width" format="dimension" />
+        <attr name="circle_progress_color" format="color" />
+        <attr name="circle_color" format="color" />
+        <attr name="circle_text_color" format="color" />
+        <attr name="circle_text_size" format="dimension" />
+        <attr name="circle_text_isBold" format="boolean" />
+    </declare-styleable>
 </resources>

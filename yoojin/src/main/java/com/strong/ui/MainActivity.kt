@@ -1,6 +1,9 @@
 package com.strong.ui
 
 import android.os.Bundle
+import android.os.Handler
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.blankj.utilcode.util.ActivityUtils
 import com.strong.R
 import com.strong.ui.base.BaseActivity

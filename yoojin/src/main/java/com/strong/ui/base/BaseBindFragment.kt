@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
 
-abstract class BaseBindFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragment() , LifecycleObserver {
+abstract class BaseBindFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment() , LifecycleObserver {
 
     /** 加载布局 */
     abstract fun layoutId(): Int
@@ -33,14 +33,15 @@ abstract class BaseBindFragment<V : ViewDataBinding,VM : BaseViewModel> : Fragme
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = bindingView(inflater,layoutId(),container)
+        binding = bindingView(inflater, layoutId(), container)
         return binding.root
     }
 
-    private fun bindingView(inflater: LayoutInflater,
-                            @LayoutRes layoutId: Int,
-                            container: ViewGroup?
-    ): V = DataBindingUtil.inflate<V>(inflater,layoutId, container,false).apply {
+    private fun bindingView(
+        inflater: LayoutInflater,
+        @LayoutRes layoutId: Int,
+        container: ViewGroup?
+    ): V = DataBindingUtil.inflate<V>(inflater, layoutId, container, false).apply {
         lifecycleOwner = this@BaseBindFragment
     }
 

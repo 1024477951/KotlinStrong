@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.gyf.immersionbar.ImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import com.strong.R
 
 
@@ -39,7 +39,11 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected open fun initImmersionBar() {
         //设置共同沉浸式样式
-        ImmersionBar.with(this).navigationBarColor(R.color.colorPrimary).init()
+        immersionBar{
+            //字体颜色为黑色(深色)，默认白色(亮色)
+            statusBarDarkFont(true)
+            navigationBarColor(R.color.transparent)
+        }
     }
 
 }

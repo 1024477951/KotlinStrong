@@ -3,7 +3,7 @@ this is a strong's kotlin app
 自己学习kotlin所封装的一个网络访问框架，mvvm模式（livedata + databinding），base抽离成了lib通用库
 lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解
 
-![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/home.gif)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
 
 #### 学习笔记
 #

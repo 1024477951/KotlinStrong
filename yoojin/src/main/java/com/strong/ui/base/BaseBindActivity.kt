@@ -34,6 +34,7 @@ abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCom
         super.onCreate(savedInstanceState)
         context = this
         binding = bindingView(layoutId())
+
         initVM()
         modelObserve()
         initData(intent.extras)

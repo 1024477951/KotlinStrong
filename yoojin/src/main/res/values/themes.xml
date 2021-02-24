@@ -23,4 +23,11 @@
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="splashTheme" parent="Theme.MyApplication.NoActionBar">
+        <item name="android:windowBackground">@mipmap/icon_splash</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+
 </resources>

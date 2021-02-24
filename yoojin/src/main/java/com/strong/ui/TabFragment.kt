@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.strong.R
 import com.strong.ui.base.BaseFragment
 import com.strong.ui.home.HomeFragment
+import com.strong.ui.sort.SortFragment
 import com.strong.ui.view.menu.BottomMenuView
 
 class TabFragment : BaseFragment() {
@@ -15,7 +16,7 @@ class TabFragment : BaseFragment() {
     private lateinit var menus: BottomMenuView
     private val fragmentList = arrayListOf<Fragment>()
     private val homeFragment by lazy { HomeFragment() }
-    private val menuFragment by lazy { SecondFragment() }
+    private val sortFragment by lazy { SortFragment() }
 
     override fun layoutId() = R.layout.fragment_tab
 
@@ -37,7 +38,7 @@ class TabFragment : BaseFragment() {
     private fun initViewPager() {
         fragmentList.run {
             add(homeFragment)
-            add(menuFragment)
+            add(sortFragment)
         }
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(

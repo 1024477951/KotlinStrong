@@ -146,8 +146,11 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${Versions.aspectjx}"
     //banner
     implementation "com.youth.banner:banner:${Versions.banner}"
-    //沉浸式
+    //沉浸式 （ktx为kotlin扩展，components为fragment扩展）
     implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
+    implementation "com.gyf.immersionbar:immersionbar-ktx:${Versions.immersion}"
+    implementation "com.gyf.immersionbar:immersionbar-components:${Versions.immersion}"
+
     //radius ui
     implementation "com.noober.background:core:${Versions.noober}"
 }

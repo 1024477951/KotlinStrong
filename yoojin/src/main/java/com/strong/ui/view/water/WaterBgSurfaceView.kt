@@ -11,7 +11,7 @@ import android.view.SurfaceView
 /**
  * created by YooJin.
  * date: 2021/2/4 14:44
- * desc:波浪动画
+ * desc:波浪动画,SurfaceView无法alpha和视图动画
  */
 class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
@@ -24,7 +24,7 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
 
     constructor(context: Context):this(context, null)
 
-    private lateinit var drawWater: DrawWaterUtils
+    private lateinit var surfaceViewWater: SurfaceViewWaterUtils
 
 
     private fun init() {
@@ -33,14 +33,14 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
         holder.setFormat(PixelFormat.TRANSLUCENT)
         setZOrderOnTop(true)
         setZOrderMediaOverlay(true)
-        drawWater = DrawWaterUtils(holder)
+        surfaceViewWater = SurfaceViewWaterUtils(holder)
     }
 
     @SuppressLint("DrawAllocation")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         if (changed){
-            drawWater.init(width,height)
+            surfaceViewWater.init(width,height)
         }
     }
 
@@ -50,12 +50,12 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
 
     override fun surfaceCreated(p0: SurfaceHolder) {
         //Log.e("===","surfaceCreated drawWater.isAlive ${drawWater.isAlive}")
-        if (!drawWater.isAlive) {
+        if (!surfaceViewWater.isAlive) {
             //Log.e("===","run")
-            drawWater.runDraw()
+            surfaceViewWater.runDraw()
         }else{
             //Log.e("===","notify")
-            drawWater.resumeThread()
+            surfaceViewWater.resumeThread()
         }
     }
 
@@ -65,7 +65,7 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
 
     override fun surfaceDestroyed(p0: SurfaceHolder) {
         //Log.e("===","surfaceDestroyed")
-        drawWater.stopDraw()
+        surfaceViewWater.stopDraw()
     }
 
 }

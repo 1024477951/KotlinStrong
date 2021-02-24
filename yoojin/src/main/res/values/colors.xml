@@ -32,6 +32,6 @@
 
     <color name="bg_color_3159c7_83">#D43159C7</color>
     <color name="bg_color_0672D6">#0672D6</color>
-    <color name="bg_color_transparent">#00000000</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

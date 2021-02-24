@@ -3,14 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/fm_splash">
 
     <fragment
-        android:id="@+id/firstFragment"
+        android:id="@+id/fm_tab"
         android:name="com.strong.ui.TabFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_tab">
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fm_splash"
+        android:name="com.strong.ui.splash.SplashFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_splash">
 
     </fragment>
 
