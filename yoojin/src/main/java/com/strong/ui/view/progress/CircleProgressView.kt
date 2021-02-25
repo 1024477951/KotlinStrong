@@ -61,6 +61,7 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
         val textSize = attributes.getDimension(R.styleable.circleProgress_circle_text_size,SizeUtils.dp2px(10f).toFloat())
         val isBold = attributes.getBoolean(R.styleable.circleProgress_circle_text_isBold,false)
         val centerColor = attributes.getColor(R.styleable.circleProgress_circle_center_color,Color.TRANSPARENT)
+        val isAnimation = attributes.getBoolean(R.styleable.circleProgress_circle_isAnimation,false)
         attributes.recycle()
         //圆环画笔
         bgPaint = Paint()
@@ -88,13 +89,15 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
         textPaint.isFakeBoldText = isBold
         textPaint.color = textColor
         textPaint.isAntiAlias = true
-
-        initAnimation()
+        if (isAnimation) {
+            initAnimation()
+        }
     }
 
+    /** 缩放动画 */
     private fun initAnimation(){
         val animation = ScaleAnimation(0f,1f,0f,1f)
-        animation.duration = 1000
+        animation.duration = 1500
         animation.repeatCount = 0
         //动画结束时，停留在最后一帧
         animation.fillAfter = true

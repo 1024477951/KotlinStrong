@@ -37,6 +37,7 @@
             app:circle_text_color="@color/text_color_999999"
             app:circle_text_size="@dimen/sp_8"
             app:circle_text_isBold="true"
+            app:circle_isAnimation="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

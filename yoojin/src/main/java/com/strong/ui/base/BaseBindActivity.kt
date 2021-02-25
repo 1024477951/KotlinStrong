@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
+import com.gyf.immersionbar.ktx.immersionBar
+import com.strong.R
 
 abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() , LifecycleObserver {
 
@@ -34,11 +36,25 @@ abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCom
         super.onCreate(savedInstanceState)
         context = this
         binding = bindingView(layoutId())
-
+        //初始化沉浸式
+        initImmersionBar()
         initVM()
         modelObserve()
         initData(intent.extras)
         Log.d("current class name",javaClass.simpleName)
+    }
+
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected open fun initImmersionBar() {
+        //设置共同沉浸式样式
+        immersionBar{
+            //字体颜色为黑色(深色)，默认白色(亮色)
+            statusBarDarkFont(true)
+            navigationBarColor(R.color.transparent)
+        }
     }
 
     private fun bindingView(@LayoutRes resId: Int): V {

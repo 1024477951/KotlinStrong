@@ -2,7 +2,7 @@ package com.strong.ui.splash
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.navigation.Navigation
+import android.os.Looper
 import com.strong.R
 import com.strong.databinding.FragmentSplashBinding
 import com.strong.ui.base.BaseBindFragment
@@ -16,17 +16,18 @@ class SplashFragment : BaseBindFragment<FragmentSplashBinding, SplashViewModel>(
 
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
+        //模拟加载图片
         var count = 0f
-        val mHandler = Handler()
+        val mHandler = Handler(Looper.getMainLooper())
         val mRunnable = object :Runnable {
             override fun run() {
-                count+=10
+                count+=20
                 binding.pbTime.setProgress(count)
                 if (count >= binding.pbTime.getMax()) {
                     mHandler.removeCallbacks(this)
                     activity!!.window.setBackgroundDrawableResource(R.color.white)
-                    activity!!.let { Navigation.findNavController(it, R.id.nav_main) }
-                        .navigate(R.id.fm_tab)
+                    //移除启动页
+                    activity!!.supportFragmentManager.beginTransaction().remove(this@SplashFragment).commitAllowingStateLoss()
                 }else{
                     mHandler.postDelayed(this,500)
                 }
