@@ -21,3 +21,4 @@
 /.idea/gradle.xml
 /.idea/jarRepositories.xml
 /.idea/misc.xml
+/buildSrc/build/

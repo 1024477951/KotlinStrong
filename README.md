@@ -1,9 +1,34 @@
 # KotlinStrong
-this is a strong's kotlin app
-自己学习kotlin所封装的一个网络访问框架，mvvm模式（livedata + databinding），base抽离成了lib通用库
+自己学习kotlin和一些日常的封装
+mvvm模式（livedata + databinding + retrofit + 协程）
 lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解
+gradle config：buildSrc
+启动页：Navigation SplashFragment
 
+#### jni
+
+cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)
+
+文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
+
+#### 贝塞尔波浪
+
+SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html](https://www.cnblogs.com/LiuZhen/p/14378702.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
+
+#### 屏幕适配插件笔记
+
+[https://www.cnblogs.com/LiuZhen/p/14367974.html](https://www.cnblogs.com/LiuZhen/p/14367974.html)
+
+#### FoldTextView
+
+[https://www.cnblogs.com/LiuZhen/p/14177650.html](https://www.cnblogs.com/LiuZhen/p/14177650.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/foldtextview.gif)
+
+#### EllipsizeEndTextview
+
+[https://www.cnblogs.com/LiuZhen/p/14137562.html](https://www.cnblogs.com/LiuZhen/p/14137562.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/ellipsizetextview.gif)
 
 #### 学习笔记
 #
@@ -56,19 +81,6 @@ lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和�
     AOP编程的主要用途有：日志记录，行为统计，安全控制，事务处理，异常处理，系统统一的认证、权限管理等。
     AspectJ的配置很麻烦，这里使用框架AspectJX
 #
-#### jni
-
-cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)
-
-文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
-
-#### 笔记
-
-贝塞尔波浪：[https://www.cnblogs.com/LiuZhen/p/14378702.html](https://www.cnblogs.com/LiuZhen/p/14378702.html)
-![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
-
-屏幕适配插件笔记：[https://www.cnblogs.com/LiuZhen/p/14367974.html](https://www.cnblogs.com/LiuZhen/p/14367974.html)
-
 #
     Encrypt 加密
     Signature 签名
