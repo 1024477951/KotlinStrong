@@ -30,6 +30,11 @@ SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html
 [https://www.cnblogs.com/LiuZhen/p/14137562.html](https://www.cnblogs.com/LiuZhen/p/14137562.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/ellipsizetextview.gif)
 
+#### CircleProgressView
+
+[https://www.cnblogs.com/LiuZhen/p/14446023.html](https://www.cnblogs.com/LiuZhen/p/14446023.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/circleprogress.gif)
+
 #### 学习笔记
 #
     常用关键字
