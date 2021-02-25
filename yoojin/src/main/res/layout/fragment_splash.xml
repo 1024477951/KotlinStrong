@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@mipmap/icon_splash">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,10 +30,10 @@
             android:layout_height="@dimen/dp_50"
             android:layout_marginEnd="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_40"
-            app:circle_width="@dimen/dp_5"
-            app:circle_max="3"
-            app:circle_color="@color/colorSecondaryVariant"
-            app:circle_progress_color="@color/colorSecondary"
+            app:circle_width="@dimen/dp_6"
+            app:circle_max="100"
+            app:circle_color="@color/colorSecondary"
+            app:circle_progress_color="@color/colorSecondaryVariant"
             app:circle_text_color="@color/text_color_999999"
             app:circle_text_size="@dimen/sp_8"
             app:circle_text_isBold="true"

@@ -20,19 +20,19 @@ class SplashFragment : BaseBindFragment<FragmentSplashBinding, SplashViewModel>(
         val mHandler = Handler()
         val mRunnable = object :Runnable {
             override fun run() {
-                count+=1
+                count+=10
                 binding.pbTime.setProgress(count)
-                if (count >= 3) {
+                if (count >= binding.pbTime.getMax()) {
                     mHandler.removeCallbacks(this)
                     activity!!.window.setBackgroundDrawableResource(R.color.white)
                     activity!!.let { Navigation.findNavController(it, R.id.nav_main) }
                         .navigate(R.id.fm_tab)
                 }else{
-                    mHandler.postDelayed(this,1000)
+                    mHandler.postDelayed(this,500)
                 }
             }
         }
-        mHandler.postDelayed(mRunnable,1000)
+        mHandler.postDelayed(mRunnable,500)
     }
 
     override fun modelObserve() {

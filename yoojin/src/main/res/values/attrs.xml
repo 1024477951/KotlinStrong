@@ -15,5 +15,6 @@
         <attr name="circle_text_color" format="color" />
         <attr name="circle_text_size" format="dimension" />
         <attr name="circle_text_isBold" format="boolean" />
+        <attr name="circle_center_color" format="color" />
     </declare-styleable>
 </resources>
