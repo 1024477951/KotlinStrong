@@ -3,35 +3,31 @@
 mvvm模式（livedata + databinding + retrofit + 协程）
 lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解
 gradle config：buildSrc
-启动页：Navigation SplashFragment
 
 #### jni
-
 cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)
-
 文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
 
 #### 贝塞尔波浪
-
 SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html](https://www.cnblogs.com/LiuZhen/p/14378702.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
 
-#### 屏幕适配插件笔记
+#### 启动页 SplashFragment
+[https://www.cnblogs.com/LiuZhen/p/14448055.html](https://www.cnblogs.com/LiuZhen/p/14448055.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/splash.gif)
 
+#### 屏幕适配插件笔记
 [https://www.cnblogs.com/LiuZhen/p/14367974.html](https://www.cnblogs.com/LiuZhen/p/14367974.html)
 
 #### FoldTextView
-
 [https://www.cnblogs.com/LiuZhen/p/14177650.html](https://www.cnblogs.com/LiuZhen/p/14177650.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/foldtextview.gif)
 
 #### EllipsizeEndTextview
-
 [https://www.cnblogs.com/LiuZhen/p/14137562.html](https://www.cnblogs.com/LiuZhen/p/14137562.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/ellipsizetextview.gif)
 
 #### CircleProgressView
-
 [https://www.cnblogs.com/LiuZhen/p/14446023.html](https://www.cnblogs.com/LiuZhen/p/14446023.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/circleprogress.gif)
 
