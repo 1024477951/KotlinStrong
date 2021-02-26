@@ -10,7 +10,6 @@ import android.os.Handler
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ToastUtils
 import com.strong.R
 import com.strong.databinding.FragmentHomeBinding

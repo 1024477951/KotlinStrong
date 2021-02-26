@@ -1,6 +1,7 @@
 package com.strong.ui.sort
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,6 +38,16 @@ class SortFragment : BaseImmersionBindFragment<FragmentSortBinding, SortViewMode
             add(tab5Fragment)
         }
         initViewPager()
+        binding.fabTab.setOnClickListener {
+            childFragmentManager.setFragmentResult(
+                "tab1",
+                bundleOf("data" to "你就叫tab1")
+            )
+            childFragmentManager.setFragmentResult(
+                "tab2",
+                bundleOf("data" to "你就叫tab2")
+            )
+        }
     }
 
     private fun initViewPager() {

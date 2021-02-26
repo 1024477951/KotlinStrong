@@ -35,19 +35,19 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
         //添加启动页
         supportFragmentManager.beginTransaction().replace(R.id.fl_splash,splashFragment).commitAllowingStateLoss()
 
+        initViewPager()
+    }
+
+    private fun initViewPager() {
         val list: MutableList<String> = ArrayList()
         list.add("首页")
-        list.add("菜单")
+        list.add("Tabs")
         binding.linBottom.setTitles(list)
         binding.linBottom.setCallBack(object : BottomMenuView.CallBack{
             override fun click(position: Int) {
                 binding.viewPager.setCurrentItem(position, false)
             }
         })
-        initViewPager()
-    }
-
-    private fun initViewPager() {
         fragmentList.run {
             add(homeFragment)
             add(sortFragment)
