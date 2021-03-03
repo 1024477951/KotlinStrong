@@ -33,7 +33,7 @@ SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html
 
 #### Fragment result api
 [https://www.cnblogs.com/LiuZhen/p/14452617.html](https://www.cnblogs.com/LiuZhen/p/14452617.html)
-![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_a_a.gif) ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_child_tab.gif) ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_tab_child.gif)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_tab_child.gif)
 
 #### 学习笔记
 #

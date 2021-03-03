@@ -4,13 +4,14 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import androidx.core.content.ContextCompat
+import android.net.Uri
+import android.os.*
+import android.provider.MediaStore
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ToastUtils
+import com.luck.picture.lib.entity.LocalMedia
+import com.luck.picture.lib.listener.OnResultCallbackListener
 import com.strong.R
 import com.strong.databinding.FragmentHomeBinding
 import com.strong.ui.adapter.BaseAdapter
@@ -20,10 +21,11 @@ import com.strong.ui.home.click.FunctionClick
 import com.strong.ui.home.item.HomeBannerBindItem
 import com.strong.ui.home.item.MenuContentBindItem
 import com.strong.ui.home.item.MenuTitleBindItem
-import com.strong.utils.EncryptUtils
+import com.strong.utils.encrypt.EncryptUtils
 import com.strong.utils.aspect.MyAnnotationOnclick
 import com.strong.utils.scroller.ScrollerCallBack
 import com.strong.utils.scroller.ScrollerUtils
+import com.strong.utils.selector.PictureSelectorUtils
 import com.strong.utils.system.BatteryUtils
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,7 +37,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun providerVMClass() = HomeViewModel::class.java
 
-    private val requestCode = 0x1024
     private var mAdapter = BaseAdapter()
 
     override fun initData(bundle: Bundle?) {
@@ -54,7 +55,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun initList() {
         mViewModel.getBannerList()
-        ScrollerUtils.scroller(binding.recyclerView,binding.toolbar,object : ScrollerCallBack {
+        ScrollerUtils.scroller(binding.recyclerView, binding.toolbar, object : ScrollerCallBack {
 
             override fun alpha(alpha: Float) {
                 binding.tvTitle.alpha = alpha
@@ -67,15 +68,12 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         val gridLayoutManager = GridLayoutManager(context, 3)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                val bean = mAdapter.list?.get(position)
                 //根据类型返回不同长度的显示
-                val size: Int
-                size = when (bean) {
+                return when (mAdapter.list?.get(position)) {
                     is HomeBannerBindItem -> 3
                     is MenuTitleBindItem -> 3
                     else -> 1
                 }
-                return size
             }
         }
         //调用这段代码之前需要先setAdapter才能生效
@@ -112,7 +110,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            requestCode ->
+            0 ->
                 if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
 
                 } else {
@@ -129,7 +127,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                 when {
                     BatteryUtils.isIgnoringBatteryOptimizations() -> {
                         ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             BatteryUtils.setAppIgnore()
                         }, 1000)
                     }
@@ -137,6 +135,12 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                         ToastUtils.showShort("加入失败")
                     }
                 }
+            }
+        } else if (requestCode == Activity.DEFAULT_KEYS_SHORTCUT) {
+            if (resultCode == Activity.RESULT_OK) {
+                ToastUtils.showShort("Write permissions are granted", Toast.LENGTH_SHORT)
+            } else {
+                ToastUtils.showShort("Write permissions are denied", Toast.LENGTH_SHORT)
             }
         }
     }
@@ -169,21 +173,47 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                             ToastUtils.showShort("已经在名单中")
                         }
                     }
+                R.mipmap.icon_home_menu_batch ->
+                    PictureSelectorUtils.openPicture(
+                        this@HomeFragment,
+                        object : OnResultCallbackListener<LocalMedia> {
+                            override fun onResult(result: MutableList<LocalMedia>?) {
+                                if (result != null) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                        val urisToModify = Uri.parse(result[0].realPath)
+                                        val editPendingIntent = MediaStore.createWriteRequest(
+                                            requireActivity().contentResolver,
+                                            arrayListOf(urisToModify)
+                                        )
+                                        startIntentSenderForResult(
+                                            editPendingIntent.intentSender,
+                                            Activity.DEFAULT_KEYS_SHORTCUT,
+                                            null,
+                                            0,
+                                            0,
+                                            0,
+                                            requireArguments()
+                                        )
+                                    } else {
+                                        ToastUtils.showShort("Write permissions are granted")
+                                    }
+                                }
+                            }
+
+                            override fun onCancel() {
+
+                            }
+
+                        }, null
+                    )
             }
         }
     }
 
     fun checkFilePermission(): Boolean {
-        if (context?.let {
-                ContextCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-            } != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), requestCode)
-                return false
-            }
+        if (!Environment.isExternalStorageManager()) {
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+            return false
         }
         return true
     }

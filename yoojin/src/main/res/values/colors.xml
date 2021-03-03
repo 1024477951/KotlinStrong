@@ -30,8 +30,10 @@
     <color name="text_color_999999">#999999</color>
     <color name="text_color_015293">#015293</color>
 
+    <color name="bg_color_DBDBDB_88">#E0DBDBDB</color>
     <color name="bg_color_3159c7_83">#D43159C7</color>
     <color name="bg_color_0672D6">#0672D6</color>
+    <color name="bg_color_212121">#212121</color>
     <color name="transparent">#00000000</color>
 
 </resources>

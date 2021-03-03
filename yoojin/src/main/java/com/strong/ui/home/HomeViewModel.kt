@@ -55,7 +55,7 @@ class HomeViewModel : BaseViewModel() {
 
         list.add(MenuBean("模块2",MenuBean.TYPE_TITLE,0,null))
         list.add(MenuBean("加入白名单",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_battery,null))
-        list.add(MenuBean("menu2",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave,null))
+        list.add(MenuBean("Batch operations",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_batch,null))
         list.add(MenuBean("menu3",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave,null))
         list.add(MenuBean("menu4",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave,null))
         list.add(MenuBean("menu5",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave,null))

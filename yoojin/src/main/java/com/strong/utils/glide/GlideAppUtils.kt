@@ -10,6 +10,17 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 open class GlideAppUtils {
     companion object {
+        /** 加载gif图片 */
+        fun loadGif(imageView: ImageView, path: String, error: Int){
+            GlideApp.with(Utils.getApp())
+                .asGif()
+                .load(path)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .dontAnimate()
+                .error(error)
+                .into(imageView)
+        }
         /** 加载圆形图片 */
         fun loadCircle(imageView: ImageView, path: String, error: Int){
             val requestOptions = RequestOptions.circleCropTransform()
@@ -43,6 +54,19 @@ open class GlideAppUtils {
                 .dontAnimate()
                 .error(error)
                 .transform(CenterCrop(), RoundedCornersTransformation(radius, 0))
+                .into(imageView)
+        }
+        /** 加载列表图片 */
+        fun loadCrop(imageView: ImageView, path: String, error: Int,width: Int,height: Int){
+            GlideApp.with(Utils.getApp())
+                .load(path)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .override(width,height)
+                .centerCrop()
+                .apply(RequestOptions().placeholder(error))
+                .dontAnimate()
+                .error(error)
                 .into(imageView)
         }
         /** 默认加载带圆角图片 */

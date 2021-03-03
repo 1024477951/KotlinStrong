@@ -97,7 +97,7 @@ bool checkSignature(JNIEnv *env, jobject context){
 
 extern "C"
 JNIEXPORT bool JNICALL
-Java_com_strong_utils_EncryptUtils_checkSignature(
+Java_com_strong_utils_encrypt_EncryptUtils_checkSignature(
         JNIEnv *env, jobject) {
     return checkSignature(env,getAndroidApplication(env));
 }

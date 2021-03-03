@@ -12,7 +12,8 @@
     <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--获取sd卡写的权限，用于文件上传和下载-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--全局悬浮窗，可以将窗口显示在所有其他应用程序的顶层 -->
@@ -22,6 +23,7 @@
     <!--将应用加入电池优化白名单-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
+    <!-- android:requestLegacyExternalStorage="true"为了适配安卓11，跳过安卓10适配，10跟11创建intentSender方式不同，否则要同时适配安卓10跟11 -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,6 +31,7 @@
         android:name="com.strong.YooJinApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.MyApplication" >
         <!-- 适配全面屏 -->
         <meta-data

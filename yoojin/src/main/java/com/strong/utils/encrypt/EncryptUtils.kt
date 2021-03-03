@@ -1,4 +1,4 @@
-package com.strong.utils
+package com.strong.utils.encrypt
 
 import android.util.Log
 import com.blankj.utilcode.util.Utils

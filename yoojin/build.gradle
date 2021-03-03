@@ -151,7 +151,8 @@ dependencies {
     implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
     implementation "com.gyf.immersionbar:immersionbar-ktx:${Versions.immersion}"
     implementation "com.gyf.immersionbar:immersionbar-components:${Versions.immersion}"
-
     //radius ui
     implementation "com.noober.background:core:${Versions.noober}"
+    //图片选择器
+    implementation "com.github.LuckSiege.PictureSelector:picture_library:${Versions.pictureSelector}"
 }

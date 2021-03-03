@@ -29,6 +29,7 @@ object Versions {
     const val viewmodel = "2.0.1"
 
     const val blankjUtils = "1.30.4"
+    const val pictureSelector = "v2.6.0"
 
     const val okhttp = "4.0.0"
     const val retrofit = "2.9.0"
