@@ -9,7 +9,7 @@ interface HomeApi {
     /**
      * 文章详情
      */
-    @GET("/article/list/{page}/json")
+    @GET("/list/{page}/json")
     suspend fun getTestLists(@Path("page") page: Int): BaseResponse<ArticleList>
 
 }

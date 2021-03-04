@@ -1,9 +1,11 @@
 import com.config.Versions
 
+//gradle脚本执行依赖
 buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${Versions.gradle}"
@@ -13,10 +15,12 @@ buildscript {
             Cannot cast object 'com.android.build.gradle.internal.pipeline.TransformTask$2$1@590ffd3a' with class 'com.android.build.gradle.internal.pipeline.TransformTask$2$1' to class 'com.android.build.gradle.internal.pipeline.TransformTask'
             更新aspectjx版本
         */
-        classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:${Versions.aspectjx_plugin}"
+        //classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:${Versions.aspectjx_plugin}"
+        /* zip file is empty：因为 kotlin 和 java 互调时，aspectjx 会重复备份且备份过程不是追加而是覆盖，导致的,参考https://github.com/2017398956/AspectPluginDemo */
+        classpath "com.github.2017398956:AspectPlugin:${Versions.aspectjx_plugin}"
     }
 }
-
+//项目依赖
 allprojects {
     repositories {
         google()

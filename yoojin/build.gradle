@@ -6,6 +6,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     //id "android-aspectjx"
+    id "AspectPlugin"
 }
 
 def APP_NAME
@@ -30,11 +31,11 @@ android {
         if (Switch.workType == 0){
             PKGNAME = "com.strong"
             versionType = "release"
-            buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
+            buildConfigField 'String', 'baseUrl', "\"https://www.release.com\""
         }else{
             PKGNAME = "com.strong.test"
             versionType = "test"
-            buildConfigField 'String', 'baseUrl', "\"https://www.wanandroid.com\""
+            buildConfigField 'String', 'baseUrl', "\"https://www.test.com\""
         }
         APP_NAME = "KtxApp-"+versionType
         applicationId PKGNAME
