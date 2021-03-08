@@ -1,0 +1,24 @@
+{
+  "code": 0,
+  "msg": "success",
+  "data": {
+    "pageNo": 1,
+    "pageSize": 10,
+    "totalPage": 1,
+    "totalCount": 3,
+    "list": [
+      {
+        "title": "@宝山幸运儿，手机、音箱、代金券……等！你！来！抽！",
+        "sourceUrl": "https://bs.storage.shmedia.tech/eb10a1118ba2450a9672098753e86e04.jpg"
+      },
+      {
+        "title": "快来参与抽奖",
+        "sourceUrl": "https://bs.storage.shmedia.tech/855106457f9a427f8c17e5f9a0c8979b.jpg"
+      },
+      {
+        "title": "选出你最爱的冬日美食",
+        "sourceUrl": "https://bs.storage.shmedia.tech/e1c6e20001b64c9f8a1eb8043d8e533d.jpg"
+      }
+    ]
+  }
+}

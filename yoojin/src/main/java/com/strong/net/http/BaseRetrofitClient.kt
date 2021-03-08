@@ -18,7 +18,8 @@ import java.util.concurrent.TimeUnit
 abstract class BaseRetrofitClient {
 
     companion object {
-        private const val TIME_OUT = 5
+        //10秒超时
+        private const val TIME_OUT = 10
     }
 
     private val cookieJar by lazy { PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(Utils.getApp()))}

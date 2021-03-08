@@ -1,16 +1,20 @@
 # KotlinStrong
-自己学习kotlin和一些日常的封装
-mvvm模式（livedata + databinding + retrofit + 协程）
-lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解
+自己学习kotlin和一些日常的封装  
+mvvm模式（livedata + databinding + retrofit + 协程）  
+lib中的网络访问对外扩展方法（拦截器）,代码中大量注释和见解  
 gradle config：buildSrc
 
 #### jni
-cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)
+cpp文件加密：[https://www.cnblogs.com/LiuZhen/p/12024257.html](https://www.cnblogs.com/LiuZhen/p/12024257.html)  
 文件切割合并：[https://www.cnblogs.com/LiuZhen/p/12120618.html](https://www.cnblogs.com/LiuZhen/p/12120618.html)
 
 #### 贝塞尔波浪
 SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html](https://www.cnblogs.com/LiuZhen/p/14378702.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/water.gif)
+
+#### Fragment result api
+[https://www.cnblogs.com/LiuZhen/p/14452617.html](https://www.cnblogs.com/LiuZhen/p/14452617.html)
+![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_tab_child.gif)
 
 #### 启动页 SplashFragment
 [https://www.cnblogs.com/LiuZhen/p/14448055.html](https://www.cnblogs.com/LiuZhen/p/14448055.html)
@@ -30,10 +34,6 @@ SurfaceView+TextureView实现：[https://www.cnblogs.com/LiuZhen/p/14378702.html
 #### CircleProgressView
 [https://www.cnblogs.com/LiuZhen/p/14446023.html](https://www.cnblogs.com/LiuZhen/p/14446023.html)
 ![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/circleprogress.gif)
-
-#### Fragment result api
-[https://www.cnblogs.com/LiuZhen/p/14452617.html](https://www.cnblogs.com/LiuZhen/p/14452617.html)
-![image](https://github.com/1024477951/KotlinStrong/blob/master/gif/fragment_tab_child.gif)
 
 #### 学习笔记
 #

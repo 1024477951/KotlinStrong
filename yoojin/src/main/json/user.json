@@ -1,0 +1,13 @@
+{
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "id": 1,
+    "mobile": "19521256309",
+    "avatar": "https://wdit.storage.shmedia.tech/1255354.png",
+    "birthday": "",
+    "name": "灭霸",
+    "nickname": "灭霸哥",
+    "score": 117
+  }
+}

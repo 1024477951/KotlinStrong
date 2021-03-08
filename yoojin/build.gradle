@@ -31,11 +31,11 @@ android {
         if (Switch.workType == 0){
             PKGNAME = "com.strong"
             versionType = "release"
-            buildConfigField 'String', 'baseUrl', "\"https://www.release.com\""
+            buildConfigField 'String', 'baseUrl', "\"http://10.10.13.214:81//\""
         }else{
             PKGNAME = "com.strong.test"
             versionType = "test"
-            buildConfigField 'String', 'baseUrl', "\"https://www.test.com\""
+            buildConfigField 'String', 'baseUrl', "\"http://10.10.13.214:81//\""
         }
         APP_NAME = "KtxApp-"+versionType
         applicationId PKGNAME
