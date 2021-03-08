@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -13,16 +14,14 @@
         android:layout_height="match_parent"
         android:background="@mipmap/icon_splash">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="splash"
-            android:textSize="@dimen/sp_34"
-            android:textColor="@color/text_color_999999"/>
+            app:setSplashBanner="@{model.bannerField}" />
 
         <com.strong.ui.view.progress.CircleProgressView
             android:id="@+id/pb_time"
@@ -40,6 +39,25 @@
             app:circle_isAnimation="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.noober.background.view.BLButton
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="点击跳过"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_4"
+            android:layout_margin="@dimen/dp_15"
+            app:bl_gradient_angle="45"
+            app:bl_corners_radius="@dimen/dp_12"
+            app:bl_gradient_startColor="@color/bg_color_3159c7_83"
+            app:bl_gradient_endColor="@color/colorSecondaryVariant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

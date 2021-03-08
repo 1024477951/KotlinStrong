@@ -3,6 +3,9 @@ package com.strong.ui.splash
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
+import android.view.View
+import com.blankj.utilcode.util.ToastUtils
 import com.strong.R
 import com.strong.databinding.FragmentSplashBinding
 import com.strong.ui.base.BaseBindFragment
@@ -14,30 +17,40 @@ class SplashFragment : BaseBindFragment<FragmentSplashBinding, SplashViewModel>(
 
     override fun providerVMClass() = SplashViewModel::class.java
 
+    private lateinit var mHandler: Handler
+    private lateinit var mRunnable: Runnable
+
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
-        //模拟加载图片
+        mViewModel.getSplashList()
+
         var count = 0f
-        val mHandler = Handler(Looper.getMainLooper())
-        val mRunnable = object :Runnable {
-            override fun run() {
-                count+=20
-                binding.pbTime.setProgress(count)
-                if (count >= binding.pbTime.getMax()) {
-                    mHandler.removeCallbacks(this)
-                    activity!!.window.setBackgroundDrawableResource(R.color.white)
-                    //移除启动页
-                    activity!!.supportFragmentManager.beginTransaction().remove(this@SplashFragment).commitAllowingStateLoss()
-                }else{
-                    mHandler.postDelayed(this,500)
-                }
+        mHandler = Handler(Looper.getMainLooper())
+        mRunnable = Runnable {
+            count+=1
+            binding.pbTime.setProgress(count)
+            if (count >= binding.pbTime.getMax()) {
+                next()
+            }else{
+                mHandler.postDelayed(mRunnable,2000)
             }
         }
-        mHandler.postDelayed(mRunnable,500)
+        binding.btnNext.setOnClickListener { next() }
     }
 
     override fun modelObserve() {
-
+        mViewModel.splashLiveData.observe(this,{
+            binding.btnNext.visibility = View.VISIBLE
+            binding.pbTime.setMax(it + 0f)
+            mHandler.postDelayed(mRunnable,2000)
+        })
+    }
+    /** 关闭启动页 */
+    private fun next(){
+        mHandler.removeCallbacks(mRunnable)
+        requireActivity().window.setBackgroundDrawableResource(R.color.white)
+        //移除启动页
+        requireActivity().supportFragmentManager.beginTransaction().remove(this@SplashFragment).commitAllowingStateLoss()
     }
 
 }

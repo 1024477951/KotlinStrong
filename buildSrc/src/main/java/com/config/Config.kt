@@ -2,7 +2,7 @@ package com.config
 
 object Switch {
     //#0=生产环境|1=测试环境
-    const val workType = 1
+    const val workType = 0
 
     const val isX86 = false
 }

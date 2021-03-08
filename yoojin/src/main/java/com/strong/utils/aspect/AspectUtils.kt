@@ -79,7 +79,7 @@ class AspectUtils {
     @Around("methodLogin()")
     @Throws(Throwable::class)
     fun aroundLoginPoint(joinPoint: ProceedingJoinPoint) {
-        ToastUtils.showShort("login")
+        ToastUtils.showShort("login.json")
         //此处判断是否登录，如果没有不执行方法，跳转到登录，如果已经登录只执行原方法
         joinPoint.proceed()
 
