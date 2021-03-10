@@ -5,11 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 /** recyclerView绑定适配器 * */
-open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder> {
-
-    constructor() {
-        this.list = ArrayList()
-    }
+open class BaseAdapter() : RecyclerView.Adapter<BaseBindViewHolder>() {
 
     var list: MutableList<Any>? = null
 
@@ -21,6 +17,7 @@ open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder> {
         return list!!.size
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun getItem(position: Int): BaseBindItem<ViewDataBinding> {
         return list!![position] as BaseBindItem<ViewDataBinding>
     }
@@ -71,6 +68,10 @@ open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder> {
             list?.add(index,bean)
             notifyItemInserted(index)
         }
+    }
+
+    init {
+        this.list = ArrayList()
     }
 
 }

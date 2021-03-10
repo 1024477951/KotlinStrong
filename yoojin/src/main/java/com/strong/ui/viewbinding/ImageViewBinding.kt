@@ -11,10 +11,14 @@ fun ImageView.setResId(resId: Int){
     GlideAppUtils.load(this, resId, R.mipmap.icon_def_empty)
 }
 @BindingAdapter("setImageUrl","imgRadius")
-fun ImageView.setImageUrl(url: String, radius: Int){
-    GlideAppUtils.load(this, url, R.mipmap.icon_def_empty,radius)
+fun ImageView.setImageUrl(url: String?, radius: Int){
+    url?.let {
+        GlideAppUtils.load(this, it, R.mipmap.icon_def_empty,radius)
+    }
 }
 @BindingAdapter("setCircleUrl")
-fun ImageView.setCircleUrl(url: String){
-    GlideAppUtils.loadCircle(this, url, R.mipmap.icon_def_empty)
+fun ImageView.setCircleUrl(url: String?){
+    url?.let {
+        GlideAppUtils.loadCircle(this, it, R.mipmap.icon_user_empty)
+    }
 }

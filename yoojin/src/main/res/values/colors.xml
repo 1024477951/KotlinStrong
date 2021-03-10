@@ -14,6 +14,13 @@
     <color name="bg_color_home_titleBar_star">#8025AEE7</color>
     <color name="bg_color_home_titleBar_end">#25AEE7</color>
 
+    <!--我的-->
+    <color name="text_color_me_name">#303132</color>
+    <color name="text_color_me_subTitle">#99A3A7AD</color>
+
+    <color name="bg_color_me">#F1F2F4</color>
+    <color name="bg_color_me_menu_title">#363839</color>
+
     <!--通用颜色-->
     <color name="bg_color_refresh_footer">#00FFFFFF</color>
     <color name="bg_color_titleBar">#FFFFFF</color>

@@ -41,7 +41,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
-        //mViewModel.getTestList()
         initList()
         //切面测试
         testAspect()
@@ -54,8 +53,8 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun initList() {
-        mViewModel.getBannerList()
-        ScrollerUtils.scroller(binding.recyclerView, binding.toolbar, object : ScrollerCallBack {
+        mViewModel.getBanners()
+        ScrollerUtils.scroller(binding.recyclerView, object : ScrollerCallBack {
 
             override fun alpha(alpha: Float) {
                 binding.tvTitle.alpha = alpha
@@ -81,9 +80,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun modelObserve() {
-        mViewModel.testLiveData.observe(this, {
-            ToastUtils.showShort("请求到 ${it.size} 条数据")
-        })
         mViewModel.bannerLiveData.observe(this, {
             if (it != null) {
                 mAdapter.setItem(HomeBannerBindItem(it))

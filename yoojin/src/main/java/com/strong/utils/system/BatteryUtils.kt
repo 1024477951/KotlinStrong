@@ -1,5 +1,6 @@
 package com.strong.utils.system
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
@@ -11,6 +12,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.Utils
+import java.util.*
 
 /** 原文链接：https://juejin.im/post/5dfaeccbf265da33910a441d 文章特别好，还关注了公众号 */
 class BatteryUtils {
@@ -30,6 +32,7 @@ class BatteryUtils {
         }
 
         /** 申请加入优化 */
+        @SuppressLint("BatteryLife")
         @RequiresApi(api = Build.VERSION_CODES.M)
         fun requestIgnoreBatteryOptimizations(context: Fragment) {
             try {
@@ -92,7 +95,8 @@ class BatteryUtils {
             return if (Build.BRAND == null) {
                 false
             } else {
-                Build.BRAND.toLowerCase() == "huawei" || Build.BRAND.toLowerCase() == "honor"
+                Build.BRAND.toLowerCase(Locale.getDefault()) == "huawei" ||
+                        Build.BRAND.toLowerCase(Locale.getDefault()) == "honor"
             }
         }
 
@@ -111,7 +115,7 @@ class BatteryUtils {
         }
 
         private fun isXiaomi(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "xiaomi"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "xiaomi"
         }
 
         private fun goXiaomiSetting() {
@@ -122,7 +126,7 @@ class BatteryUtils {
         }
 
         private fun isOPPO(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "oppo"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "oppo"
         }
 
         private fun goOPPOSetting() {
@@ -142,7 +146,7 @@ class BatteryUtils {
         }
 
         private fun isVIVO(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "vivo"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "vivo"
         }
 
         private fun goVIVOSetting() {
@@ -150,7 +154,7 @@ class BatteryUtils {
         }
 
         private fun isMeizu(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "meizu"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "meizu"
         }
 
         private fun goMeizuSetting() {
@@ -158,7 +162,7 @@ class BatteryUtils {
         }
 
         private fun isSamsung(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "samsung"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "samsung"
         }
 
         private fun goSamsungSetting() {
@@ -170,7 +174,7 @@ class BatteryUtils {
         }
 
         private fun isLeTV(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "letv"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "letv"
         }
 
         private fun goLetvSetting() {
@@ -181,7 +185,7 @@ class BatteryUtils {
         }
 
         private fun isSmartisan(): Boolean {
-            return Build.BRAND != null && Build.BRAND.toLowerCase() == "smartisan"
+            return Build.BRAND != null && Build.BRAND.toLowerCase(Locale.getDefault()) == "smartisan"
         }
 
         private fun goSmartisanSetting() {

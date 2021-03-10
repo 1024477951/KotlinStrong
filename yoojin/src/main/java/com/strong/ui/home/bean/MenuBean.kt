@@ -2,8 +2,7 @@ package com.strong.ui.home.bean
 
 data class MenuBean(val title: String?,
                        val type: Int,
-                       val resId: Int,
-                       val adList:MutableList<String>?){
+                       val resId: Int){
 
     companion object {
         const val TYPE_TITLE = 0

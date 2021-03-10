@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="model"
+            type="com.strong.ui.me.MeViewModel" />
+        <variable
+            name="click"
+            type="com.strong.ui.me.click.FunctionClick" />
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color_me"
+        app:srlEnableRefresh="true"
+        app:srlEnableLoadMore="false"
+        app:srlEnableAutoLoadMore="false"
+        app:srlHeaderMaxDragRate="2.5"
+        app:onRefreshLoadMoreListener="@{model.refreshMe}">
+
+        <com.scwang.smartrefresh.header.BezierCircleHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.noober.background.view.BLImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/icon_user_empty"
+                    android:layout_marginTop="@dimen/dp_80"
+                    android:layout_marginStart="@dimen/dp_30"
+                    app:bindViewClick="@{()->click.onLogin()}"
+                    app:setCircleUrl="@{model.avatarField}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_20"
+                    tools:text="登录/注册"
+                    android:text="@{model.nickNameField}"
+                    app:bindViewClick="@{()->click.onLogin()}"
+                    android:textColor="@color/text_color_me_name"
+                    android:textSize="@dimen/sp_18"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+                    app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
+
+                <TextView android:id="@+id/tv_mobile"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    tools:text="登录后可享受更多服务哦~"
+                    android:text="@{model.mobileField}"
+                    android:textColor="@color/text_color_me_subTitle"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_marginTop="@dimen/dp_5"
+                    app:layout_constraintStart_toStartOf="@+id/tv_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_avatar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_menu"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_80"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_35"
+                app:cardCornerRadius="@dimen/dp_10"
+                app:cardElevation="@dimen/dp_0"
+                app:layout_constraintTop_toBottomOf="@+id/cl_head">
+
+                <LinearLayout
+                    android:id="@+id/lin_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_head" >
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home_menu_word"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开发中"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:textColor="@color/bg_color_me_menu_title"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home_menu_word"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开发中"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:textColor="@color/bg_color_me_menu_title"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home_menu_word"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开发中"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:textColor="@color/bg_color_me_menu_title"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_home_menu_word"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="开发中"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:textColor="@color/bg_color_me_menu_title"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</layout>

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="foldTextView">
         <attr name="fold_maxLines" format="integer" min="0" />
     </declare-styleable>
+
     <declare-styleable name="bannerTextView">
         <attr name="banner_maxLines" format="integer" min="0" />
     </declare-styleable>
+
     <declare-styleable name="circleProgress">
         <attr name="circle_max" format="float" />
         <attr name="circle_progress" format="float" />
@@ -18,4 +21,5 @@
         <attr name="circle_center_color" format="color" />
         <attr name="circle_isAnimation" format="boolean" />
     </declare-styleable>
+
 </resources>

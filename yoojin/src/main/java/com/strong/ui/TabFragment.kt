@@ -40,22 +40,24 @@ class TabFragment : BaseFragment() {
             add(homeFragment)
             add(sortFragment)
         }
-        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                menus.select(position)
-            }
-        })
-        viewPager.isUserInputEnabled = false
-        viewPager.offscreenPageLimit = 2
-        viewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun createFragment(position: Int) = fragmentList[position]
+        with(viewPager){
+            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    menus.select(position)
+                }
+            })
+            isUserInputEnabled = false
+            offscreenPageLimit = 1
+            adapter = object : FragmentStateAdapter(this@TabFragment) {
+                override fun createFragment(position: Int) = fragmentList[position]
 
-            override fun getItemCount() = fragmentList.size
+                override fun getItemCount() = fragmentList.size
+            }
         }
     }
 

@@ -14,10 +14,10 @@ import com.youth.banner.indicator.RectangleIndicator
 
 /**  banner 轮播 */
 @BindingAdapter("setHomeBanner")
-fun Banner<BannerBean, HomeBannerAdapter>.setHomeBanner(list: MutableList<BannerBean>?){
-    if (list != null) {
-        //LogUtils.e("BannerViewBinding","banner count "+list.size)
-        setAdapter(HomeBannerAdapter(list))
+fun Banner<BannerBean.BannerData, HomeBannerAdapter>.setHomeBanner(list: MutableList<BannerBean.BannerData>?){
+    list?.let {
+        //LogUtils.e("BannerViewBinding","banner count "+it.size)
+        setAdapter(HomeBannerAdapter(it))
             //.addBannerLifecycleObserver()//添加生命周期观察者
             .setIndicator(RectangleIndicator(context))//设置指示器
             .setIndicatorSelectedWidth(SizeUtils.dp2px(8F))
@@ -27,7 +27,7 @@ fun Banner<BannerBean, HomeBannerAdapter>.setHomeBanner(list: MutableList<Banner
             .setLoopTime(2000)
             .setOnBannerListener { data, position ->
                 {
-                    ToastUtils.showShort(data.toString())
+                    ToastUtils.showShort(it[position].title)
                 }
             }
     }
@@ -35,8 +35,8 @@ fun Banner<BannerBean, HomeBannerAdapter>.setHomeBanner(list: MutableList<Banner
 
 @BindingAdapter("setSplashBanner")
 fun Banner<SplashBean.SplashData, SplashBannerAdapter>.setSplashBanner(list: MutableList<SplashBean.SplashData>?){
-    if (list != null) {
-        setAdapter(SplashBannerAdapter(list))
+    list?.let {
+        setAdapter(SplashBannerAdapter(it))
             .setIndicator(RectangleIndicator(context))//设置指示器
             .setIndicatorSelectedWidth(SizeUtils.dp2px(8F))
             .setIndicatorNormalWidth(SizeUtils.dp2px(3F))
@@ -45,7 +45,7 @@ fun Banner<SplashBean.SplashData, SplashBannerAdapter>.setSplashBanner(list: Mut
             .setLoopTime(1500)
             .setOnBannerListener { data, position ->
                 {
-                    ToastUtils.showShort(list[position].title)
+                    ToastUtils.showShort(it[position].title)
                 }
             }
     }

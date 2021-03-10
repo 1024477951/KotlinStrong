@@ -18,7 +18,7 @@ class MenuContentBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeMenuC
     constructor(bean: MenuBean,function: FunctionClick) : this(R.layout.item_home_menu_child){
         titleField.set(bean.title)
         resField.set(bean.resId)
-        this.function = function;
+        this.function = function
     }
 
     override fun onBindViewHolder(position: Int, binding: ItemHomeMenuChildBinding) {

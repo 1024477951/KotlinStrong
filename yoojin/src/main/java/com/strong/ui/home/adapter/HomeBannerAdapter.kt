@@ -15,15 +15,15 @@ import com.youth.banner.adapter.BannerAdapter
  * created by YooJin.
  * date: 2021/1/14 18:08
  */
-class HomeBannerAdapter(datas: MutableList<BannerBean>?) : BannerAdapter<BannerBean, ImageHolder>(datas) {
+class HomeBannerAdapter(datas: MutableList<BannerBean.BannerData>?) : BannerAdapter<BannerBean.BannerData, ImageHolder>(datas) {
 
     override fun onCreateHolder(parent: ViewGroup?, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.layout_home_banner,parent,false);
         return ImageHolder(view)
     }
 
-    override fun onBindView(holder: ImageHolder, data: BannerBean, position: Int, size: Int) {
-        GlideAppUtils.loadCrop(holder.imageView,data.url, R.mipmap.icon_def_empty,SizeUtils.dp2px(8f))
+    override fun onBindView(holder: ImageHolder, data: BannerBean.BannerData, position: Int, size: Int) {
+        GlideAppUtils.loadCrop(holder.imageView,data.sourceUrl!!, R.mipmap.icon_def_empty,SizeUtils.dp2px(8f))
     }
 }
 

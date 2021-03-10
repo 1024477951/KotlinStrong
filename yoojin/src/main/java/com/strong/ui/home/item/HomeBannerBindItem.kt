@@ -9,9 +9,9 @@ import com.strong.ui.home.bean.BannerBean
 
 class HomeBannerBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeBannerBinding>(layoutId) {
 
-    val bannerField = ObservableField<ArrayList<BannerBean>>()
+    val bannerField = ObservableField<MutableList<BannerBean.BannerData>>()
 
-    constructor(banners: ArrayList<BannerBean>) : this(R.layout.item_home_banner){
+    constructor(banners: MutableList<BannerBean.BannerData>) : this(R.layout.item_home_banner){
         bannerField.set(banners)
     }
 

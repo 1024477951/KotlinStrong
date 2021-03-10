@@ -1,15 +1,15 @@
 package com.strong.ui.home.api
 
 import com.strong.net.BaseResponse
-import com.strong.ui.home.bean.ArticleList
+import com.strong.ui.home.bean.BannerBean
 import retrofit2.http.*
 
 interface HomeApi {
 
     /**
-     * 文章详情
+     * banner
      */
-    @GET("/list/{page}/json")
-    suspend fun getTestLists(@Path("page") page: Int): BaseResponse<ArticleList>
+    @GET("banner.json")
+    suspend fun getBanner(): BaseResponse<BannerBean>
 
 }

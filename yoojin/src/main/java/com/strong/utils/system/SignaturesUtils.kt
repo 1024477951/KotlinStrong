@@ -1,5 +1,6 @@
 package com.strong.utils.system
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import androidx.fragment.app.FragmentActivity
@@ -12,14 +13,15 @@ import java.security.NoSuchAlgorithmException
  */
 class SignaturesUtils {
 
+    @SuppressLint("PackageManagerGetSignatures")
     fun sHA1(activity: FragmentActivity): String? {
         try {
-            val manager: PackageManager = activity?.packageManager!!
+            val manager: PackageManager = activity.packageManager!!
             val info: PackageInfo = manager.getPackageInfo(
-                activity?.packageName!!, PackageManager.GET_SIGNATURES
+                activity.packageName!!, PackageManager.GET_SIGNATURES
             )
-            if (null != info.signatures && info.signatures.size > 0) {
-                val sign = info.signatures.get(0).toCharsString()
+            if (null != info.signatures && info.signatures.isNotEmpty()) {
+                val sign = info.signatures[0].toCharsString()
                 return sign
             }
         } catch (e: PackageManager.NameNotFoundException) {

@@ -2,7 +2,6 @@ package com.strong.utils.scroller
 
 import android.graphics.Rect
 import android.util.Log
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
@@ -17,7 +16,6 @@ class ScrollerUtils {
 
         fun scroller(
             recyclerView: RecyclerView,
-            toolbar: View,
             scrollerCallBack: ScrollerCallBack
         ) {
 

@@ -20,9 +20,9 @@ class SplashViewModel : BaseViewModel() {
             val result = withContext(Dispatchers.IO) {
                 repository.getSplash()
             }
-            if (result.data.list != null) {
-                bannerField.set(result.data.list)
-                splashLiveData.postValue(result.data.list!!.size)
+            result.data?.list?.let {
+                bannerField.set(it)
+                splashLiveData.postValue(it.size)
             }
         }
     }

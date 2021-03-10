@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/icon_tab_sort_check"
+        android:state_checked="true"/>
+    <item android:drawable="@drawable/icon_tab_sort_un"
+        android:state_checked="false"/>
+</selector>

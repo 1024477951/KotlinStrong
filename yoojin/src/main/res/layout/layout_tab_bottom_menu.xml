@@ -18,7 +18,7 @@
         android:id="@+id/cb_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/selected_tab_home"
+        android:background="@drawable/selected_main_bottom_home"
         android:button="@null"
         android:checked="true"
         android:clickable="false" />

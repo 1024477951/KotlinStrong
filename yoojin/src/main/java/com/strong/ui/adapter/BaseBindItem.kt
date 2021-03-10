@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
+
 abstract class BaseBindItem<V : ViewDataBinding> {
 
     val viewType: Int
@@ -44,6 +45,7 @@ abstract class BaseBindItem<V : ViewDataBinding> {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun bind(holder: BaseBindViewHolder, position: Int) {
         onBindViewHolder(position,holder.mBinding as V)
     }

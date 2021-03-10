@@ -32,18 +32,19 @@ open class BounceView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         val lp = layoutParams as ViewGroup.MarginLayoutParams
         val topMargin = lp.topMargin
         val anim = ValueAnimator.ofInt(-10, 0 + topMargin, 6, 0 + topMargin)
-
-        anim.addUpdateListener { animation ->
-            val curValue = animation.animatedValue as Int
-            layout(
-                left,
-                curValue + (parent as ViewGroup).paddingTop,
-                right,
-                curValue + height + (parent as ViewGroup).paddingBottom
-            )
+        with(anim){
+            addUpdateListener { animation ->
+                val curValue = animation.animatedValue as Int
+                layout(
+                    left,
+                    curValue + (parent as ViewGroup).paddingTop,
+                    right,
+                    curValue + height + (parent as ViewGroup).paddingBottom
+                )
+            }
+            interpolator = BounceInterpolator()//反弹
+            duration = 500
+            start()
         }
-        anim.interpolator = BounceInterpolator()//反弹
-        anim.duration = 500
-        anim.start()
     }
 }
