@@ -119,6 +119,8 @@ dependencies {
     implementation "com.google.android.material:material:${Versions.material}"
     implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     implementation "androidx.fragment:fragment-ktx:${Versions.fragment}"
+    //mmkv
+    implementation "com.tencent:mmkv-static:${Versions.mmkv}"
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"

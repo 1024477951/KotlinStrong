@@ -28,6 +28,7 @@ object Versions {
     const val lifecycle = "2.2.0"
     const val viewmodel = "2.0.1"
 
+    const val mmkv = "1.2.7"
     const val blankjUtils = "1.30.4"
     const val pictureSelector = "v2.6.0"
 

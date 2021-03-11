@@ -1,11 +1,16 @@
 package com.strong.provider
 
+import android.annotation.SuppressLint
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 import com.blankj.utilcode.util.Utils
+import com.tencent.mmkv.MMKV
+import com.tencent.mmkv.MMKVLogLevel
+
 
 /**
  * created by YooJin.
@@ -15,13 +20,19 @@ import com.blankj.utilcode.util.Utils
 class KtxProvider : ContentProvider() {
 
     companion object{
+        @SuppressLint("StaticFieldLeak")
         lateinit var mContext: Context
     }
 
     override fun onCreate(): Boolean {
-        mContext = context!!
         //初始化全局Context提供者
-        Utils.init(ContextProvider.get()?.getApplication())
+        context?.let {
+            mContext = it
+            Utils.init(ContextProvider.get()?.getApplication())
+            val rootDir: String = MMKV.initialize(it)
+            MMKV.setLogLevel(MMKVLogLevel.LevelDebug)
+            Log.d("KtxProvider","mmkv root: $rootDir")
+        }
         return false
     }
 

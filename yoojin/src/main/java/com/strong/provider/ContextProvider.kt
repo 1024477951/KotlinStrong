@@ -1,18 +1,14 @@
 package com.strong.provider
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
 
-class ContextProvider {
-
-    private var mContext: Context
-
-    constructor(context: Context){
-        mContext = context
-    }
+class ContextProvider(val context: Context) {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var instance: ContextProvider? = null
         /**
@@ -31,14 +27,7 @@ class ContextProvider {
         }
     }
 
-    /**
-     * 获取上下文
-     */
-    fun getContext(): Context? {
-        return mContext
-    }
-
-    fun getApplication(): Application? {
-        return mContext.applicationContext as Application
+    fun getApplication(): Application {
+        return context.applicationContext as Application
     }
 }

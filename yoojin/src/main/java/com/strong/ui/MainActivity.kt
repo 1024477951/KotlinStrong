@@ -39,11 +39,11 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
         //添加启动页
         supportFragmentManager.beginTransaction().replace(R.id.fl_splash,splashFragment).commitAllowingStateLoss()
 
-        initViewPager()
+        initTabs()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun initViewPager() {
+    private fun initTabs() {
         val titles: MutableList<String> = ArrayList()
         titles.run {
             add("首页")
