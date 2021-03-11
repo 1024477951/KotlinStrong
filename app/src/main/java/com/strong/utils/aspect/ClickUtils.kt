@@ -1,7 +1,6 @@
-package com.kotlinstrong.utils.aspect
+package com.strong.utils.aspect
 
 import android.os.SystemClock
-import com.blankj.utilcode.util.LogUtils
 import kotlin.math.abs
 
 object ClickUtils {

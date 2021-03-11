@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.kotlinstrong">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.strong">
 
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +12,8 @@
     <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!--获取sd卡写的权限，用于文件上传和下载-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <!--允许读取手机状态 用于创建BmobInstallation-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--全局悬浮窗，可以将窗口显示在所有其他应用程序的顶层 -->
@@ -21,42 +23,45 @@
     <!--将应用加入电池优化白名单-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
+    <!-- android:requestLegacyExternalStorage="true"为了适配安卓11，跳过安卓10适配，10跟11创建intentSender方式不同，否则要同时适配安卓10跟11 -->
     <application
-            android:name=".stronglib.base.BaseApp"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="${APP_NAME}"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true">
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${APP_NAME}"
+        android:name="com.strong.YooJinApp"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/Theme.MyApplication" >
+        <!-- 适配全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+        <!--适配华为（huawei）刘海屏-->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true"/>
+        <!--适配小米（xiaomi）刘海屏-->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <!-- 全局Context提供者 -->
+        <provider
+            android:name=".provider.KtxProvider"
+            android:authorities="${PKGNAME}.contextprovider"
+            android:exported="false" />
         <activity
-                android:name=".splash.SplashActivity"
-                android:configChanges="uiMode"
-                android:launchMode="singleTop"
-                android:theme="@style/splashTheme">
+            android:name=".ui.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-                android:name=".main.MainActivity"
-                android:configChanges="uiMode"
-                android:label="首页"
-                android:launchMode="singleTop"
-                android:theme="@style/AppTheme" />
-        <activity
-                android:name=".login.LoginActivity"
-                android:configChanges="uiMode"
-                android:label="登录"
-                android:launchMode="singleTop"
-                android:theme="@style/AppTheme" />
-        <activity
-                android:name=".option.OptionsActivity"
-                android:configChanges="uiMode"
-                android:label="详情"
-                android:launchMode="singleTop"
-                android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

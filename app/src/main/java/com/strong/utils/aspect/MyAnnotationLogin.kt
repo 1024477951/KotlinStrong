@@ -1,4 +1,4 @@
-package com.kotlinstrong.utils.aspect
+package com.strong.utils.aspect
 
 import kotlin.annotation.Target
 import kotlin.annotation.Retention

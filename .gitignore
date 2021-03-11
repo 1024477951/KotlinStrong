@@ -22,3 +22,4 @@
 /.idea/jarRepositories.xml
 /.idea/misc.xml
 /buildSrc/build/
+/app/.cxx/
