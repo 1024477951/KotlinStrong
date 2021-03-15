@@ -23,3 +23,8 @@
 /.idea/misc.xml
 /buildSrc/build/
 /app/.cxx/
+.idea/modules/app/
+yoojin/src/main/res/drawable-anydpi/
+yoojin/src/main/res/drawable-hdpi/
+yoojin/src/main/res/drawable-mdpi/
+yoojin/src/main/res/drawable-xhdpi/

@@ -84,7 +84,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
             if (it != null) {
                 mAdapter.setItem(HomeBannerBindItem(it))
             }
-            mViewModel.getMenuList()
         })
         mViewModel.menuLiveData.observe(this, {
             if (it != null) {

@@ -7,6 +7,7 @@ import com.strong.ui.home.bean.BannerBean
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.model.HomeRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
 class HomeViewModel : BaseViewModel() {
@@ -20,12 +21,14 @@ class HomeViewModel : BaseViewModel() {
     val bannerLiveData: MutableLiveData<MutableList<BannerBean.BannerData>> = MutableLiveData()
     fun getBanners() {
         launchOnUI {
+            //withContext是串行的，如果要并行需要使用async
             val result = withContext(Dispatchers.IO) {
                 repository.getBanner()
             }
             result.data?.let {
                 bannerLiveData.postValue(it.list)
             }
+            getMenuList()
         }
     }
 

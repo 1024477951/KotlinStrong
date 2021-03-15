@@ -39,6 +39,8 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
     private var path: Path = Path()
     private var paint: Paint = Paint()
     private var isRun: Boolean = false
+    //是否阻塞，如果多次阻塞会导致 Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 异常
+    private var isWait: Boolean = false
 
     private var circlePaint: Paint = Paint()
 
@@ -73,6 +75,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
     /** 启动线程 */
     fun runDraw() {
         isRun = true
+        isWait = false
         start()
         mValueAnimator.start()
     }
@@ -80,6 +83,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
     fun resumeThread() {
         synchronized(this) {
             isRun = true
+            isWait = false
             notify()
             mValueAnimator.start()
         }
@@ -93,7 +97,8 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
     override fun run() {
         synchronized(this) {
             while (true) {
-                if (!isRun) {
+                if (!isRun && !isWait) {
+                    isWait = true
                     wait()
                 }
                 val canvas = textureView.lockCanvas()

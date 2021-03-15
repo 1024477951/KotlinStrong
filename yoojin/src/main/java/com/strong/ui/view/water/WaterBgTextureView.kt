@@ -41,26 +41,26 @@ class WaterBgTextureView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
 
     override fun onSurfaceTextureAvailable(p0: SurfaceTexture, p1: Int, p2: Int) {
         if (!drawWater.isAlive) {
-            //Log.e("===","run")
+            Log.e("===","run")
             drawWater.runDraw()
         }else{
-            //Log.e("===","notify")
+            Log.e("===","notify")
             drawWater.resumeThread()
         }
     }
 
     override fun onSurfaceTextureSizeChanged(p0: SurfaceTexture, p1: Int, p2: Int) {
-        //Log.e("===","onSurfaceTextureSizeChanged")
+        Log.e("===","onSurfaceTextureSizeChanged")
     }
 
     override fun onSurfaceTextureDestroyed(p0: SurfaceTexture): Boolean {
-        //Log.e("===","onSurfaceTextureDestroyed")
+        Log.e("===","onSurfaceTextureDestroyed")
         drawWater.stopDraw()
         return true
     }
 
     override fun onSurfaceTextureUpdated(p0: SurfaceTexture) {
-
+        //Log.e("===","onSurfaceTextureUpdated")
     }
 
 }
