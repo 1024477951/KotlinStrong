@@ -59,7 +59,8 @@
                     android:text="@{model.nickNameField}"
                     app:bindViewClick="@{()->click.onLogin()}"
                     android:textColor="@color/text_color_me_name"
-                    android:textSize="@dimen/sp_18"
+                    tools:textSize="@dimen/sp_18"
+                    app:bindFontType="@{@string/font_translation_title}"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/iv_avatar"
                     app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
@@ -70,7 +71,8 @@
                     tools:text="登录后可享受更多服务哦~"
                     android:text="@{model.mobileField}"
                     android:textColor="@color/text_color_me_subTitle"
-                    android:textSize="@dimen/sp_14"
+                    tools:textSize="@dimen/sp_14"
+                    app:bindFontType="@{@string/font_list_title}"
                     android:layout_marginTop="@dimen/dp_5"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_avatar" />
@@ -115,7 +117,8 @@
                             android:text="开发中"
                             android:layout_marginTop="@dimen/dp_8"
                             android:textColor="@color/bg_color_me_menu_title"
-                            android:textSize="@dimen/sp_14" />
+                            tools:textSize="@dimen/sp_14"
+                            app:bindFontType="@{@string/font_list_title}" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -136,7 +139,8 @@
                             android:text="开发中"
                             android:layout_marginTop="@dimen/dp_8"
                             android:textColor="@color/bg_color_me_menu_title"
-                            android:textSize="@dimen/sp_14" />
+                            tools:textSize="@dimen/sp_14"
+                            app:bindFontType="@{@string/font_list_title}" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -157,7 +161,8 @@
                             android:text="开发中"
                             android:layout_marginTop="@dimen/dp_8"
                             android:textColor="@color/bg_color_me_menu_title"
-                            android:textSize="@dimen/sp_14" />
+                            tools:textSize="@dimen/sp_14"
+                            app:bindFontType="@{@string/font_list_title}" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -178,7 +183,8 @@
                             android:text="开发中"
                             android:layout_marginTop="@dimen/dp_8"
                             android:textColor="@color/bg_color_me_menu_title"
-                            android:textSize="@dimen/sp_14" />
+                            tools:textSize="@dimen/sp_14"
+                            app:bindFontType="@{@string/font_list_title}" />
                     </LinearLayout>
 
                 </LinearLayout>

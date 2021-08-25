@@ -1,4 +1,4 @@
-package com.strong.ui.viewbinding
+package com.strong.viewbinding
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

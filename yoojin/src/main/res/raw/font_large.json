@@ -1,0 +1,38 @@
+[
+  {
+    "fontType": "font_large_title",
+    "desc": "字体一",
+    "fontName": "",
+    "fontSize": 26
+  },
+  {
+    "fontType": "font_translation_title",
+    "desc": "字体二",
+    "fontName": "",
+    "fontSize": 26
+  },
+  {
+    "fontType": "font_global_title",
+    "desc": "字体三",
+    "fontName": "",
+    "fontSize": 24
+  },
+  {
+    "fontType": "font_list_title",
+    "desc": "字体四",
+    "fontName": "",
+    "fontSize": 22
+  },
+  {
+    "fontType": "font_sub_title",
+    "desc": "字体五",
+    "fontName": "",
+    "fontSize": 20
+  },
+  {
+    "fontType": "font_desc_title",
+    "desc": "字体六",
+    "fontName": "",
+    "fontSize": 18
+  }
+]

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.strong.ui.font.FontViewModel" />
+
+        <variable
+            name="click"
+            type="com.strong.ui.font.click.FunctionClick" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <include android:id="@+id/toolbar"
+            layout="@layout/include_toolbar"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/tv_font_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:textSize="@dimen/dp_18"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:bindFontType="@{@string/font_large_title}"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_25"
+                android:text="点击底部的按钮，可实时预览字体大小的变化"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:textSize="@dimen/dp_16"
+                app:layout_constraintTop_toBottomOf="@+id/tv_font_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:bindFontType="@{@string/font_global_title}"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_25"
+                android:text="你可根据阅读习惯，点击底部的按钮，设置字体大小。设置后会改变新闻、视听、圈子、问吧等标题和正文字体大小"/>
+
+            <ImageView
+                android:id="@+id/iv_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_55"
+                android:layout_marginStart="@dimen/dp_30"
+                android:src="@mipmap/icon_setting_font_normal_check"
+                app:isCheck="@{model.isNormalField}"
+                app:checkResId="@{model.normalResId}"
+                app:unCheckResId="@{model.unNormalResId}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_big"
+                app:bindViewClick="@{(v)->click.click(v)}" />
+
+            <ImageView
+                android:id="@+id/iv_big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_55"
+                android:src="@mipmap/icon_setting_font_big_un"
+                app:isCheck="@{model.isBigField}"
+                app:checkResId="@{model.bigResId}"
+                app:unCheckResId="@{model.unBigResId}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_normal"
+                app:layout_constraintEnd_toStartOf="@+id/iv_large"
+                app:bindViewClick="@{(v)->click.click(v)}" />
+
+            <ImageView
+                android:id="@+id/iv_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_55"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:src="@mipmap/icon_setting_font_large_un"
+                app:isCheck="@{model.isLargeField}"
+                app:checkResId="@{model.largeResId}"
+                app:unCheckResId="@{model.unLargeResId}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_big"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:bindViewClick="@{(v)->click.click(v)}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</layout>

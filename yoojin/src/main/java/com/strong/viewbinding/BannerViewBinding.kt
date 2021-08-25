@@ -1,7 +1,6 @@
-package com.strong.ui.viewbinding
+package com.strong.viewbinding
 
 import androidx.databinding.BindingAdapter
-import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.strong.R

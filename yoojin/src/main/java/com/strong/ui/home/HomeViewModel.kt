@@ -42,10 +42,10 @@ class HomeViewModel : BaseViewModel() {
         list.add(MenuBean("文件切割",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_cut))
         list.add(MenuBean("文件合并",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_merge))
 
-        list.add(MenuBean("模块2",MenuBean.TYPE_TITLE,0))
+        list.add(MenuBean("系统相关",MenuBean.TYPE_TITLE,0))
         list.add(MenuBean("加入白名单",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_battery))
         list.add(MenuBean("Batch operations",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_batch))
-        list.add(MenuBean("menu3",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave))
+        list.add(MenuBean("字体大小",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_font))
         list.add(MenuBean("menu4",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave))
         list.add(MenuBean("menu5",MenuBean.TYPE_MENU,R.mipmap.icon_home_menu_leave))
 

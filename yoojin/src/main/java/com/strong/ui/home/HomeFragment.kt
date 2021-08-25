@@ -16,6 +16,7 @@ import com.strong.R
 import com.strong.databinding.FragmentHomeBinding
 import com.strong.ui.adapter.BaseAdapter
 import com.strong.ui.base.BaseBindFragment
+import com.strong.ui.font.SettingFontActivity
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.click.FunctionClick
 import com.strong.ui.home.item.HomeBannerBindItem
@@ -201,6 +202,8 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
                         }, null
                     )
+                R.mipmap.icon_home_menu_font ->
+                    SettingFontActivity.startSettingFontActivity()
             }
         }
     }

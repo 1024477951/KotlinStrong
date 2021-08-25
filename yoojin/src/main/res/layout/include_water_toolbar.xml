@@ -7,5 +7,8 @@
     app:contentInsetStart="0dp"
     android:background="@color/colorPrimary" >
 
+    <com.strong.ui.view.water.WaterBgTextureView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.Toolbar>

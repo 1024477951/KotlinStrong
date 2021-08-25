@@ -62,6 +62,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.font.SettingFontActivity"
+            android:launchMode="singleTop"
+            android:label="字体设置"/>
+
     </application>
 
 </manifest>

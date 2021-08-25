@@ -48,6 +48,8 @@ object Versions {
     const val banner = "2.1.0"
     const val immersion = "3.0.0"
     const val noober = "1.6.5"
+
+    const val liveBus = "1.8.0"
 }
 
 object Libs {

@@ -9,4 +9,18 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--20-->
+    <string name="font_large_title" translatable="false">font_large_title</string>
+    <!--18-->
+    <string name="font_translation_title" translatable="false">font_translation_title</string>
+    <!--16-->
+    <string name="font_global_title" translatable="false">font_global_title</string>
+    <!--14-->
+    <string name="font_list_title" translatable="false">font_list_title</string>
+    <!--12-->
+    <string name="font_sub_title" translatable="false">font_sub_title</string>
+    <!--10-->
+    <string name="font_desc_title" translatable="false">font_desc_title</string>
+
 </resources>
