@@ -5,9 +5,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 /** recyclerView绑定适配器 * */
-open class BaseAdapter() : RecyclerView.Adapter<BaseBindViewHolder>() {
+open class BaseAdapter : RecyclerView.Adapter<BaseBindViewHolder>() {
 
     var list: MutableList<Any>? = null
+
+    init {
+        this.list = ArrayList()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseBindViewHolder {
         return BaseBindItem.createViewHolder(parent,viewType)
@@ -18,7 +22,7 @@ open class BaseAdapter() : RecyclerView.Adapter<BaseBindViewHolder>() {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun getItem(position: Int): BaseBindItem<ViewDataBinding> {
+    private fun getItem(position: Int): BaseBindItem<ViewDataBinding> {
         return list!![position] as BaseBindItem<ViewDataBinding>
     }
 
@@ -40,38 +44,34 @@ open class BaseAdapter() : RecyclerView.Adapter<BaseBindViewHolder>() {
     }
 
     /** 替换数据源 */
-    fun setItems(newList: MutableList<Any>) {
+    open fun setItems(newList: MutableList<Any>) {
         this.list?.clear()
         this.list?.addAll(newList)
         notifyDataSetChanged()
     }
-    fun setItem(bean: Any) {
+    open fun setItem(bean: Any) {
         this.list?.clear()
         this.list?.add(bean)
         notifyDataSetChanged()
     }
 
-    fun addItems(list: MutableList<Any>){
+    open fun addItems(list: MutableList<Any>){
         this.list?.addAll(list)
         notifyItemRangeInserted(itemCount - list.size - 1, list.size)
     }
 
-    fun addItem(bean: Any?){
+    open fun addItem(bean: Any?){
         if (bean != null) {
             list?.add(bean)
             notifyItemInserted(itemCount - 1)
         }
     }
 
-    fun addItem(index: Int,bean: Any?){
+    open fun addItem(index: Int,bean: Any?){
         if (bean != null) {
             list?.add(index,bean)
             notifyItemInserted(index)
         }
-    }
-
-    init {
-        this.list = ArrayList()
     }
 
 }

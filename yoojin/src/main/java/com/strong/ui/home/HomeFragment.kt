@@ -1,13 +1,14 @@
 package com.strong.ui.home
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import com.blankj.utilcode.util.ToastUtils
 import com.luck.picture.lib.entity.LocalMedia
@@ -22,8 +23,8 @@ import com.strong.ui.home.click.FunctionClick
 import com.strong.ui.home.item.HomeBannerBindItem
 import com.strong.ui.home.item.MenuContentBindItem
 import com.strong.ui.home.item.MenuTitleBindItem
-import com.strong.utils.encrypt.EncryptUtils
 import com.strong.utils.aspect.MyAnnotationOnclick
+import com.strong.utils.encrypt.EncryptUtils
 import com.strong.utils.scroller.ScrollerCallBack
 import com.strong.utils.scroller.ScrollerUtils
 import com.strong.utils.selector.PictureSelectorUtils
@@ -39,15 +40,32 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun providerVMClass() = HomeViewModel::class.java
 
     private var mAdapter = BaseAdapter()
+    private lateinit var batteryLauncher : ActivityResultLauncher<Intent>
 
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
         initList()
+        batteryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                when {
+                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
+                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            BatteryUtils.setAppIgnore()
+                        }, 1000)
+                    }
+                    else -> {
+                        ToastUtils.showShort("加入失败")
+                    }
+                }
+            }
+        }
         //切面测试
         testAspect()
         testAfterReturning()
     }
 
+    /** 切面测试方法 */
     fun testAspect() {}
     fun testAfterReturning(): Int {
         return 666
@@ -100,71 +118,27 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         })
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            0 ->
-                if (grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
-
-                } else {
-                    ToastUtils.showShort("没有权限")
-                }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Activity.RESULT_FIRST_USER) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                when {
-                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
-                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            BatteryUtils.setAppIgnore()
-                        }, 1000)
-                    }
-                    else -> {
-                        ToastUtils.showShort("加入失败")
-                    }
-                }
-            }
-        } else if (requestCode == Activity.DEFAULT_KEYS_SHORTCUT) {
-            if (resultCode == Activity.RESULT_OK) {
-                ToastUtils.showShort("Write permissions are granted", Toast.LENGTH_SHORT)
-            } else {
-                ToastUtils.showShort("Write permissions are denied", Toast.LENGTH_SHORT)
-            }
-        }
-    }
-
     private val click = object : FunctionClick {
         @MyAnnotationOnclick
         override fun click(resId: Int) {
             when (resId) {
-                R.mipmap.icon_home_menu_encrypt ->
-                    if (checkFilePermission()) {
-                        EncryptUtils.test()
-                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                    }
+                R.mipmap.icon_home_menu_encrypt -> {
+                    EncryptUtils.test()
+                    ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                }
                 R.mipmap.icon_home_menu_signature -> ToastUtils.showShort("验证结果为：${EncryptUtils.checkSignature()}")
-                R.mipmap.icon_home_menu_cut ->
-                    if (checkFilePermission()) {
-                        EncryptUtils.fileSplit()
-                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                    }
-                R.mipmap.icon_home_menu_merge ->
-                    if (checkFilePermission()) {
-                        EncryptUtils.fileMerge()
-                        ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
-                    }
+                R.mipmap.icon_home_menu_cut -> {
+                    EncryptUtils.fileSplit()
+                    ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                }
+                R.mipmap.icon_home_menu_merge -> {
+                    EncryptUtils.fileMerge()
+                    ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
+                }
                 R.mipmap.icon_home_menu_battery ->
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
-                            BatteryUtils.requestIgnoreBatteryOptimizations(this@HomeFragment)
+                            batteryLauncher.launch(BatteryUtils.requestIgnoreBatteryOptimizations())
                         } else {
                             ToastUtils.showShort("已经在名单中")
                         }
@@ -175,21 +149,34 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                         object : OnResultCallbackListener<LocalMedia> {
                             override fun onResult(result: MutableList<LocalMedia>?) {
                                 if (result != null) {
+                                    //Android 11时才生效
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                                         val urisToModify = Uri.parse(result[0].realPath)
+                                        //要求用户授予您的应用对指定媒体文件组的写访问权限。
                                         val editPendingIntent = MediaStore.createWriteRequest(
                                             requireActivity().contentResolver,
                                             arrayListOf(urisToModify)
                                         )
-                                        startIntentSenderForResult(
-                                            editPendingIntent.intentSender,
-                                            Activity.DEFAULT_KEYS_SHORTCUT,
-                                            null,
-                                            0,
-                                            0,
-                                            0,
-                                            requireArguments()
-                                        )
+
+                                        val request: IntentSenderRequest =
+                                            IntentSenderRequest.Builder(editPendingIntent.intentSender)
+                                                .build()
+//                                        startIntentSenderForResult(editPendingIntent.intentSender, Activity.DEFAULT_KEYS_SHORTCUT, null, 0, 0, 0, requireArguments())
+                                        registerForActivityResult(
+                                            ActivityResultContracts.StartIntentSenderForResult()
+                                        ) {
+                                            if (it.resultCode == Activity.RESULT_OK) {
+                                                ToastUtils.showShort(
+                                                    "Write permissions are granted",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                            } else {
+                                                ToastUtils.showShort(
+                                                    "Write permissions are denied",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                            }
+                                        }.launch(request)
                                     } else {
                                         ToastUtils.showShort("Write permissions are granted")
                                     }
@@ -206,14 +193,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                     SettingFontActivity.startSettingFontActivity()
             }
         }
-    }
-
-    fun checkFilePermission(): Boolean {
-        if (!Environment.isExternalStorageManager()) {
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
-            return false
-        }
-        return true
     }
 
 }

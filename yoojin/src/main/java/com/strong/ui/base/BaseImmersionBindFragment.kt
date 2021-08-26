@@ -30,7 +30,7 @@ abstract class BaseImmersionBindFragment<V : ViewDataBinding, VM : BaseViewModel
     lateinit var binding: V
     lateinit var mViewModel: VM//lateinit : 编译期在检查时不要因为属性变量未被初始化而报错
 
-    /** livedata 监听 */
+    /** liveData 监听 */
     open fun modelObserve() {}
 
     override fun onCreateView(

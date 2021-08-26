@@ -75,7 +75,7 @@
                     app:bindFontType="@{@string/font_list_title}"
                     android:layout_marginTop="@dimen/dp_5"
                     app:layout_constraintStart_toStartOf="@+id/tv_name"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_avatar" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

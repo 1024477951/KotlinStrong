@@ -1,7 +1,6 @@
 package com.strong.utils.system
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -10,7 +9,6 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.Utils
 import java.util.*
 
@@ -33,15 +31,11 @@ class BatteryUtils {
 
         /** 申请加入优化 */
         @SuppressLint("BatteryLife")
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        fun requestIgnoreBatteryOptimizations(context: Fragment) {
-            try {
-                val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                intent.data = Uri.parse("package:${Utils.getApp().packageName}")
-                context.startActivityForResult(intent,Activity.RESULT_FIRST_USER)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+        fun requestIgnoreBatteryOptimizations(): Intent {
+            val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            intent.data = Uri.parse("package:${Utils.getApp().packageName}")
+//                context.startActivityForResult(intent,Activity.RESULT_FIRST_USER)
+            return intent
         }
 
         /**
@@ -192,4 +186,5 @@ class BatteryUtils {
             showActivity("com.smartisanos.security")
         }
     }
+
 }
