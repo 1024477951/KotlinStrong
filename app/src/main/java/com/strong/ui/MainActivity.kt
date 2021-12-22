@@ -3,10 +3,9 @@ package com.strong.ui
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
 import com.strong.R
-import com.strong.databinding.ActivityMainBinding
-import com.strong.ui.base.BaseBindActivity
+import com.strong.base.BaseActivity
 
-class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : BaseActivity() {
 
     companion object{
         fun startMainActivity(){
@@ -14,10 +13,7 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
-
     override fun layoutId() = R.layout.activity_main
-
-    override fun providerVMClass() = MainViewModel::class.java
 
     override fun initData(bundle: Bundle?) {
 

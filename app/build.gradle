@@ -87,11 +87,6 @@ android {
             signingConfig signingConfigs.config
         }
     }
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -105,6 +100,16 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "${APP_NAME}-${defaultConfig.versionName}-${rootProject.releaseTime()}-${versionType}.apk"
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -124,17 +129,8 @@ dependencies {
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
-    //viewmodel
-    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     //utils
     implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
-    //okhttp
-    implementation "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
-    //retrofit
-    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    implementation "com.github.franmontiel:PersistentCookieJar:${Versions.cookie}"
     //gson
     implementation "com.google.code.gson:gson:${Versions.gson}"
     //cymChad
@@ -146,16 +142,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:${Versions.glide}"
     implementation "jp.wasabeef:glide-transformations:${Versions.transformations}"
     kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
-    //aspectjx
-    implementation "org.aspectj:aspectjrt:${Versions.aspectjx}"
     //banner
     implementation "com.youth.banner:banner:${Versions.banner}"
     //沉浸式 （ktx为kotlin扩展，components为fragment扩展）
     implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
     implementation "com.gyf.immersionbar:immersionbar-ktx:${Versions.immersion}"
     implementation "com.gyf.immersionbar:immersionbar-components:${Versions.immersion}"
-    //radius ui
-    implementation "com.noober.background:core:${Versions.noober}"
-    //图片选择器
-    implementation "com.github.LuckSiege.PictureSelector:picture_library:${Versions.pictureSelector}"
 }

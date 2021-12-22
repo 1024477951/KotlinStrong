@@ -14,5 +14,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="loadding"
-        android:textSize="@dimen/d43.0" />
+        android:textSize="@dimen/dp_40" />
 </LinearLayout>

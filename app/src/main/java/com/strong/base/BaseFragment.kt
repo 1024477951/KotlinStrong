@@ -1,4 +1,4 @@
-package com.strong.ui.base
+package com.strong.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
