@@ -1,12 +1,11 @@
 import com.config.Switch
 import com.config.Versions
+import com.config.Accompanist
 
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "kotlin-kapt"
-    //id "android-aspectjx"
-    id "AspectPlugin"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 def APP_NAME
@@ -67,7 +66,9 @@ android {
             }
         }
         //矢量图
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -91,20 +92,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlin
+    }
     kotlinOptions {
         jvmTarget = '1.8'
+        useIR = true
     }
     buildFeatures {
-        dataBinding = true
+        compose = true
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "${APP_NAME}-${defaultConfig.versionName}-${rootProject.releaseTime()}-${versionType}.apk"
-        }
-    }
-    repositories {
-        flatDir {
-            dirs 'libs'
         }
     }
     sourceSets {
@@ -112,40 +113,33 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     implementation "androidx.core:core-ktx:${Versions.core_ktx}"
     //google
-    implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
     implementation "com.google.android.material:material:${Versions.material}"
-    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    implementation "androidx.fragment:fragment-ktx:${Versions.fragment}"
+    implementation "androidx.compose.ui:ui:${Versions.compose}"
+    implementation "androidx.compose.material:material:${Versions.compose}"
+    implementation "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    implementation "androidx.activity:activity-compose:${Versions.composeActivity}"
     //mmkv
     implementation "com.tencent:mmkv-static:${Versions.mmkv}"
-    //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
-    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     //utils
     implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
     //gson
     implementation "com.google.code.gson:gson:${Versions.gson}"
-    //cymChad
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${Versions.cymChad}"
-    //smart
-    implementation "com.scwang.smartrefresh:SmartRefreshLayout:${Versions.smart}"
-    implementation "com.scwang.smartrefresh:SmartRefreshHeader:${Versions.smart}"
     //glide
     implementation "com.github.bumptech.glide:glide:${Versions.glide}"
     implementation "jp.wasabeef:glide-transformations:${Versions.transformations}"
     kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
-    //banner
-    implementation "com.youth.banner:banner:${Versions.banner}"
-    //沉浸式 （ktx为kotlin扩展，components为fragment扩展）
-    implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
-    implementation "com.gyf.immersionbar:immersionbar-ktx:${Versions.immersion}"
-    implementation "com.gyf.immersionbar:immersionbar-components:${Versions.immersion}"
+    //accompanist
+    implementation Accompanist.insets
 }

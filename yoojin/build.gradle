@@ -6,7 +6,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     //id "android-aspectjx"
-    id "AspectPlugin"
+    //id "AspectPlugin"
 }
 
 def APP_NAME

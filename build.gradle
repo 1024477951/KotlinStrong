@@ -4,8 +4,7 @@ import com.config.Versions
 buildscript {
     repositories {
         google()
-        jcenter()
-        maven { url 'https://jitpack.io' }
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${Versions.gradle}"
@@ -17,7 +16,7 @@ buildscript {
         */
         //classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:${Versions.aspectjx_plugin}"
         /* zip file is empty：因为 kotlin 和 java 互调时，aspectjx 会重复备份且备份过程不是追加而是覆盖，导致的,参考https://github.com/2017398956/AspectPluginDemo */
-        classpath "com.github.2017398956:AspectPlugin:${Versions.aspectjx_plugin}"
+        //classpath "com.github.2017398956:AspectPlugin:${Versions.aspectjx_plugin}"
     }
 }
 //项目依赖
@@ -27,6 +26,7 @@ allprojects {
         jcenter()
         //cookie持久化jar包 添加以下语句
         maven { url "https://jitpack.io" }
+        mavenCentral()
     }
     buildDir = new File(rootDir, "gradle-build/${path.replaceAll(':', '/')}")
 }

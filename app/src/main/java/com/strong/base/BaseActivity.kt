@@ -3,12 +3,10 @@ package com.strong.base
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import com.gyf.immersionbar.ktx.immersionBar
-import com.strong.R
+import androidx.activity.ComponentActivity
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : ComponentActivity() {
 
     protected var tag: String = javaClass.simpleName
 
@@ -17,7 +15,7 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      *  加载布局
      */
-    abstract fun layoutId(): Int
+    abstract fun initView()
     /**
      * 初始化数据
      */
@@ -26,24 +24,9 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
-        setContentView(layoutId())
-        //初始化沉浸式
-        initImmersionBar()
+        initView()
         initData(intent.extras)
         Log.d("current class name", javaClass.simpleName)
-    }
-
-    /**
-     * 初始化沉浸式
-     * Init immersion bar.
-     */
-    protected open fun initImmersionBar() {
-        //设置共同沉浸式样式
-        immersionBar{
-            //字体颜色为黑色(深色)，默认白色(亮色)
-            statusBarDarkFont(true)
-            navigationBarColor(R.color.transparent)
-        }
     }
 
 }

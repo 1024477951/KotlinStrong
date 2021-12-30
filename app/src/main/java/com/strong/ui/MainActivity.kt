@@ -1,8 +1,8 @@
 package com.strong.ui
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import com.blankj.utilcode.util.ActivityUtils
-import com.strong.R
 import com.strong.base.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -13,10 +13,14 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun layoutId() = R.layout.activity_main
+    override fun initView() {
+        setContent {
+            MainLayout(name = "hello word")
+        }
+    }
+
 
     override fun initData(bundle: Bundle?) {
 
     }
-
 }
