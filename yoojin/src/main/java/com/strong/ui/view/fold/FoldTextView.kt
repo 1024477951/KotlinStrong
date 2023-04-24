@@ -25,9 +25,9 @@ import com.strong.R
 class FoldTextView(context: Context?, private val attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context!!, attrs, defStyleAttr) {
 
-    constructor(context: Context, attrs: AttributeSet?):this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context):this(context, null)
+    constructor(context: Context) : this(context, null)
 
     private val tag = "FoldTextView"
     private var maxLine = 0f

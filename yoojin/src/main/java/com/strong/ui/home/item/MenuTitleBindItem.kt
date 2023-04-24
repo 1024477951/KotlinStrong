@@ -7,11 +7,12 @@ import com.strong.databinding.ItemHomeMenuTextBinding
 import com.strong.ui.adapter.BaseBindItem
 import com.strong.ui.home.bean.MenuBean
 
-class MenuTitleBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeMenuTextBinding>(layoutId) {
+class MenuTitleBindItem(@LayoutRes layoutId: Int) :
+    BaseBindItem<ItemHomeMenuTextBinding>(layoutId) {
 
     val titleField = ObservableField<String>()
 
-    constructor(bean: MenuBean) : this(R.layout.item_home_menu_text){
+    constructor(bean: MenuBean) : this(R.layout.item_home_menu_text) {
         titleField.set(bean.title)
     }
 

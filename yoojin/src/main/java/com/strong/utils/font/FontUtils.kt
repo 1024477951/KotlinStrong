@@ -15,10 +15,13 @@ class FontUtils {
     companion object {
         private const val TAG = "FontUtils"
         private const val KEY_APP_FONT = "key_app_font"
+
         //标准字体
         const val NORMAL_FONT_STYLE = "normal_text_size"
+
         //大号字体
         const val BIG_FONT_STYLE = "big_text_size"
+
         //特大字体
         const val LARGE_FONT_STYLE = "large_text_size"
 
@@ -44,6 +47,7 @@ class FontUtils {
             getFontByType(fontVoList, fontType)
         } else null
     }
+
     /**
      * 解析模型
      * @param fontType 具体字号类型
@@ -55,6 +59,7 @@ class FontUtils {
             it != null && StringUtils.equals(it.fontType, fontType)
         }
     }
+
     /** 字体模型  */
     private fun getRawFileList(fontStyle: String?): List<FontBean>? {
         return when {
@@ -70,6 +75,7 @@ class FontUtils {
             else -> getFontListByRaw(R.raw.font_normal)
         }
     }
+
     /** 读取本地模型 路径 /res/raw/resId */
     private fun getFontListByRaw(@RawRes resId: Int): List<FontBean>? {
         return GsonUtils.fromJson<List<FontBean>>(

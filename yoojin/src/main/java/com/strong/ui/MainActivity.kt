@@ -18,11 +18,12 @@ import com.strong.ui.view.menu.BottomMenuView
 
 class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
 
-    companion object{
-        fun startMainActivity(){
+    companion object {
+        fun startMainActivity() {
             ActivityUtils.startActivity(MainActivity::class.java)
         }
     }
+
     //启动页
     private val splashFragment by lazy { SplashFragment() }
 
@@ -37,7 +38,8 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initData(bundle: Bundle?) {
         //添加启动页
-        supportFragmentManager.beginTransaction().replace(R.id.fl_splash,splashFragment).commitAllowingStateLoss()
+        supportFragmentManager.beginTransaction().replace(R.id.fl_splash, splashFragment)
+            .commitAllowingStateLoss()
 
         initTabs()
     }
@@ -56,8 +58,8 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
             add(getDrawable(R.drawable.selected_main_bottom_sort))
             add(getDrawable(R.drawable.selected_main_bottom_me))
         }
-        binding.linBottom.setTitles(titles,drawables)
-        binding.linBottom.setCallBack(object : BottomMenuView.CallBack{
+        binding.linBottom.setTitles(titles, drawables)
+        binding.linBottom.setCallBack(object : BottomMenuView.CallBack {
             override fun click(position: Int) {
                 binding.viewPager.setCurrentItem(position, false)
             }
@@ -67,8 +69,8 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
             add(sortFragment)
             add(meFragment)
         }
-        with(binding.viewPager){
-            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        with(binding.viewPager) {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,

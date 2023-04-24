@@ -27,7 +27,7 @@ class TabFragment : BaseFragment() {
         list.add("首页")
         list.add("菜单")
         menus.setTitles(list)
-        menus.setCallBack(object : BottomMenuView.CallBack{
+        menus.setCallBack(object : BottomMenuView.CallBack {
             override fun click(position: Int) {
                 viewPager.setCurrentItem(position, false)
             }
@@ -40,8 +40,8 @@ class TabFragment : BaseFragment() {
             add(homeFragment)
             add(sortFragment)
         }
-        with(viewPager){
-            registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+        with(viewPager) {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,

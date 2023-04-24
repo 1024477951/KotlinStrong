@@ -10,6 +10,7 @@ class EncryptUtils {
     //属性声明都是静态的，方法并不是静态，必须通过@JvmStatic注解
     companion object {
         private const val TAG = "EncryptUtils"
+
         // Used to load the 'native-lib' library on application startup.
         init {
             System.loadLibrary("Encrypt")
@@ -20,22 +21,32 @@ class EncryptUtils {
 
         /** 创建文件 */
         @JvmStatic
-        external fun createFile (path: String)
+        external fun createFile(path: String)
+
         /** 加密 */
         @JvmStatic
-        external fun encryption (filePath: String,encryptPath: String)
+        external fun encryption(filePath: String, encryptPath: String)
+
         /** 解密 */
         @JvmStatic
-        external fun decryption (filePath: String,decryptionPath: String)
+        external fun decryption(filePath: String, decryptionPath: String)
+
         /** 签名效验，返回验证结果 */
         @JvmStatic
-        external fun checkSignature ():Boolean
+        external fun checkSignature(): Boolean
+
         /** 文件分割 */
         @JvmStatic
-        external fun fileSplit (splitFilePath: String,suffix: String,fileNum:Int)
+        external fun fileSplit(splitFilePath: String, suffix: String, fileNum: Int)
+
         /** 合并文件 */
         @JvmStatic
-        external fun fileMerge (splitFilePath: String,splitSuffix: String,mergeSuffix: String,fileNum:Int)
+        external fun fileMerge(
+            splitFilePath: String,
+            splitSuffix: String,
+            mergeSuffix: String,
+            fileNum: Int
+        )
 
         /** 测试加解密 */
         @JvmStatic
@@ -75,17 +86,18 @@ class EncryptUtils {
 
         /** 文件分割 */
         @JvmStatic
-        fun fileSplit (){
+        fun fileSplit() {
             val splitFilePath = path + "testJni.txt"
             try {
-                fileSplit(splitFilePath, ".s",3)
+                fileSplit(splitFilePath, ".s", 3)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+
         /** 文件合并 */
         @JvmStatic
-        fun fileMerge (){
+        fun fileMerge() {
             val splitFilePath = path + "testJni.txt"
             val splitSuffix = ".s"//保持跟切割格式一致
             val mergeSuffix = "_merge.txt"

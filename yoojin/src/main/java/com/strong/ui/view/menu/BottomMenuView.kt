@@ -17,22 +17,23 @@ import com.strong.R
  * date: 2021/1/5 14:24
  */
 open class BottomMenuView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
-    LinearLayout(context!!, attrs, defStyleAttr){
+    LinearLayout(context, attrs, defStyleAttr) {
 
     /* 菜单集合 */
     private var menus: SparseArray<CheckBox?> = SparseArray()
     private var titles: MutableList<String?> = ArrayList()
     private var drawables: MutableList<Drawable?> = ArrayList()
 
-    constructor(context:Context,attrs: AttributeSet?):this(context,attrs,0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context:Context):this(context,null)
+    constructor(context: Context) : this(context, null)
 
     @SuppressLint("InflateParams")
-    private fun init(){
+    private fun init() {
         for (i in 0 until titles.size) {
-            val bottomMenu = LayoutInflater.from(context).inflate(R.layout.layout_tab_bottom_menu,this,false)
-            addTab(bottomMenu,i)
+            val bottomMenu =
+                LayoutInflater.from(context).inflate(R.layout.layout_tab_bottom_menu, this, false)
+            addTab(bottomMenu, i)
         }
     }
 
@@ -67,14 +68,15 @@ open class BottomMenuView(context: Context?, attrs: AttributeSet?, defStyleAttr:
         callBack?.click(position)
     }
 
-    fun setTitles(list: MutableList<String>){
+    fun setTitles(list: MutableList<String>) {
         titles.clear()
         titles.addAll(list)
         weightSum = titles.size.toFloat()
         init()
     }
+
     /** 配置标题跟选中资源，并且初始化 */
-    fun setTitles(titleList: MutableList<String>,drawableList: MutableList<Drawable?>){
+    fun setTitles(titleList: MutableList<String>, drawableList: MutableList<Drawable?>) {
         titles.clear()
         titles.addAll(titleList)
         weightSum = titles.size.toFloat()
@@ -85,11 +87,12 @@ open class BottomMenuView(context: Context?, attrs: AttributeSet?, defStyleAttr:
     }
 
     private var callBack: CallBack? = null
-    interface CallBack{
+
+    interface CallBack {
         fun click(position: Int)
     }
 
-    fun setCallBack(callBack: CallBack?){
+    fun setCallBack(callBack: CallBack?) {
         this.callBack = callBack
     }
 

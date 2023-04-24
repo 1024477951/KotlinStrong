@@ -17,19 +17,23 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
 
     private var mWidth: Float = 0f
     private var mHeight: Float = 0f
+
     //波浪的高度
     private var mWaterHeight: Float = 0f
+
     //起伏的高度
     private var mWaterUp: Float = 0f
+
     /**
      * off = 偏移值
      */
-    private var upY:Float = 0f
-    private  var offy:Float = 0f
+    private var upY: Float = 0f
+    private var offy: Float = 0f
+
     /**
      * speed = 速度
      */
-    private  var speedy:Float = 2f
+    private var speedy: Float = 2f
 
     private var path: Path = Path()
     private var paint: Paint = Paint()
@@ -43,7 +47,7 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
         paint.strokeWidth = 1f
     }
 
-    fun init(width: Int,height: Int){
+    fun init(width: Int, height: Int) {
         mWidth = width.toFloat()
         mHeight = height.toFloat()
         //波浪的高度
@@ -52,21 +56,24 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
         mWaterUp = mWaterHeight * 2 / 3
     }
 
-    fun runDraw(){
+    fun runDraw() {
         isRun = true
         start()
     }
 
-    fun stopDraw(){
+    fun stopDraw() {
         isRun = false
     }
 
     override fun run() {
         var canvas: Canvas?
-        while (isRun){
+        while (isRun) {
             canvas = holder.lockCanvas()
             //清除画布
-            canvas.drawColor(KtxProvider.mContext.getColor(R.color.text_color_titleBar_title),android.graphics.PorterDuff.Mode.CLEAR)
+            canvas.drawColor(
+                KtxProvider.mContext.getColor(R.color.text_color_titleBar_title),
+                android.graphics.PorterDuff.Mode.CLEAR
+            )
             paint.color = KtxProvider.mContext.getColor(R.color.bg_color_3159c7_83)
 
             path.reset()
@@ -86,7 +93,12 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
         }
     }
 
-    private fun water1(canvas: Canvas,starPoint:FloatArray,quad1Point:FloatArray,quad2Point:FloatArray){
+    private fun water1(
+        canvas: Canvas,
+        starPoint: FloatArray,
+        quad1Point: FloatArray,
+        quad2Point: FloatArray
+    ) {
         path.reset()
         path.moveTo(starPoint[0], starPoint[1])
         //绘制二级贝塞尔,一个二级曲线代表一个扇形
@@ -101,7 +113,7 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
         canvas.drawPath(path, paint)
     }
 
-    private fun water2(canvas: Canvas,starPoint:FloatArray,quad3Point:FloatArray){
+    private fun water2(canvas: Canvas, starPoint: FloatArray, quad3Point: FloatArray) {
         path.reset()
         path.moveTo(starPoint[0], starPoint[1])
         path.quadTo(quad3Point[0], quad3Point[1], quad3Point[2], quad3Point[3])
@@ -111,7 +123,12 @@ class WaterUtils(private val holder: SurfaceHolder) : Thread() {
         canvas.drawPath(path, paint)
     }
 
-    private fun water3(canvas: Canvas,starPoint:FloatArray,quad1Point:FloatArray,quad2Point:FloatArray){
+    private fun water3(
+        canvas: Canvas,
+        starPoint: FloatArray,
+        quad1Point: FloatArray,
+        quad2Point: FloatArray
+    ) {
         path.reset()
         path.moveTo(starPoint[0], starPoint[1])
         //绘制二级贝塞尔,一个二级曲线代表一个扇形

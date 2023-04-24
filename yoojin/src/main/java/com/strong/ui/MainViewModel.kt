@@ -7,7 +7,7 @@ class MainViewModel : BaseViewModel() {
 
     private val repository by lazy { MainRepository() }
 
-    val refresh: ()-> Unit = {
+    val refresh: () -> Unit = {
 
     }
 }

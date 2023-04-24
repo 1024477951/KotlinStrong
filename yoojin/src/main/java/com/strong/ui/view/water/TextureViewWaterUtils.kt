@@ -20,7 +20,7 @@ import okhttp3.internal.wait
  * date: 2021/2/4 15:01
  * desc:绘制工具类
  */
-class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread() {
+class TextureViewWaterUtils(private val textureView: WaterBgTextureView) : Thread() {
 
     private var mWidth: Float = 0f
     private var mHeight: Float = 0f
@@ -39,6 +39,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
     private var path: Path = Path()
     private var paint: Paint = Paint()
     private var isRun: Boolean = false
+
     //是否阻塞，如果多次阻塞会导致 Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 异常
     private var isWait: Boolean = false
 
@@ -72,6 +73,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
         //起伏的高度
         mWaterUp = mWaterHeight / 2
     }
+
     /** 启动线程 */
     fun runDraw() {
         isRun = true
@@ -79,6 +81,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
         start()
         mValueAnimator.start()
     }
+
     /** 恢复线程 */
     fun resumeThread() {
         synchronized(this) {
@@ -88,6 +91,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
             mValueAnimator.start()
         }
     }
+
     /** 暂停线程 */
     fun stopDraw() {
         isRun = false
@@ -122,6 +126,7 @@ class TextureViewWaterUtils(private val textureView:WaterBgTextureView) : Thread
             }
         }
     }
+
     /** 绘制波浪 */
     private fun water(canvas: Canvas) {
         path.reset()

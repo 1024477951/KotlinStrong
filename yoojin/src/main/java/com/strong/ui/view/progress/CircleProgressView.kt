@@ -15,23 +15,29 @@ import kotlin.math.min
 /**
  * 圆形进度
  */
-open class CircleProgressView(context: Context?, private val attrs: AttributeSet?, defStyleAttr: Int) :
+open class CircleProgressView(
+    context: Context?,
+    private val attrs: AttributeSet?,
+    defStyleAttr: Int
+) :
     View(context!!, attrs, defStyleAttr) {
 
     init {
         init()
     }
 
-    constructor(context:Context,attrs: AttributeSet?):this(context,attrs,0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context:Context):this(context,null)
+    constructor(context: Context) : this(context, null)
 
     private lateinit var bgPaint: Paint
     private lateinit var centerPaint: Paint
     private lateinit var tintPaint: Paint
     private lateinit var textPaint: Paint
+
     /** 半径 */
     private var mRadius: Float = 0.0f
+
     /** 圆环宽度 */
     private var mStrokeWidth = 0.0f
 
@@ -40,8 +46,10 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
 
     /** 进度 */
     private var mProgress: Float = 0.0f
+
     /** 最大进度值 */
     private var max: Float = 0.0f
+
     /** 进度区域 */
     private lateinit var mRect: RectF
 
@@ -55,13 +63,20 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
         mStrokeWidth = attributes.getDimension(R.styleable.circleProgress_circle_width, 1f)
         max = attributes.getFloat(R.styleable.circleProgress_circle_max, 100f)
         mProgress = attributes.getFloat(R.styleable.circleProgress_circle_progress, 0f)
-        val bgColor = attributes.getColor(R.styleable.circleProgress_circle_color,Color.GRAY)
-        val progressColor = attributes.getColor(R.styleable.circleProgress_circle_progress_color,Color.BLUE)
-        val textColor = attributes.getColor(R.styleable.circleProgress_circle_text_color,Color.BLACK)
-        val textSize = attributes.getDimension(R.styleable.circleProgress_circle_text_size,SizeUtils.dp2px(10f).toFloat())
-        val isBold = attributes.getBoolean(R.styleable.circleProgress_circle_text_isBold,false)
-        val centerColor = attributes.getColor(R.styleable.circleProgress_circle_center_color,Color.TRANSPARENT)
-        val isAnimation = attributes.getBoolean(R.styleable.circleProgress_circle_isAnimation,false)
+        val bgColor = attributes.getColor(R.styleable.circleProgress_circle_color, Color.GRAY)
+        val progressColor =
+            attributes.getColor(R.styleable.circleProgress_circle_progress_color, Color.BLUE)
+        val textColor =
+            attributes.getColor(R.styleable.circleProgress_circle_text_color, Color.BLACK)
+        val textSize = attributes.getDimension(
+            R.styleable.circleProgress_circle_text_size,
+            SizeUtils.dp2px(10f).toFloat()
+        )
+        val isBold = attributes.getBoolean(R.styleable.circleProgress_circle_text_isBold, false)
+        val centerColor =
+            attributes.getColor(R.styleable.circleProgress_circle_center_color, Color.TRANSPARENT)
+        val isAnimation =
+            attributes.getBoolean(R.styleable.circleProgress_circle_isAnimation, false)
         attributes.recycle()
         //圆环画笔
         bgPaint = Paint()
@@ -95,8 +110,8 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
     }
 
     /** 缩放动画 */
-    private fun initAnimation(){
-        val animation = ScaleAnimation(0f,1f,0f,1f)
+    private fun initAnimation() {
+        val animation = ScaleAnimation(0f, 1f, 0f, 1f)
         animation.duration = 1500
         animation.repeatCount = 0
         //动画结束时，停留在最后一帧
@@ -110,18 +125,23 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
         mWidth = getRealSize(widthMeasureSpec)
         mHeight = getRealSize(heightMeasureSpec)
         /** 直径 - 等宽高充满 | 当宽高不一致时，取最小的画圆 */
-        val diameter = min(mWidth,mHeight)
+        val diameter = min(mWidth, mHeight)
         //半径
         mRadius = diameter / 2f - mStrokeWidth
         /** 进度条绘制区域 */
-        val mX = mWidth/2f-diameter/2
-        val mY = mHeight/2f-diameter/2
-        mRect = RectF(mX + mStrokeWidth, mY + mStrokeWidth, mX + diameter - mStrokeWidth, mY + diameter - mStrokeWidth)
+        val mX = mWidth / 2f - diameter / 2
+        val mY = mHeight / 2f - diameter / 2
+        mRect = RectF(
+            mX + mStrokeWidth,
+            mY + mStrokeWidth,
+            mX + diameter - mStrokeWidth,
+            mY + diameter - mStrokeWidth
+        )
 
-        setMeasuredDimension(mWidth,mHeight)
+        setMeasuredDimension(mWidth, mHeight)
     }
 
-    private fun getRealSize(measureSpec: Int): Int{
+    private fun getRealSize(measureSpec: Int): Int {
         val result: Int
         //尺寸类型
         val mode = MeasureSpec.getMode(measureSpec)
@@ -151,16 +171,16 @@ open class CircleProgressView(context: Context?, private val attrs: AttributeSet
         canvas.drawText("${percentage}%", mWidth / 2f, centerY, textPaint)
     }
 
-    fun setProgress(progress: Float){
+    fun setProgress(progress: Float) {
         mProgress = progress
         invalidate()
     }
 
-    fun setMax(max: Float){
+    fun setMax(max: Float) {
         this.max = max
     }
 
-    fun getMax(): Float{
+    fun getMax(): Float {
         return max
     }
 

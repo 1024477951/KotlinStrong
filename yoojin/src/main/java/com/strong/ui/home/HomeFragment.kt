@@ -29,7 +29,6 @@ import com.strong.utils.scroller.ScrollerCallBack
 import com.strong.utils.scroller.ScrollerUtils
 import com.strong.utils.selector.PictureSelectorUtils
 import com.strong.utils.system.BatteryUtils
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -46,17 +45,15 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
         binding.model = mViewModel
         initList()
         batteryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                when {
-                    BatteryUtils.isIgnoringBatteryOptimizations() -> {
-                        ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            BatteryUtils.setAppIgnore()
-                        }, 1000)
-                    }
-                    else -> {
-                        ToastUtils.showShort("加入失败")
-                    }
+            when {
+                BatteryUtils.isIgnoringBatteryOptimizations() -> {
+                    ToastUtils.showShort("加入成功,为你自动跳转系统设置,进一步优化!")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        BatteryUtils.setAppIgnore()
+                    }, 1000)
+                }
+                else -> {
+                    ToastUtils.showShort("加入失败")
                 }
             }
         }
@@ -66,8 +63,8 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     /** 切面测试方法 */
-    fun testAspect() {}
-    fun testAfterReturning(): Int {
+    private fun testAspect() {}
+    private fun testAfterReturning(): Int {
         return 666
     }
 
@@ -99,12 +96,12 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun modelObserve() {
-        mViewModel.bannerLiveData.observe(this, {
+        mViewModel.bannerLiveData.observe(this) {
             if (it != null) {
                 mAdapter.setItem(HomeBannerBindItem(it))
             }
-        })
-        mViewModel.menuLiveData.observe(this, {
+        }
+        mViewModel.menuLiveData.observe(this) {
             if (it != null) {
                 val list = ArrayList<Any>()
                 for (data in it) {
@@ -115,7 +112,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
                 mAdapter.addItems(list)
             }
-        })
+        }
     }
 
     private val click = object : FunctionClick {
@@ -136,12 +133,10 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                     ToastUtils.showShort("前往${EncryptUtils.path}目录查看结果")
                 }
                 R.mipmap.icon_home_menu_battery ->
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
-                            batteryLauncher.launch(BatteryUtils.requestIgnoreBatteryOptimizations())
-                        } else {
-                            ToastUtils.showShort("已经在名单中")
-                        }
+                    if (!BatteryUtils.isIgnoringBatteryOptimizations()) {
+                        batteryLauncher.launch(BatteryUtils.requestIgnoreBatteryOptimizations())
+                    } else {
+                        ToastUtils.showShort("已经在名单中")
                     }
                 R.mipmap.icon_home_menu_batch ->
                     PictureSelectorUtils.openPicture(

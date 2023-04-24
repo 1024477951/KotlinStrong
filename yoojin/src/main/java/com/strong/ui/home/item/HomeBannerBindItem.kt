@@ -11,7 +11,7 @@ class HomeBannerBindItem(@LayoutRes layoutId: Int) : BaseBindItem<ItemHomeBanner
 
     val bannerField = ObservableField<MutableList<BannerBean.BannerData>>()
 
-    constructor(banners: MutableList<BannerBean.BannerData>) : this(R.layout.item_home_banner){
+    constructor(banners: MutableList<BannerBean.BannerData>) : this(R.layout.item_home_banner) {
         bannerField.set(banners)
     }
 

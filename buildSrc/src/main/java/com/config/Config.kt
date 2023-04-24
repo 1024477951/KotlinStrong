@@ -8,40 +8,40 @@ object Switch {
 }
 
 object Versions {
-    const val compileSdk = 31
-    const val buildTools = "31.0.0"
+    const val compileSdk = 33
+    const val buildTools = "33.0.0"
     const val minSdk = 23
     const val targetSdk = 31
     const val versionCode = 1
     const val versionName = "1.0"
 
-    const val gradle = "7.0.3"
-    const val kotlin = "1.5.21"
-    const val core_ktx = "1.3.2"
+    const val gradle = "7.4.1"
+    const val kotlin = "1.7.20"
+    const val core_ktx = "1.8.0"
 
-    const val appcompat = "1.2.0"
-    const val material = "1.3.0"
-    const val constraintLayout = "2.0.4"
-    const val fragment = "1.3.0-rc02"
-    const val navigation = "2.3.2"
-    const val recyclerView = "1.1.0"
+    const val appcompat = "1.6.1"
+    const val material = "1.8.0"
+    const val constraintLayout = "2.1.4"
+    const val fragment = "1.5.7"
+    const val navigation = "2.5.3"
+    const val recyclerView = "1.2.1"
     const val lifecycle = "2.2.0"
-    const val viewmodel = "2.0.1"
+    const val viewmodel = "2.5.1"
     const val compose = "1.0.1"
     const val composeActivity = "1.4.0"
 
     const val mmkv = "1.2.7"
-    const val blankjUtils = "1.30.4"
+    const val blankjUtils = "1.31.1"
     const val pictureSelector = "v2.6.0"
 
     const val okhttp = "4.9.3"
     const val retrofit = "2.9.0"
-    const val gson = "2.8.6"
+    const val gson = "2.8.9"
     const val cookie = "1.0.1"
 
-    const val cymChad = "3.0.2"
+    const val cymChad = "3.0.11"
     const val smart = "1.1.2"
-    const val glide = "4.11.0"
+    const val glide = "4.12.0"
     const val transformations = "4.2.0"
 
     const val aspectjx_plugin = "2.3"

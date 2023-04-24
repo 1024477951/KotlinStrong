@@ -36,9 +36,7 @@ sealed class ApiResponse<T> {
                 } else {
                     msg
                 }
-                ApiErrorResponse(
-                    errorMsg ?: "unknown error"
-                )
+                ApiErrorResponse(errorMsg)
             }
         }
     }
@@ -66,7 +64,7 @@ data class ApiSuccessResponse<T>(
                 null
             } else {
                 try {
-                    Integer.parseInt(matcher.group(1))
+                    matcher.group(1)?.let { Integer.parseInt(it) }
                 } catch (ex: NumberFormatException) {
                     Log.w("ApiResponse", "cannot parse next page from $next")
                     null

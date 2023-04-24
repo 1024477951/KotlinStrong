@@ -17,9 +17,9 @@ open class BounceView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         init()
     }
 
-    constructor(context:Context,attrs: AttributeSet?):this(context,attrs,0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context:Context):this(context,null)
+    constructor(context: Context) : this(context, null)
 
     private fun init() {
         setOnCheckedChangeListener { _, b ->
@@ -32,7 +32,7 @@ open class BounceView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int
         val lp = layoutParams as ViewGroup.MarginLayoutParams
         val topMargin = lp.topMargin
         val anim = ValueAnimator.ofInt(-10, 0 + topMargin, 6, 0 + topMargin)
-        with(anim){
+        with(anim) {
             addUpdateListener { animation ->
                 val curValue = animation.animatedValue as Int
                 layout(

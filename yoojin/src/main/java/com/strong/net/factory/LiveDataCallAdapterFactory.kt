@@ -15,7 +15,7 @@ class LiveDataCallAdapterFactory : Factory() {
         returnType: Type,
         annotations: Array<Annotation>,
         retrofit: Retrofit
-    ): CallAdapter<*, *>? {
+    ): CallAdapter<*, *> {
         /** ParameterizedType（参数化类型）即泛型；例如：List< T>、Map< K,V>等带有参数化的对象 */
         val selfType = getRawType(returnType)
         if (selfType != LiveData::class.java) {

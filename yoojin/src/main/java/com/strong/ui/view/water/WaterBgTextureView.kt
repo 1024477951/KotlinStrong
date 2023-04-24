@@ -19,9 +19,9 @@ class WaterBgTextureView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?):this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context):this(context, null)
+    constructor(context: Context) : this(context, null)
 
     private lateinit var drawWater: TextureViewWaterUtils
 
@@ -34,27 +34,27 @@ class WaterBgTextureView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     @SuppressLint("DrawAllocation")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        if (changed){
-            drawWater.init(width,height)
+        if (changed) {
+            drawWater.init(width, height)
         }
     }
 
     override fun onSurfaceTextureAvailable(p0: SurfaceTexture, p1: Int, p2: Int) {
         if (!drawWater.isAlive) {
-            Log.e("===","run")
+            Log.e("===", "run")
             drawWater.runDraw()
-        }else{
-            Log.e("===","notify")
+        } else {
+            Log.e("===", "notify")
             drawWater.resumeThread()
         }
     }
 
     override fun onSurfaceTextureSizeChanged(p0: SurfaceTexture, p1: Int, p2: Int) {
-        Log.e("===","onSurfaceTextureSizeChanged")
+        Log.e("===", "onSurfaceTextureSizeChanged")
     }
 
     override fun onSurfaceTextureDestroyed(p0: SurfaceTexture): Boolean {
-        Log.e("===","onSurfaceTextureDestroyed")
+        Log.e("===", "onSurfaceTextureDestroyed")
         drawWater.stopDraw()
         return true
     }

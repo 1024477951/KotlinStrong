@@ -69,12 +69,14 @@ class SurfaceViewWaterUtils(private val holder: SurfaceHolder) : Thread() {
         //起伏的高度
         mWaterUp = mWaterHeight / 2
     }
+
     /** 启动线程 */
     fun runDraw() {
         isRun = true
         start()
         mValueAnimator.start()
     }
+
     /** 恢复线程 */
     fun resumeThread() {
         synchronized(this) {
@@ -83,6 +85,7 @@ class SurfaceViewWaterUtils(private val holder: SurfaceHolder) : Thread() {
             mValueAnimator.start()
         }
     }
+
     /** 暂停线程 */
     fun stopDraw() {
         isRun = false
@@ -116,6 +119,7 @@ class SurfaceViewWaterUtils(private val holder: SurfaceHolder) : Thread() {
             }
         }
     }
+
     /** 绘制波浪 */
     private fun water(canvas: Canvas) {
         path.reset()

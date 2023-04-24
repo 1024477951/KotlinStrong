@@ -25,17 +25,13 @@ class LiveDataCallAdapter<T>(private val responseType: Type) :
                     call.enqueue(object : Callback<T> {
                         override fun onResponse(call: Call<T>, response: Response<T>) {
                             postValue(
-                                ApiResponse.create<T>(
-                                    response
-                                )
+                                ApiResponse.create(response)
                             )
                         }
 
                         override fun onFailure(call: Call<T>, throwable: Throwable) {
                             postValue(
-                                ApiResponse.create<T>(
-                                    throwable
-                                )
+                                ApiResponse.create(throwable)
                             )
                         }
                     })

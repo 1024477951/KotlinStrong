@@ -20,9 +20,9 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?):this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context):this(context, null)
+    constructor(context: Context) : this(context, null)
 
     private lateinit var surfaceViewWater: SurfaceViewWaterUtils
 
@@ -39,8 +39,8 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
     @SuppressLint("DrawAllocation")
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        if (changed){
-            surfaceViewWater.init(width,height)
+        if (changed) {
+            surfaceViewWater.init(width, height)
         }
     }
 
@@ -53,7 +53,7 @@ class WaterBgSurfaceView(context: Context?, attrs: AttributeSet?, defStyleAttr: 
         if (!surfaceViewWater.isAlive) {
             //Log.e("===","run")
             surfaceViewWater.runDraw()
-        }else{
+        } else {
             //Log.e("===","notify")
             surfaceViewWater.resumeThread()
         }

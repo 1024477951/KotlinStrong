@@ -11,25 +11,23 @@ class MeViewModel : BaseViewModel() {
 
     private val repository by lazy { MeRepository() }
 
-    val refreshMe: ()-> Unit = {
-        getUser()
-    }
+    val refreshMe: () -> Unit = { getUser() }
 
     val avatarField = ObservableField<String?>()
-    val nickNameField = ObservableField<String?>("登录/注册")
-    val mobileField = ObservableField<String?>("登录后可享受更多服务哦~")
+    val nickNameField = ObservableField("登录/注册")
+    val mobileField = ObservableField("登录后可享受更多服务哦~")
     fun getUser() {
         launchOnUI {
             val result = withContext(Dispatchers.IO) {
                 repository.getUser()
             }
             if (result.data != null) {
-                with(result.data){
+                with(result.data) {
                     avatarField.set(avatar)
                     nickNameField.set(nickname)
                     mobileField.set(getPwdMobile())
                 }
-            }else{
+            } else {
                 ToastUtils.showShort("获取信息失败 msg ${result.msg}")
             }
         }
