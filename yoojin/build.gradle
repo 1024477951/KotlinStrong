@@ -28,16 +28,16 @@ android {
     buildToolsVersion Versions.buildTools
 
     defaultConfig {
-        if (Switch.workType == 0){
+        if (Switch.workType == 0) {
             PKGNAME = "com.strong"
             versionType = "release"
             buildConfigField 'String', 'baseUrl', "\"https://files.cnblogs.com/files/LiuZhen/\""
-        }else{
+        } else {
             PKGNAME = "com.strong.test"
             versionType = "test"
             buildConfigField 'String', 'baseUrl', "\"http://10.10.13.214:81//\""
         }
-        APP_NAME = "KtxApp-"+versionType
+        APP_NAME = "KtxApp-" + versionType
         applicationId PKGNAME
         minSdkVersion Versions.minSdk
         targetSdkVersion Versions.targetSdk
@@ -47,8 +47,8 @@ android {
         resConfigs('zh-rCN')//避免生成不必要的资源文件（默认是英语，不能剔除）
 
         manifestPlaceholders = [
-                PKGNAME: PKGNAME,// 包名
-                APP_NAME    : APP_NAME,//  app名称
+                PKGNAME : PKGNAME,// 包名
+                APP_NAME: APP_NAME,//  app名称
         ]
         ndk {//externalNativeBuildDebug
             /** CPU类型
@@ -100,6 +100,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        viewBinding = true
         dataBinding = true
     }
     android.applicationVariants.all { variant ->
@@ -110,38 +111,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':baselib')
+
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-    implementation "androidx.core:core-ktx:${Versions.core_ktx}"
-    //google
-    implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
-    implementation "com.google.android.material:material:${Versions.material}"
-    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    implementation "androidx.fragment:fragment-ktx:${Versions.fragment}"
-    //mmkv
-    implementation "com.tencent:mmkv-static:${Versions.mmkv}"
-    //navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
-    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
-    //viewmodel
-    implementation "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
-    //utils
-    implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
-    //okhttp
-    implementation "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
-    //retrofit
-    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    implementation "com.github.franmontiel:PersistentCookieJar:${Versions.cookie}"
-    //gson
-    implementation "com.google.code.gson:gson:${Versions.gson}"
-    //cymChad
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${Versions.cymChad}"
-    //smart
-    implementation "com.scwang.smartrefresh:SmartRefreshLayout:${Versions.smart}"
-    implementation "com.scwang.smartrefresh:SmartRefreshHeader:${Versions.smart}"
     //glide
     implementation "com.github.bumptech.glide:glide:${Versions.glide}"
     implementation "jp.wasabeef:glide-transformations:${Versions.transformations}"
@@ -150,10 +123,6 @@ dependencies {
     implementation "org.aspectj:aspectjrt:${Versions.aspectjx}"
     //banner
     implementation "com.youth.banner:banner:${Versions.banner}"
-    //沉浸式 （ktx为kotlin扩展，components为fragment扩展）
-    implementation "com.gyf.immersionbar:immersionbar:${Versions.immersion}"
-    implementation "com.gyf.immersionbar:immersionbar-ktx:${Versions.immersion}"
-    implementation "com.gyf.immersionbar:immersionbar-components:${Versions.immersion}"
     //radius ui
     implementation "com.noober.background:core:${Versions.noober}"
     //图片选择器

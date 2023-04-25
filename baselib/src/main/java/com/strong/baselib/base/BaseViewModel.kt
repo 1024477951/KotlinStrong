@@ -1,4 +1,4 @@
-package com.strong.ui.base
+package com.strong.baselib.base
 
 
 import android.util.Log

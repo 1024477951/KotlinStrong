@@ -10,6 +10,13 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+    <string name="login_guide_text_start">欢迎来到这里\n👏👏👏</string>
+    <string name="login_guide_text_transition">这里可能是\n一个比较有趣的\n定制工具</string>
+    <string name="login_guide_text_end_content">记得start哦</string>
+    <string name="login_guide_text_end_bright">点击结束\n开启你的旅途</string>
+
+    <string name="splash_click_go_to">点击跳过</string>
+
     <!--20-->
     <string name="font_large_title" translatable="false">font_large_title</string>
     <!--18-->
@@ -22,5 +29,9 @@
     <string name="font_sub_title" translatable="false">font_sub_title</string>
     <!--10-->
     <string name="font_desc_title" translatable="false">font_desc_title</string>
+
+    <string name="codeing">开发中</string>
+
+    <string name="home">首页</string>
 
 </resources>

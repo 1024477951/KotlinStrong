@@ -2,7 +2,7 @@ package com.strong.ui.splash
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.splash.bean.SplashBean
 import com.strong.ui.splash.model.SplashRepository
 import kotlinx.coroutines.Dispatchers

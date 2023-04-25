@@ -1,7 +1,7 @@
 package com.strong.ui
 
 
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 
 class MainViewModel : BaseViewModel() {
 

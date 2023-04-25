@@ -4,7 +4,7 @@ import com.strong.net.BaseRepository
 import com.strong.net.BaseResponse
 import com.strong.net.http.RetrofitClient
 import com.strong.ui.me.api.MeApi
-import com.strong.ui.me.bean.UserBean
+import com.strong.baselib.bean.UserBean
 
 class MeRepository : BaseRepository() {
 

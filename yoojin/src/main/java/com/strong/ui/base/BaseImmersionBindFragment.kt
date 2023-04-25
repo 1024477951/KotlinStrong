@@ -12,6 +12,8 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.components.SimpleImmersionFragment
 import com.gyf.immersionbar.ktx.immersionBar
+import com.strong.R
+import com.strong.baselib.base.BaseViewModel
 
 abstract class BaseImmersionBindFragment<V : ViewDataBinding, VM : BaseViewModel> : SimpleImmersionFragment() , LifecycleObserver {
 
@@ -72,7 +74,6 @@ abstract class BaseImmersionBindFragment<V : ViewDataBinding, VM : BaseViewModel
 
     override fun initImmersionBar() {
         immersionBar {
-            keyboardEnable(true)
             //字体颜色为黑色(深色)，默认白色(亮色)
             statusBarDarkFont(true)
         }

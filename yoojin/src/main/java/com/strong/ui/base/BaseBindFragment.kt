@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
+import com.strong.baselib.base.BaseViewModel
 
 abstract class BaseBindFragment<V : ViewDataBinding, VM : BaseViewModel> : Fragment() , LifecycleObserver {
 

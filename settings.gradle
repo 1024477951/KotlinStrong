@@ -6,3 +6,4 @@ if (openApp == 1 || isOpenAppAll) {
 if (openApp == 2 || isOpenAppAll) {
     include ':yoojin'
 }
+include ':baselib'

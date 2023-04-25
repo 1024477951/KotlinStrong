@@ -2,7 +2,7 @@ package com.strong.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import com.strong.R
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.home.bean.BannerBean
 import com.strong.ui.home.bean.MenuBean
 import com.strong.ui.home.model.HomeRepository

@@ -43,6 +43,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
+        binding.toolbar.root.title = getString(R.string.home)
         initList()
         batteryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             when {
@@ -57,9 +58,6 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
             }
         }
-        //切面测试
-        testAspect()
-        testAfterReturning()
     }
 
     /** 切面测试方法 */
@@ -74,8 +72,7 @@ class HomeFragment : BaseBindFragment<FragmentHomeBinding, HomeViewModel>() {
 
             override fun alpha(alpha: Float) {
                 binding.tvTitle.alpha = alpha
-                binding.toolbar.alpha = 1f - alpha
-                //Log.e("===", "(1f - alpha) ${1f - alpha} alpha $alpha")
+                binding.toolbar.root.alpha = 1f - alpha
             }
 
         })

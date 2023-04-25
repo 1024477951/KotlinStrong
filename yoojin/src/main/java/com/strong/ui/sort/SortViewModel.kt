@@ -1,6 +1,6 @@
 package com.strong.ui.sort
 
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.sort.model.SortRepository
 
 class SortViewModel : BaseViewModel() {

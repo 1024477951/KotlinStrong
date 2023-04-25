@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_80"
-    app:contentInsetStart="0dp"
-    android:background="@color/colorPrimary" >
+    android:background="@color/colorPrimary"
+    app:contentInsetStart="@dimen/dp_14"
+    app:titleTextColor="@color/white"
+    tools:title="111">
 
 
 </androidx.appcompat.widget.Toolbar>

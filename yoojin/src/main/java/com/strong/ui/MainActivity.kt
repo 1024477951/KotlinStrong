@@ -1,12 +1,14 @@
 package com.strong.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.blankj.utilcode.util.ActivityUtils
+import com.gyf.immersionbar.ktx.immersionBar
 import com.strong.R
 import com.strong.databinding.ActivityMainBinding
 import com.strong.ui.base.BaseBindActivity
@@ -18,12 +20,6 @@ import com.strong.ui.view.menu.BottomMenuView
 
 class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
 
-    companion object {
-        fun startMainActivity() {
-            ActivityUtils.startActivity(MainActivity::class.java)
-        }
-    }
-
     //启动页
     private val splashFragment by lazy { SplashFragment() }
 
@@ -32,15 +28,20 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
     private val sortFragment by lazy { SortFragment() }
     private val meFragment by lazy { MeFragment() }
 
+    private val isShowSplash: Boolean by lazy {
+        intent.getBooleanExtra(EXTRA_IS_SHOW_SPLASH, false)
+    }
+
     override fun layoutId() = R.layout.activity_main
 
     override fun providerVMClass() = MainViewModel::class.java
 
     override fun initData(bundle: Bundle?) {
-        //添加启动页
-        supportFragmentManager.beginTransaction().replace(R.id.fl_splash, splashFragment)
-            .commitAllowingStateLoss()
-
+        if (isShowSplash) {
+            //添加启动页
+            supportFragmentManager.beginTransaction().replace(R.id.fl_splash, splashFragment)
+                .commitAllowingStateLoss()
+        }
         initTabs()
     }
 
@@ -87,6 +88,22 @@ class MainActivity : BaseBindActivity<ActivityMainBinding, MainViewModel>() {
 
                 override fun getItemCount() = fragmentList.size
             }
+        }
+    }
+
+    override fun initImmersionBar() {
+        immersionBar {
+            transparentBar()
+        }
+    }
+
+    companion object {
+        private const val EXTRA_IS_SHOW_SPLASH = "extra_is_show_splash"
+        fun launch(context: Context, isShowSplash: Boolean = true) {
+            val intent = Intent(context, MainActivity::class.java).apply {
+                putExtra(EXTRA_IS_SHOW_SPLASH, isShowSplash)
+            }
+            context.startActivity(intent)
         }
     }
 

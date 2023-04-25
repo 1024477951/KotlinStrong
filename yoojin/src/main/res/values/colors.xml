@@ -43,4 +43,7 @@
     <color name="bg_color_212121">#212121</color>
     <color name="transparent">#00000000</color>
 
+    <color name="c_f4f4f4">#f4f4f4</color>
+    <color name="c_5121ff">#5121ff</color>
+
 </resources>

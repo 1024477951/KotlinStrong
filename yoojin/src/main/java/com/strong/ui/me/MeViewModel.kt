@@ -2,7 +2,7 @@ package com.strong.ui.me
 
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.ToastUtils
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.me.model.MeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

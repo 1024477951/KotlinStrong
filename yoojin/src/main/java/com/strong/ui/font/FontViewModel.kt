@@ -3,7 +3,7 @@ package com.strong.ui.font
 
 import androidx.databinding.ObservableBoolean
 import com.strong.R
-import com.strong.ui.base.BaseViewModel
+import com.strong.baselib.base.BaseViewModel
 import com.strong.utils.font.FontUtils
 
 class FontViewModel : BaseViewModel() {

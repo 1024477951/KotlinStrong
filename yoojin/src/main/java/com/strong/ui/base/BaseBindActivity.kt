@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.ktx.immersionBar
 import com.strong.R
+import com.strong.baselib.base.BaseViewModel
 
 abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCompatActivity() , LifecycleObserver {
 
@@ -53,7 +54,10 @@ abstract class BaseBindActivity<V : ViewDataBinding,VM : BaseViewModel> : AppCom
         immersionBar{
             //字体颜色为黑色(深色)，默认白色(亮色)
             statusBarDarkFont(true)
-            navigationBarColor(R.color.transparent)
+            statusBarColor(R.color.white)
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+            fitsSystemWindows(true)
         }
     }
 

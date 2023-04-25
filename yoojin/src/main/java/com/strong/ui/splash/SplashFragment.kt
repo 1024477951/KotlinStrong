@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import com.gyf.immersionbar.ktx.immersionBar
 import com.strong.R
 import com.strong.databinding.FragmentSplashBinding
 import com.strong.ui.base.BaseBindFragment
@@ -18,8 +19,16 @@ class SplashFragment : BaseBindFragment<FragmentSplashBinding, SplashViewModel>(
     private lateinit var mHandler: Handler
     private lateinit var mRunnable: Runnable
 
+    private fun initImmersionBar() {
+        immersionBar {
+            transparentBar()
+        }
+    }
+
     override fun initData(bundle: Bundle?) {
         binding.model = mViewModel
+        initImmersionBar()
+
         mViewModel.getSplashList()
 
         var count = 0f

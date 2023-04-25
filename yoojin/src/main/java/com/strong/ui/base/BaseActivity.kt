@@ -42,7 +42,10 @@ abstract class BaseActivity : AppCompatActivity() {
         immersionBar{
             //字体颜色为黑色(深色)，默认白色(亮色)
             statusBarDarkFont(true)
-            navigationBarColor(R.color.transparent)
+            statusBarColor(R.color.white)
+            navigationBarColor(R.color.white)
+            navigationBarDarkIcon(true)
+            fitsSystemWindows(true)
         }
     }
 

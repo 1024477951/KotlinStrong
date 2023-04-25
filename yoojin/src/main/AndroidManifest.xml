@@ -34,7 +34,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <!-- 适配全面屏 -->
         <meta-data
@@ -55,11 +55,11 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.LaunchMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/splashTheme">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,8 +68,18 @@
         </activity>
 
         <activity
+            android:name=".ui.MainActivity"
+            android:label="主页"
+            android:launchMode="singleTop" />
+
+        <activity
             android:name=".ui.font.SettingFontActivity"
             android:label="字体设置"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ui.splash.LoginGreetGuideActivity"
+            android:label="欢迎引导"
             android:launchMode="singleTop" />
 
     </application>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/white"
+    tools:layout_marginStart="@dimen/dp_24">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/dp_20"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="欢迎xxx\n111" />
+
+    <ImageView
+        android:id="@+id/iv_guide1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:src="@drawable/login_guide_text_right_black"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/iv_guide2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_guide_text_right_end"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_guide1"
+        app:layout_constraintStart_toEndOf="@+id/iv_guide1"
+        app:layout_constraintTop_toTopOf="@+id/iv_guide1"
+        app:tint="@color/c_f4f4f4"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

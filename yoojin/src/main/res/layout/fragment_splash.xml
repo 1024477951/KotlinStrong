@@ -47,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="点击跳过"
+            android:text="@string/splash_click_go_to"
             android:visibility="gone"
             tools:visibility="visible"
             android:textColor="@color/text_color_white"
