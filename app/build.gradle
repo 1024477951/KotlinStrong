@@ -5,7 +5,6 @@ import com.config.Accompanist
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
 
 def APP_NAME
@@ -92,54 +91,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion Versions.compose
-        kotlinCompilerVersion Versions.kotlin
-    }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
-        compose = true
+        viewBinding = true
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "${APP_NAME}-${defaultConfig.versionName}-${rootProject.releaseTime()}-${versionType}.apk"
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //kotlin
-    implementation "androidx.core:core-ktx:${Versions.core_ktx}"
-    //google
-    implementation "com.google.android.material:material:${Versions.material}"
-    implementation "androidx.compose.ui:ui:${Versions.compose}"
-    implementation "androidx.compose.material:material:${Versions.compose}"
-    implementation "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    implementation "androidx.activity:activity-compose:${Versions.composeActivity}"
-    //mmkv
-    implementation "com.tencent:mmkv-static:${Versions.mmkv}"
-    //utils
-    implementation "com.blankj:utilcodex:${Versions.blankjUtils}"
-    //gson
-    implementation "com.google.code.gson:gson:${Versions.gson}"
-    //glide
-    implementation "com.github.bumptech.glide:glide:${Versions.glide}"
-    implementation "jp.wasabeef:glide-transformations:${Versions.transformations}"
-    kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
+    implementation project(':baselib')
+    implementation project(':flutter')
+
     //accompanist
-    implementation Accompanist.insets
+//    implementation Accompanist.insets
 }

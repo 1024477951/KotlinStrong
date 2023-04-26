@@ -27,7 +27,7 @@ object Versions {
     const val recyclerView = "1.2.1"
     const val lifecycle = "2.2.0"
     const val viewmodel = "2.5.1"
-    const val compose = "1.0.1"
+    const val compose = "1.5.21"
     const val composeActivity = "1.4.0"
 
     const val mmkv = "1.2.7"

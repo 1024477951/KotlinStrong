@@ -41,8 +41,10 @@ android {
 
 dependencies {
     api(fileTree("libs").include("*.jar", "*.aar"))
-    api("androidx.core:core-ktx:${Versions.core_ktx}")
 
+    //kotlin
+    api("androidx.core:core-ktx:${Versions.core_ktx}")
+    api("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
     //google
     api("androidx.appcompat:appcompat:${Versions.appcompat}")
     api("com.google.android.material:material:${Versions.material}")
@@ -75,6 +77,10 @@ dependencies {
     //smart
     api("com.scwang.smartrefresh:SmartRefreshLayout:${Versions.smart}")
     api("com.scwang.smartrefresh:SmartRefreshHeader:${Versions.smart}")
+    //glide
+    api("com.github.bumptech.glide:glide:${Versions.glide}")
+    api("jp.wasabeef:glide-transformations:${Versions.transformations}")
+    annotationProcessor("com.github.bumptech.glide:compiler:${Versions.glide}")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

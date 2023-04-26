@@ -4,6 +4,7 @@ import com.config.Versions
 buildscript {
     repositories {
         google()
+        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -23,10 +24,14 @@ buildscript {
 allprojects {
     repositories {
         google()
+        // 不能去除jcenter()，debugCompileClasspath
+        // Execution failed for task ':app:checkDebugAarMetadata'.
+        // Execution failed for task ':app:compileDebugKotlin'
+        // Could not resolve all files for configuration ':app:kotlin-extension'
         jcenter()
+        mavenCentral()
         //cookie持久化jar包 添加以下语句
         maven { url "https://jitpack.io" }
-        mavenCentral()
     }
     buildDir = new File(rootDir, "gradle-build/${path.replaceAll(':', '/')}")
 }

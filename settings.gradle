@@ -1,9 +1,19 @@
-def openApp = 2
+def openApp = 1
 def isOpenAppAll = false
+
 if (openApp == 1 || isOpenAppAll) {
     include ':app'
+    setBinding(new Binding([gradle: this]))
+    evaluate(new File(
+            settingsDir,
+            '../flutter_plug/.android/include_flutter.groovy'
+    ))
+
+    include ':flutter_plug'
 }
+
 if (openApp == 2 || isOpenAppAll) {
     include ':yoojin'
 }
+
 include ':baselib'
