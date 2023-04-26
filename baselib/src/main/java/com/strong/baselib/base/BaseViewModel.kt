@@ -15,6 +15,20 @@ open class BaseViewModel : ViewModel() , LifecycleObserver {
         viewModelScope.launch { block() }
     }
 
+    fun <T> launchOnIO(block: suspend CoroutineScope.() -> T) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                block()
+            }
+        }
+    }
+
+    fun <T> launch(block: suspend CoroutineScope.() -> T) {
+        viewModelScope.launch {
+            block()
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         Log.d("BaseViewModel","onCleared")

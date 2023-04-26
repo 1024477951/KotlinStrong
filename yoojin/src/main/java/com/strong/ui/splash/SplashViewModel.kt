@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.splash.bean.SplashBean
 import com.strong.ui.splash.model.SplashRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class SplashViewModel : BaseViewModel() {
 
@@ -17,9 +15,7 @@ class SplashViewModel : BaseViewModel() {
     val splashLiveData: MutableLiveData<Int> = MutableLiveData()
     fun getSplashList() {
         launchOnUI {
-            val result = withContext(Dispatchers.IO) {
-                repository.getSplash()
-            }
+            val result = repository.getSplash()
             result.data?.list?.let {
                 bannerField.set(it)
                 splashLiveData.postValue(it.size)

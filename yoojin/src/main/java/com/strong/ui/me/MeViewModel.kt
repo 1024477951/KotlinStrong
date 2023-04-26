@@ -4,8 +4,6 @@ import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.ToastUtils
 import com.strong.baselib.base.BaseViewModel
 import com.strong.ui.me.model.MeRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class MeViewModel : BaseViewModel() {
 
@@ -17,10 +15,8 @@ class MeViewModel : BaseViewModel() {
     val nickNameField = ObservableField("登录/注册")
     val mobileField = ObservableField("登录后可享受更多服务哦~")
     fun getUser() {
-        launchOnUI {
-            val result = withContext(Dispatchers.IO) {
-                repository.getUser()
-            }
+        launch{
+            val result = repository.getUser()
             if (result.data != null) {
                 with(result.data) {
                     avatarField.set(avatar)
