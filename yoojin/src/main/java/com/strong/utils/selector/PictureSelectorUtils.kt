@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.R
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.language.LanguageConfig
 import com.luck.picture.lib.listener.OnResultCallbackListener
-import com.luck.picture.lib.style.PictureCropParameterStyle
 import com.luck.picture.lib.style.PictureParameterStyle
 import com.luck.picture.lib.tools.ScreenUtils
-import com.strong.R
 
 
 /**
@@ -23,17 +22,29 @@ import com.strong.R
  */
 class PictureSelectorUtils {
 
-    companion object{
+    companion object {
 
-        fun openPicture(activity: AppCompatActivity,listener: OnResultCallbackListener<LocalMedia>,localMedia: List<LocalMedia>?){
-            open(PictureSelector.create(activity),listener,localMedia)
+        fun openPicture(
+            activity: AppCompatActivity,
+            listener: OnResultCallbackListener<LocalMedia>,
+            localMedia: List<LocalMedia>?
+        ) {
+            open(PictureSelector.create(activity), listener, localMedia)
         }
 
-        fun openPicture(activity: Fragment, listener: OnResultCallbackListener<LocalMedia>, localMedia: List<LocalMedia>?){
-            open(PictureSelector.create(activity),listener,localMedia)
+        fun openPicture(
+            activity: Fragment,
+            listener: OnResultCallbackListener<LocalMedia>,
+            localMedia: List<LocalMedia>?
+        ) {
+            open(PictureSelector.create(activity), listener, localMedia)
         }
 
-        private fun open(selector: PictureSelector, listener: OnResultCallbackListener<LocalMedia>, localMedia: List<LocalMedia>?){
+        private fun open(
+            selector: PictureSelector,
+            listener: OnResultCallbackListener<LocalMedia>,
+            localMedia: List<LocalMedia>?
+        ) {
             selector.openGallery(PictureMimeType.ofAll())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                 .theme(R.style.picture_default_style) // xml设置主题
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
@@ -74,7 +85,7 @@ class PictureSelectorUtils {
             mPictureParameterStyle.pictureTitleBarBackgroundColor = Color.parseColor("#393a3e")
             // 相册父容器背景色
             mPictureParameterStyle.pictureContainerBackgroundColor =
-                ContextCompat.getColor(context, R.color.bg_color_212121)
+                ContextCompat.getColor(context, R.color.picture_color_white)
             // 相册列表标题栏右侧上拉箭头
             mPictureParameterStyle.pictureTitleUpResId = R.drawable.picture_icon_wechat_up
             // 相册列表标题栏右侧下拉箭头
@@ -102,7 +113,7 @@ class PictureSelectorUtils {
             mPictureParameterStyle.pictureCompleteBackgroundStyle =
                 R.drawable.picture_send_button_bg
             // 选择相册目录背景样式
-            mPictureParameterStyle.pictureAlbumStyle = R.drawable.picture_new_item_select_bg
+            mPictureParameterStyle.pictureAlbumStyle = R.drawable.picture_album_bg
             // 相册列表勾选图片样式
             mPictureParameterStyle.pictureCheckedStyle = R.drawable.picture_wechat_num_selector
             // 相册标题背景样式 ,只针对isWeChatStyle 为true时有效果
@@ -139,7 +150,7 @@ class PictureSelectorUtils {
                 R.drawable.picture_original_wechat_checkbox
             // 原图文字颜色 需设置.isOriginalImageControl(true); 才有效
             mPictureParameterStyle.pictureOriginalFontColor =
-                ContextCompat.getColor(context, R.color.white)
+                ContextCompat.getColor(context, R.color.picture_color_white)
             // 外部预览界面是否显示删除按钮
             mPictureParameterStyle.pictureExternalPreviewGonePreviewDelete = true
             // 设置NavBar Color SDK Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP有效
@@ -151,30 +162,31 @@ class PictureSelectorUtils {
                 ScreenUtils.dip2px(context, 3f)
 
             // 完成文案是否采用(%1$d/%2$d)的字符串，只允许两个占位符哟
-//        mPictureParameterStyle.isCompleteReplaceNum = true;
-            // 自定义相册右侧文本内容设置
-//        mPictureParameterStyle.pictureUnCompleteText = getString(R.string.app_wechat_send);
+            mPictureParameterStyle.isCompleteReplaceNum = true
+            //自定义相册右侧文本内容设置
+            mPictureParameterStyle.pictureUnCompleteText = context.getString(R.string.picture_send)
             //自定义相册右侧已选中时文案 支持占位符String 但只支持两个 必须isCompleteReplaceNum为true
-//        mPictureParameterStyle.pictureCompleteText = getString(R.string.app_wechat_send_num);
-//        // 自定义相册列表不可预览文字
-//        mPictureParameterStyle.pictureUnPreviewText = "";
-//        // 自定义相册列表预览文字
-//        mPictureParameterStyle.picturePreviewText = "";
-//        // 自定义预览页右下角选择文字文案
-//        mPictureParameterStyle.pictureWeChatPreviewSelectedText = "";
+            mPictureParameterStyle.pictureCompleteText =
+                context.getString(R.string.picture_send_num)
+            // 自定义相册列表不可预览文字
+            mPictureParameterStyle.pictureUnPreviewText = ""
+            // 自定义相册列表预览文字
+            mPictureParameterStyle.picturePreviewText = ""
+            // 自定义预览页右下角选择文字文案
+            mPictureParameterStyle.pictureWeChatPreviewSelectedText = ""
 
-//        // 自定义相册标题文字大小
-//        mPictureParameterStyle.pictureTitleTextSize = 9;
-//        // 自定义相册右侧文字大小
-//        mPictureParameterStyle.pictureRightTextSize = 9;
-//        // 自定义相册预览文字大小
-//        mPictureParameterStyle.picturePreviewTextSize = 9;
-//        // 自定义相册完成文字大小
-//        mPictureParameterStyle.pictureCompleteTextSize = 9;
-//        // 自定义原图文字大小
-//        mPictureParameterStyle.pictureOriginalTextSize = 9;
-//        // 自定义预览页右下角选择文字大小
-//        mPictureParameterStyle.pictureWeChatPreviewSelectedTextSize = 9;
+            // 自定义相册标题文字大小
+            mPictureParameterStyle.pictureTitleTextSize = 9
+            // 自定义相册右侧文字大小
+            mPictureParameterStyle.pictureRightTextSize = 9
+            // 自定义相册预览文字大小
+            mPictureParameterStyle.picturePreviewTextSize = 9
+            // 自定义相册完成文字大小
+            mPictureParameterStyle.pictureCompleteTextSize = 9
+            // 自定义原图文字大小
+            mPictureParameterStyle.pictureOriginalTextSize = 9
+            // 自定义预览页右下角选择文字大小
+            mPictureParameterStyle.pictureWeChatPreviewSelectedTextSize = 9
             return mPictureParameterStyle
         }
 

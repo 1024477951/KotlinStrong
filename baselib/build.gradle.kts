@@ -4,10 +4,12 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
+@Suppress("UnstableApiUsage")
 android {
-    namespace = "com.strong.baselib"
+    namespace = "com.strong.baselib"//适用于库
     compileSdk = Versions.compileSdk
 
     defaultConfig {
@@ -34,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
     }
@@ -80,7 +83,7 @@ dependencies {
     //glide
     api("com.github.bumptech.glide:glide:${Versions.glide}")
     api("jp.wasabeef:glide-transformations:${Versions.transformations}")
-    annotationProcessor("com.github.bumptech.glide:compiler:${Versions.glide}")
+    kapt("com.github.bumptech.glide:compiler:${Versions.glide}")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

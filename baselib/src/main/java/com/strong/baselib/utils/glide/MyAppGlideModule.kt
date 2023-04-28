@@ -1,4 +1,4 @@
-package com.strong.utils.glide
+package com.strong.baselib.utils.glide
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder

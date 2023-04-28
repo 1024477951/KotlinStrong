@@ -1,23 +1,28 @@
 package com.strong.ui
 
-import android.os.Bundle
-import com.blankj.utilcode.util.ActivityUtils
-import com.strong.base.BaseActivity
+import com.strong.baselib.base.BaseVMActivity
+import com.strong.baselib.base.BaseViewModel
+import com.strong.baselib.setSingleClick
+import com.strong.databinding.ActivityMainBinding
+//import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseVMActivity<BaseViewModel, ActivityMainBinding>() {
 
-    companion object{
-        fun startMainActivity(){
-            ActivityUtils.startActivity(MainActivity::class.java)
+    override fun initView() {
+        mBinding.ivCircle.setSingleClick {
+//            startActivity(
+//                FlutterActivity
+//                    .withNewEngine()
+//                    .initialRoute("/ListPage")
+//                    .build(this)
+//            )
         }
     }
 
-    override fun initView() {
+    override fun initData() {
 
     }
 
+    override fun providerVMClass() = BaseViewModel::class.java
 
-    override fun initData(bundle: Bundle?) {
-
-    }
 }

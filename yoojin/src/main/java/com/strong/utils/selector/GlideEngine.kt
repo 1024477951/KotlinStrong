@@ -11,15 +11,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.ImageViewTarget
+import com.luck.picture.lib.R
 import com.luck.picture.lib.engine.ImageEngine
 import com.luck.picture.lib.listener.OnImageCompleteCallback
 import com.luck.picture.lib.tools.MediaUtils
 import com.luck.picture.lib.widget.longimage.ImageSource
 import com.luck.picture.lib.widget.longimage.ImageViewState
 import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView
-import com.strong.R
-import com.strong.utils.glide.GlideApp
-import com.strong.utils.glide.GlideAppUtils
+import com.strong.baselib.utils.glide.GlideAppUtils
 
 /**
  * created by YooJin.
@@ -28,13 +27,17 @@ import com.strong.utils.glide.GlideAppUtils
  */
 class GlideEngine : ImageEngine {
 
-    companion object{
+    companion object {
         private val instance by lazy { GlideEngine() }
         fun createGlideEngine(): GlideEngine = instance
     }
 
     override fun loadImage(context: Context, url: String, imageView: ImageView) {
-        GlideAppUtils.load(imageView, url, R.drawable.picture_image_placeholder)
+        GlideAppUtils.load(
+            imageView,
+            url,
+            com.luck.picture.lib.R.drawable.picture_image_placeholder
+        )
     }
 
     override fun loadImage(
@@ -44,7 +47,7 @@ class GlideEngine : ImageEngine {
         longImageView: SubsamplingScaleImageView?,
         callback: OnImageCompleteCallback?
     ) {
-        GlideApp.with(context)
+        Glide.with(context)
             .asBitmap()
             .load(url)
             .into(object : ImageViewTarget<Bitmap?>(imageView) {
@@ -144,10 +147,10 @@ class GlideEngine : ImageEngine {
     }
 
     override fun loadAsGifImage(context: Context, url: String, imageView: ImageView) {
-        GlideAppUtils.loadGif(imageView,url,R.drawable.picture_image_placeholder)
+        GlideAppUtils.loadGif(imageView, url, R.drawable.picture_image_placeholder)
     }
 
     override fun loadGridImage(context: Context, url: String, imageView: ImageView) {
-        GlideAppUtils.loadCrop(imageView,url,R.drawable.picture_image_placeholder,200,200)
+        GlideAppUtils.loadCrop(imageView, url, R.drawable.picture_image_placeholder, 200, 200)
     }
 }

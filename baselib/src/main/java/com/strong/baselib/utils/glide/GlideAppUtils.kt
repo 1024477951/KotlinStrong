@@ -1,7 +1,8 @@
-package com.strong.utils.glide
+package com.strong.baselib.utils.glide
 
 import android.widget.ImageView
 import com.blankj.utilcode.util.Utils
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
@@ -12,7 +13,7 @@ open class GlideAppUtils {
     companion object {
         /** 加载gif图片 */
         fun loadGif(imageView: ImageView, path: String, error: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .asGif()
                 .load(path)
                 .skipMemoryCache(false)
@@ -24,7 +25,7 @@ open class GlideAppUtils {
         /** 加载圆形图片 */
         fun loadCircle(imageView: ImageView, path: String, error: Int){
             val requestOptions = RequestOptions.circleCropTransform()
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -35,7 +36,7 @@ open class GlideAppUtils {
         }
         /** 加载填充+圆角图片 */
         fun loadCrop(imageView: ImageView, path: String, error: Int,radius: Int,width: Int,height: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -47,7 +48,7 @@ open class GlideAppUtils {
         }
         /** 加载填充+圆角图片 */
         fun loadCrop(imageView: ImageView, path: String, error: Int,radius: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -58,7 +59,7 @@ open class GlideAppUtils {
         }
         /** 加载列表图片 */
         fun loadCrop(imageView: ImageView, path: String, error: Int,width: Int,height: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -71,7 +72,7 @@ open class GlideAppUtils {
         }
         /** 默认加载带圆角图片 */
         fun load(imageView: ImageView, path: String, error: Int,radius: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -81,8 +82,8 @@ open class GlideAppUtils {
                 .into(imageView)
         }
         /** 默认加载图片 */
-        fun load(imageView: ImageView, path: String, error: Int){
-            GlideApp.with(Utils.getApp())
+        fun load(imageView: ImageView, path: String?, error: Int){
+            Glide.with(Utils.getApp())
                 .load(path)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -92,7 +93,7 @@ open class GlideAppUtils {
         }
         /** 默认加载drawable */
         fun load(imageView: ImageView, drawable: Int, error: Int){
-            GlideApp.with(Utils.getApp())
+            Glide.with(Utils.getApp())
                 .load(drawable)
                 .skipMemoryCache(false)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)

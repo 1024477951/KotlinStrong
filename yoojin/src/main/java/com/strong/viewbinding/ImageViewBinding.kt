@@ -3,7 +3,7 @@ package com.strong.viewbinding
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.strong.R
-import com.strong.utils.glide.GlideAppUtils
+import com.strong.baselib.utils.glide.GlideAppUtils
 
 /**  ImageView 视图绑定 */
 @BindingAdapter("setResId")

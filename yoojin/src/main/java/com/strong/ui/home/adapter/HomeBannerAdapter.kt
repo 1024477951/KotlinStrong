@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.SizeUtils
 import com.strong.R
 import com.strong.ui.home.bean.BannerBean
-import com.strong.utils.glide.GlideAppUtils
+import com.strong.baselib.utils.glide.GlideAppUtils
 import com.youth.banner.adapter.BannerAdapter
 
 /**

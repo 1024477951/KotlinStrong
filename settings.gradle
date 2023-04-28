@@ -1,19 +1,22 @@
-def openApp = 1
+rootProject.name = "KotlinStrong"
+
+def openApp = 2
 def isOpenAppAll = false
 
 if (openApp == 1 || isOpenAppAll) {
     include ':app'
-    setBinding(new Binding([gradle: this]))
-    evaluate(new File(
-            settingsDir,
-            '../flutter_plug/.android/include_flutter.groovy'
-    ))
-
-    include ':flutter_plug'
 }
 
 if (openApp == 2 || isOpenAppAll) {
     include ':yoojin'
 }
+
+//setBinding(new Binding([gradle: this]))
+//evaluate(new File(
+//        settingsDir,
+//        'flutter_plug/.android/include_flutter.groovy'
+//))
+//
+//include ':flutter_plug'
 
 include ':baselib'

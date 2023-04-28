@@ -1,10 +1,10 @@
 import com.config.Switch
 import com.config.Versions
-import com.config.Accompanist
 
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 def APP_NAME
@@ -106,8 +106,5 @@ android {
 
 dependencies {
     implementation project(':baselib')
-    implementation project(':flutter')
-
-    //accompanist
-//    implementation Accompanist.insets
+//    implementation project(':flutter')
 }
